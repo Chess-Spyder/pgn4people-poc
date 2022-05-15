@@ -51,7 +51,8 @@ However, when a chess player wants to [analyze and _annotate_  her game](https:/
 
 [Traditional interfaces](https://lichess.org/study/nEGI6dm9) typically combine both (a) a graphical representation of a chessboard, where the pieces move to reflect progressing through the PGN and on which the user can move the pieces to effect changes to the PGN, and (b) a large-ish text field through which the user views, scrolls, and interacts with the PGN itself. (See graphic immediately below.)
 
-<img width="1409" alt="Traditional_interface_example" src="https://user-images.githubusercontent.com/8410716/163096510-f1b7f1ed-d6df-4839-b9fe-38f42d186d5d.png">
+<img width="1409" alt="Traditional_interface_example" src="https://user-images.githubusercontent.com/8410716/168458976-7655e2cd-6d76-41e4-81f7-cab914c7b06b.png">
+
 
 
 ### The problem addressed: PGN was designed to be read by computers, not people
