@@ -6,6 +6,8 @@ import os
 RELATIVE_PATH_FOR_SAMPLE_PGN_FILES = "src/pgn4people_poc/example_pgns"
 ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES = os.path.abspath(RELATIVE_PATH_FOR_SAMPLE_PGN_FILES)
 
+do_read_pgn_from_file_system = True
+
 # Names of sample PGN files
 PGNFILE1 = "test_pgn_1_simple_one_variation.pgn"
 PGNFILE2 = "test_pgn_2_simple_repeated_variations_and_depth_2_variation.pgn"

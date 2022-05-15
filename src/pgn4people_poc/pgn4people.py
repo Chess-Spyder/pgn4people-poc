@@ -18,15 +18,24 @@ import os
 
 def main():
     """ Main entry point of the app """
-#   Defines name of raw PGN file
-    current_working_directory = os.getcwd()
-    print(f"The current working directory is: {current_working_directory}.")
-    print(f"Path to chosen sample PGN file: {constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE}.")
-    print(f"The current working directory contains the following: \n{os.listdir(current_working_directory)}.")
+
+    # Which of the available sample PGNs is to be read
     pgnfilepath = constants.PGNFILE6
 
-    # Get string of PGN from built-in PGN file or other source
-    pgnstring = get_pgn_string(constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE)
+    # Branches depending on whether sample PGN file is to be read (a) from the file system or (b) as a resource
+    if constants.do_read_pgn_from_file_system:
+        # Get string of PGN from built-in PGN file or other source
+        pgnstring = get_pgn_string(constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE)
+    else:
+        pass
+
+#   Defines name of raw PGN file
+    # current_working_directory = os.getcwd()
+    # print(f"The current working directory is: {current_working_directory}.")
+    # print(f"Path to chosen sample PGN file: {constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE}.")
+    # print(f"The current working directory contains the following: \n{os.listdir(current_working_directory)}.")
+
+   
 
 #   Builds tree from pgn file
     nodedict = build_tree_from_pgnstring(pgnstring)
