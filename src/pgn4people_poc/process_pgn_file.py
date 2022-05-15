@@ -4,14 +4,6 @@ Functions to help parse PGN file of a chess game.
 from build_tree import buildtree
 import re
 
-def get_pgn_string(pgnfilepath):
-    """ Read raw PGN file into string."""
-
-    # Read raw PGN file into string
-    pgnstring = read_pgnfile_into_string(pgnfilepath)
-
-    return pgnstring
-
 
 def build_tree_from_pgnstring(pgnstring):
     """ Takes string of PGN, tokenize it, and build tree from it. Return dictionary of nodes."""

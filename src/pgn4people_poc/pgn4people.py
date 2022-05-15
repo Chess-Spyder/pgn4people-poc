@@ -7,7 +7,7 @@ __version__ = "0.0.1"
 __license__ = "MIT"
 
 from get_process_user_input import get_node_id_move_choice_for_next_line_to_display
-from process_pgn_file import get_pgn_string
+from process_pgn_file import read_pgnfile_into_string
 from process_pgn_file import build_tree_from_pgnstring
 from construct_output import print_header_for_variations_table
 from traverse_tree import deviation_history_of_node
@@ -25,7 +25,7 @@ def main():
     # Branches depending on whether sample PGN file is to be read (a) from the file system or (b) as a resource
     if constants.do_read_pgn_from_file_system:
         # Get string of PGN from built-in PGN file or other source
-        pgnstring = get_pgn_string(constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE)
+        pgnstring = read_pgnfile_into_string(constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE)
     else:
         pass
 
