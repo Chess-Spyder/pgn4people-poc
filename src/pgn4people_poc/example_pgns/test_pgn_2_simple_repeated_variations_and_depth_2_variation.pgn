@@ -1,0 +1,10 @@
+[Event "?"]
+[Site "?"]
+[Date "2022.03.18"]
+[Round "?"]
+[White "Test pgn Simple two-deep nesting"]
+[Black "?"]
+[Result "*"]
+
+1.e4 e5 ( 1...d6 )  ( 1...c5 )  2.Nf3 *
+
