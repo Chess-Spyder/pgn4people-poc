@@ -18,7 +18,7 @@ def build_tree_from_pgnstring(pgnstring):
     return nodedict
 
 
-def read_pgnfile_into_string(pgnfilepath):
+def read_filesystem_pgnfile_into_string(pgnfilepath):
     """
     Read raw PGN text file pgnfilepath and return its non-header contents as a character string.
 
