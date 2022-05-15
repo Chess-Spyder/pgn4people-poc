@@ -224,7 +224,8 @@ Unlike __pgn4people__, however, ChessTempo’s PGN Viewer doesn’t promote the 
 
 And ChessTempo’s PGN Viewer displays the list of alternatives vertically, rather than horizontally as __pgn4people__ does, greatly spreading out vertically the display of the moves, decreasing how many mainline moves can be displayed for a given vertical size of the viewport.
 
-<img width="1846" alt="ChessTempo_PGN_viewer_example" src="https://user-images.githubusercontent.com/8410716/163062550-4440d23b-0394-47ec-8c93-a4e64e6f4199.png">
+<img width="1846" alt="ChessTempo_PGN_viewer_example" src="https://user-images.githubusercontent.com/8410716/168459340-5d87eb29-4518-49a0-8fb3-601b3bbb3215.png">
+
 
 ## How does __pgn4people__ compare to a standard “Opening Explorer” interface?
 Many chess sites have some version of an “Opening Explorer” that allows the user to step through opening possibilities, one halfmove at a time, choosing at each halfmove from among a set of common, or not so common, alternatives. For example, [Lichess’s Opening Explorer](https://lichess.org/analysis#explorer), [Chess.com’s Opening Explorer](https://www.chess.com/openings), and [Chess24’s](https://chess24.com/en/analysis) (click on the "Opening tree" tab).
