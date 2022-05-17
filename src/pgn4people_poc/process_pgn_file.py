@@ -40,8 +40,8 @@ def read_filesystem_pgnfile_into_string(pgnfilepath):
         next(line for line in currentpgnfile if line.isspace())
 
         #   Read the remaining (non-header) data in the file and return it as a string.
-        filedata = currentpgnfile.read()
-    return filedata
+        string_read_from_file = currentpgnfile.read()
+    return string_read_from_file
 
 
 def tokenize_pgnstring(pgnstring):
