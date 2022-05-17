@@ -14,7 +14,8 @@ from . pgn_utilities import (   fullmovenumber_from_halfmove,
 
 def print_header_for_variations_table(target_node_id, deviation_history):
     if(constants.DO_CLEAR_CONSOLE_EACH_TIME):
-        clear_console()    print("\n", 40*constants.REPEATED_STRING_FOR_TABLE_HEADER, "\n")
+        clear_console()
+    print("\n", 40*constants.REPEATED_STRING_FOR_TABLE_HEADER, "\n")
     print(f"Target node: {target_node_id}")
     print(f"Deviation history required to achieve the specified target node: {deviation_history}")
 
@@ -306,13 +307,4 @@ def format_label_of_alternative_halfmoves(string):
 
 #   Dims the intensity of the alphabetic labels so they don’t stand out distractingly
     formatted_string = chalk.dim(string)
-    return formatted_string
-
-def format_nonfatal_error_text(string):
-    """
-    Formats as red text a string that is intended as an error message that is nonfatal
-    and thus does not “raise” an error.
-    """
-
-    formatted_string = chalk.red_bright(string)
     return formatted_string

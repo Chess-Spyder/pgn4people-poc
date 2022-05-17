@@ -1,12 +1,27 @@
-""" Constants for use within the pgnfocus project. """
+""" Constants for use within the pgn4people_poc project. """
 
 import os
 
+NAME_OF_IMPORT_PACKAGE = "pgn4people_poc"
 
-RELATIVE_PATH_FOR_SAMPLE_PGN_FILES = "src/pgn4people_poc/example_pgns"
+# Name of directory of sample PGNs
+DIRNAME_SAMPLE_PGNS = "example_pgns"
+
+# Computes filesystem path of chosen sample PGN
+# Relative path of directory of sample PGNs
+# Relies on the standard package structure, beginning with src/
+# RELATIVE_PATH_FOR_SAMPLE_PGN_FILES = "src/pgn4people_poc/example_pgns"
+# RELATIVE_PATH_FOR_SAMPLE_PGN_FILES = "src/" + NAME_OF_IMPORT_PACKAGE + "/" + DIRNAME_SAMPLE_PGNS
+RELATIVE_PATH_FOR_SAMPLE_PGN_FILES = os.path.join("src/", NAME_OF_IMPORT_PACKAGE, DIRNAME_SAMPLE_PGNS)
+
+# Computes absolute filesystem path from relative path
 ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES = os.path.abspath(RELATIVE_PATH_FOR_SAMPLE_PGN_FILES)
 
-do_read_pgn_from_file_system = True
+#Computes package entity from which sample PGN can be read
+PACKAGE_FOR_SAMPLE_PGN = NAME_OF_IMPORT_PACKAGE + "." + DIRNAME_SAMPLE_PGNS
+
+# do_read_pgn_from_file_system = True
+do_read_pgn_from_file_system = False
 
 # Names of sample PGN files
 PGNFILE1 = "test_pgn_1_simple_one_variation.pgn"
@@ -16,7 +31,10 @@ PGNFILE4 = "test_pgn_4.pgn"
 PGNFILE5 = "test_pgn_5.pgn"
 PGNFILE6 = "test_pgn_6.pgn"
 
+# Chosen sample PGN file to analyze; used for both (a) filesystem and (b) resource locations of the file
 CHOSEN_SAMPLE_PGN_FILE = PGNFILE6
+
+# Filesystem path of chosen sample PGN file
 PATH_TO_CHOSEN_SAMPLE_PGN_FILE = os.path.join(ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES, CHOSEN_SAMPLE_PGN_FILE)
 
 # Arboreal constants
