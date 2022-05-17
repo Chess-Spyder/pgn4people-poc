@@ -1,7 +1,5 @@
 """ Utilities more general than those found in more-targeted utility modules """
 
-from errors import PGNFocusError
-
 import os
 
 def is_even_number(number):
@@ -24,7 +22,7 @@ def lowercase_alpha_from_num(number):
     elif (isinstance(number, int) and number > 26):
         return SYMBOL_FOR_OUT_OF_RANGE_NUMBER
     else:
-        raise PGNFocusError(f"lowercase_alpha_from_num() says: Index to alphabet, {number}, invalid.")
+        raise ReportError(f"lowercase_alpha_from_num() says: Index to alphabet, {number}, invalid.")
 
 
 def num_from_alpha(alphacharacter):
@@ -41,7 +39,7 @@ def num_from_alpha(alphacharacter):
             numerical_equivalent = ord_string - 64  
         return numerical_equivalent
     else:
-        raise PGNFocusError(f"num_from_alpha() says: String, “{alphacharacter}”, not a single alpha character.")
+        raise ReportError(f"num_from_alpha() says: String, “{alphacharacter}”, not a single alpha character.")
 
 
 def clear_console():
@@ -57,3 +55,18 @@ def clear_console():
     else:
         clear_command = clear_command_mac_linux
     os.system(clear_command)
+class ReportError(Exception):
+    """ Base class for other exceptions """
+    def __init__(self, *args):
+        if args:
+            self.message = args[0]
+        else:
+            self.message = None
+    
+    def __str__(self):
+        error_message = format_nonfatal_error_text('ERROR DETECTED')
+        print(error_message)
+        if self.message:
+            return 'ReportError, {0}, '.format(self.message)
+        else:
+            return 'ReportError has been raised'
