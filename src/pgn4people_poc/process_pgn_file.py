@@ -23,7 +23,8 @@ def build_tree_from_pgnstring(pgnstring):
 
 def read_filesystem_pgnfile_into_string(pgnfilepath):
     """
-    Read raw PGN text file pgnfilepath and return its non-header contents as a character string.
+    Read raw PGN text file on the file system (as opposed to a package resource) and return its non-header contents as a
+    character string.
 
     Skips over tag-pair header section (by advancing until the first blank line is reached), thus considers only the
     first game in a multi-game PGN file.
@@ -42,6 +43,50 @@ def read_filesystem_pgnfile_into_string(pgnfilepath):
         #   Read the remaining (non-header) data in the file and return it as a string.
         string_read_from_file = currentpgnfile.read()
     return string_read_from_file
+
+
+def read_resource_pgnfile_into_string(pgnresource_package, pgnresource_filename):
+    """
+    Read raw PGN text file that is present as a packaged resource (rather than guaranteed to be on the file system) and
+    return its non-header contents as a character string.
+
+    Skips over tag-pair header section by finding the first non-whitespace character after the first “blank line,”
+    defined by two consecutive newline characters. (Note that this is not very robust: Even a single whitespace
+    character (other than a newline character) between the pair of newline characters will cause the blank line to fail
+    to be detected.
+    
+    Considers only the first game in a multi-game PGN file.
+
+    Assumes that textual comments have already been stripped by the user before being provided to pgnfocus to be read.
+    """
+
+    # Constructs a chained package representation of the location of the desired sample PGN file
+    #
+    # The following “/” syntax is equivalent to using files(pgnresource_package).joinpath(pgnresource_filename)
+    # The function call importlib.resources.files(pgnresource_package) returns an importlib.resources.abc.Traversable
+    # object representing the resource container for the package (think directory) and its resources (think files). A
+    # Traversable may contain other containers (think subdirectories). 
+    resource_location_as_string = files(pgnresource_package) / pgnresource_filename
+
+    string_read_from_file = resource_location_as_string.read_text()
+
+    # Find index of first character after a blank line (where I assume that the only way a blank line occurs is as two
+    # adjacent newline characters—i.e., there is no white space separarting the two newline characters).
+    index_of_first_newline_of_a_consecutive_pair = string_read_from_file.find("\n\n")
+
+    if index_of_first_newline_of_a_consecutive_pair == -1:
+        raise ReportError("Error in PGN: No blank line (two consecutive newline characters) found.")
+
+    # Index of first character after the pair of consecutive newline characters is two characters beyond the
+    # occurrence of the first of the pair of newline characters
+    index_of_first_char_after_blank_line = index_of_first_newline_of_a_consecutive_pair + 2
+
+    relevant_portion_of_string = string_read_from_file[index_of_first_char_after_blank_line::]
+
+    # Remove any beginning white space
+    relevant_portion_of_string = relevant_portion_of_string.lstrip()
+
+    return relevant_portion_of_string
 
 
 def tokenize_pgnstring(pgnstring):
