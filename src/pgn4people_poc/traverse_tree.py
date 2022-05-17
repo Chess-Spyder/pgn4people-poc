@@ -4,8 +4,8 @@ Methods to traverse the game tree birectionally with output.
 Any path can be expressed as a set of (node_id, choice_id) pairs
 """
 
-from construct_output import print_single_node
-import constants
+from . construct_output import print_single_node
+from . import constants
 
 def display_mainline_given_deviation_history(nodedict, deviation_history, fullmovenummber_to_node_id_lookup_table):
     """

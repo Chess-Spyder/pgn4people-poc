@@ -1,9 +1,12 @@
 """
 Functions to help parse PGN file of a chess game.
 """
-from build_tree import buildtree
+
+from importlib.resources import files
 import re
 
+from . build_tree import buildtree
+from . utilities import ReportError
 
 def build_tree_from_pgnstring(pgnstring):
     """ Takes string of PGN, tokenize it, and build tree from it. Return dictionary of nodes."""

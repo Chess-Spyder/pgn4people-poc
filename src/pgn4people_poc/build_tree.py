@@ -1,10 +1,10 @@
 """ Exports the buildtree() function """
 
-from classes_arboreal import Edge
-from classes_arboreal import GameNode
-from pgn_utilities import ismovetext
-import constants
-import errors
+from . classes_arboreal import Edge
+from . classes_arboreal import GameNode
+from . import constants
+from . utilities import ReportError
+from . import pgn_utilities
 
 
 def buildtree(tokenlist):
@@ -160,7 +160,7 @@ def buildtree(tokenlist):
 
     for token in tokenlist:
         # Branches based on whether current token is (a) movetext, (b) “(”, or (c) “)”.
-        if ismovetext(token):
+        if pgn_utilities.ismovetext(token):
             # Token is movetext.
             # The movetext defines an edge that connects (a) the node with id current_originatingnode_id[depth] to
             # a node about to be created with id current_node_id.
@@ -238,7 +238,7 @@ def buildtree(tokenlist):
         elif token == "(":
             # Check that this isn't the first token (which should not be “(”).
             if current_node_id == 0:
-                raise errors.PGNFocusError("Error in PGN: “(” encountered on first token.")
+                raise ReportError("Error in PGN: “(” encountered on first token.")
 
             # A “(” begins a new variation at a depth one greater than the movetext immediately before the “(”.
             #   Thus, we increase the depth.
@@ -258,7 +258,7 @@ def buildtree(tokenlist):
         elif token == ")":
             # Check that this isn't the first token (which should not be “)”).
             if current_node_id == 0:
-                raise errors.PGNFocusError("Error in PGN: “)” encountered on first token.")
+                raise ReportError("Error in PGN: “)” encountered on first token.")
 
             # A “)” ends the current variation and reverts to either (a) a previous line with depth one less or
             # (b) a new variation of the same depth that begins immediately. (This occurs when a node has two or
@@ -274,7 +274,7 @@ def buildtree(tokenlist):
             is_preceded_by_closed_paren = True
 
         else:
-            raise errors.PGNFocusError(f"Unexpected token, {token}, neither parenthesis or movetext.")
+            raise ReportError(f"Unexpected token, {token}, neither parenthesis or movetext.")
 
     return gamenodes
 

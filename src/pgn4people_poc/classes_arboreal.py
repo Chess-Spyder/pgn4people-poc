@@ -1,4 +1,8 @@
-import constants
+"""
+Defines the GameNode and Edge classes
+"""
+
+from . import constants
 
 class GameNode:
     """ An object of class GameNode has at least the following attributes:

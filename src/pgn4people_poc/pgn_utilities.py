@@ -1,13 +1,14 @@
 """ Utilities more general than those found in more-targeted utility modules """
 
-from errors import PGNFocusError
-from utilities import is_odd_number, is_even_number
+
+from . utilities import ( is_even_number,
+                          is_odd_number)
 
 def ismovetext(string):
     """
     If the string is neither an open parenthesis, “(”, nor a closed parenthesis, “)”, it is deemed movetext.
-    
     """
+
     logical_result = (string != "(") and (string != ")")
     return logical_result
 

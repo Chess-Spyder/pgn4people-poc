@@ -6,15 +6,20 @@ __author__ = "Jim Ratliff"
 __version__ = "0.0.1"
 __license__ = "MIT"
 
-from get_process_user_input import get_node_id_move_choice_for_next_line_to_display
-from process_pgn_file import read_filesystem_pgnfile_into_string
-from process_pgn_file import build_tree_from_pgnstring
-from construct_output import print_header_for_variations_table
-from traverse_tree import deviation_history_of_node
-from traverse_tree import display_mainline_given_deviation_history
-import constants
 
 import os
+
+from . import constants
+from . construct_output import print_header_for_variations_table
+from . get_process_user_input import get_node_id_move_choice_for_next_line_to_display
+from . process_pgn_file import (build_tree_from_pgnstring,
+                                read_filesystem_pgnfile_into_string,
+                                read_resource_pgnfile_into_string)
+from . traverse_tree import (deviation_history_of_node,
+                             display_mainline_given_deviation_history)
+from . utilities import ReportError
+
+
 
 def main():
     """ Main entry point of the app """

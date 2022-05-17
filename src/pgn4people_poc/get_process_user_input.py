@@ -3,9 +3,10 @@ Asks for, receives, parses, and iterates until satisfactory input from user
 
 """
 
-from utilities import num_from_alpha
-from construct_output import format_nonfatal_error_text
-import constants
+from . import constants
+from . utilities import (format_nonfatal_error_text,
+                         num_from_alpha)
+
 
 def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_lookup_table):
     """
