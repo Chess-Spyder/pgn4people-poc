@@ -20,6 +20,8 @@ from . utilities import ReportError
 def main():
     """ Main entry point of the app """
 
+    print(f"I am in main(). cwd: {os.getcwd()}")
+
     # Which of the available sample PGNs is to be read
     pgnfilepath = constants.PGNFILE6
 
@@ -28,15 +30,10 @@ def main():
     if constants.do_read_pgn_from_file_system:
         pgnstring = read_filesystem_pgnfile_into_string(constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE)
     else:
-        pass
-
-#   Defines name of raw PGN file
-    # current_working_directory = os.getcwd()
-    # print(f"The current working directory is: {current_working_directory}.")
-    # print(f"Path to chosen sample PGN file: {constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE}.")
-    # print(f"The current working directory contains the following: \n{os.listdir(current_working_directory)}.")
         pgnstring = read_resource_pgnfile_into_string(constants.PACKAGE_FOR_SAMPLE_PGN,
                                                       constants.CHOSEN_SAMPLE_PGN_FILE)
+    if not pgnstring:
+        raise ReportError("Error in PGN: No valid movetext found.")
 
    
 
@@ -48,8 +45,8 @@ def main():
 #   Starts by showing the main line
     target_node_id = 0
 
-    keep_exploring = True
-    while keep_exploring: 
+    do_keep_exploring = True
+    while do_keep_exploring: 
 #       Traverses the tree and displays the main line (with halfmove alternatives)  
 
 #       Computes the deviation history required to achieve the specified target_node_id
@@ -68,7 +65,7 @@ def main():
             else:
                 target_node_id = nodedict[node_id_chosen].reordered_edgeslist[move_choice].destination_node_id
         else:
-            keep_exploring = False
+            do_keep_exploring = False
             print("You have told me to stop. I obey.")
 #   End of while keep_exploring
 
