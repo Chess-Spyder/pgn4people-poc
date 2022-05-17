@@ -2,10 +2,6 @@
 Module Docstring
 """
 
-__author__ = "Jim Ratliff"
-__version__ = "0.0.1"
-__license__ = "MIT"
-
 
 import os
 
