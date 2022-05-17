@@ -1,16 +1,12 @@
 """
 Constructs output of the variations table.
-
-Also includes format_nonfatal_error_text(), which is a utility rather than part of the output construction. 
-I include it here because it also uses yachalk.
 """
 
 from yachalk import chalk
 
 from . import constants
 from . utilities import ( clear_console,
-                          lowercase_alpha_from_num)
-from . pgn_utilities import (   fullmovenumber_from_halfmove,
+                          lowercase_alpha_from_num)from . pgn_utilities import (   fullmovenumber_from_halfmove,
                                 is_Black_move,
                                 is_White_move )
 
@@ -21,6 +17,7 @@ def print_header_for_variations_table(target_node_id, deviation_history):
     print("\n", 40*constants.REPEATED_STRING_FOR_TABLE_HEADER, "\n")
     print(f"Target node: {target_node_id}")
     print(f"Deviation history required to achieve the specified target node: {deviation_history}")
+
 
 def print_single_node(  node_id,
                         nodedict,

@@ -2,6 +2,8 @@
 
 import os
 
+from yachalk import chalk
+
 def is_even_number(number):
     return (number % 2) == 0
 
@@ -55,6 +57,18 @@ def clear_console():
     else:
         clear_command = clear_command_mac_linux
     os.system(clear_command)
+
+
+def format_nonfatal_error_text(string):
+    """
+    Formats as red text a string that is intended as an error message that is nonfatal
+    and thus does not “raise” an error.
+    """
+
+    formatted_string = chalk.red_bright(string)
+    return formatted_string
+
+
 class ReportError(Exception):
     """ Base class for other exceptions """
     def __init__(self, *args):
