@@ -202,9 +202,9 @@ def buildtree(tokenlist):
                 current_originatingnode_id[depth] = lastcreated_node_id
 
             # Define new edge corresponding to this token
-            new_edge = Edge()
-            new_edge.movetext = token
-            new_edge.destination_node_id = current_node_id
+            new_edge = Edge(token, current_node_id)
+            # new_edge.movetext = token
+            # new_edge.destination_node_id = current_node_id
 
             latest_mainline_destination[depth] = current_node_id
 

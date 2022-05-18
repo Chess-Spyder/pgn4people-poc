@@ -136,6 +136,6 @@ class Edge:
     since instances of edge (at this point, anyway) always exist as constituent objects associated with a particular
     originating node.
     """
-    def __init__(self):
-        self.movetext = "UNDEFINED MOVETEXT"
-        self.destination_node_id = constants.UNDEFINED_TREEISH_VALUE
+    def __init__(self, movetext, destination_node_id):
+        self.movetext = movetext
+        self.destination_node_id = destination_node_id
