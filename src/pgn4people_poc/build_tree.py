@@ -88,13 +88,13 @@ def buildtree(tokenlist):
 
     Each time a movetext token is encountered
         A new GameNode, "newnode", is created
-            The following attribute is initialized by the class definition when an instance is created:
-                .number_of_edges = 0 (I.e., initializing this attribute as a counter.)
-            The following attributes are assigned immediately
+            The following attributes are initialized by the class definition when an instance is created:
                 .depth
                     .depth is either (a) inherited from an immediately previous movetext/node, (b) increased by
                     a “(” token, or (c) decreased by a “)” token.
                 .halfmovenumber, from current_halfmovenumber[depth]
+                .number_of_edges = 0 (I.e., initializing this attribute as a counter.)
+            The following attributes are assigned immediately
                 .originatingnode_id, from current_originatingnode_id[depth]
             The following attribute can be assigned only after the originating node's .edgeslist
             is updated about the existence of this node:
@@ -139,9 +139,8 @@ def buildtree(tokenlist):
     current_halfmovenumber[depth] = 1
 
     # Create the id=constants.INITIAL_NODE_ID=0 node corresponding to the initial position (and to White's first move)
-    newnode = GameNode()
-    newnode.depth = depth
-    newnode.halfmovenumber = current_halfmovenumber[depth]
+    originating_node_id_of_initial_node = constants.UNDEFINED_TREEISH_VALUE
+    newnode = GameNode(depth, current_halfmovenumber[depth], originating_node_id_of_initial_node, constants.INITIAL_NODE_ID)
     # Adds this new node as the first node in the gamenodes dictionary
     gamenodes[constants.INITIAL_NODE_ID] = newnode
 
@@ -149,7 +148,6 @@ def buildtree(tokenlist):
 
     # The next node at current depth (0) will be spawned from node with id zero.
     current_originatingnode_id[depth]=constants.INITIAL_NODE_ID
-
     # Node_id for the next node to be created
     current_node_id = 1
 
@@ -161,11 +159,10 @@ def buildtree(tokenlist):
     for token in tokenlist:
         # Branches based on whether current token is (a) movetext, (b) “(”, or (c) “)”.
         if pgn_utilities.ismovetext(token):
-            # Token is movetext.
-            # The movetext defines an edge that connects (a) the node with id current_originatingnode_id[depth] to
-            # a node about to be created with id current_node_id.
-
-            # Branches based on whether the immediately preceding token was (a) “(’, (b) “)”, or (c) movetext
+            # Token is movetext, which defines an edge that connects (a) the node with id
+            # current_originatingnode_id[depth] to a node about to be created with id current_node_id.
+            # Processing now branches based on whether the immediately preceding token was (a) “(’, (b) “)”,
+            # or (c) movetext.
             # This fact is communicated here from the previous iteration via the two Boolean variables
             # is_preceded_by_open_paren and is_preceded_by_closed_paren
             if is_preceded_by_open_paren:
@@ -176,7 +173,7 @@ def buildtree(tokenlist):
                 # The depth and halfmovenumber were already adjusted when the “(” was encountered, so no further
                 #   adjustment is necessary at this point.
                 #   (You may ask: So what’s the purpose of setting is_preceded_by_open_paren=True, if all we do is do
-                #   nothing? That’s precisely the point. If is_preceded_by_open_paren had not been to True, we would 
+                #   nothing? That’s precisely the point. If is_preceded_by_open_paren had not been set to True, we would 
                 #   have done something when we shouldn’t have.)
 
                 # Resets flags for beginning of new variation
@@ -213,20 +210,18 @@ def buildtree(tokenlist):
 
             # Update originating node about the existence of this node
             originating_node_id = current_originatingnode_id[depth]
-            # Increment the number of options at the originating node
-            gamenodes[originating_node_id].number_of_edges += 1
-            # Append new_edge to node with id originating_node_id
-            gamenodes[originating_node_id].edgeslist.append(new_edge)
+
+            # Install new edge on originating node; add originating node to set of nonterminal nodes
+            gamenodes[originating_node_id].install_new_edge_on_originating_node(new_edge, originating_node_id)
+
             # Computes index of new_edge at originating node that led to the current new node. This will be stored in
             # the new node corresponding to the current token.
             # NOTE: For any list, len(somelist)-1 is the index of most recently appended item
             index_of_edge_at_originating_node = len(gamenodes[originating_node_id].edgeslist) - 1
 
             # Create new node corresponding to the destination reached if the current token's move is chosen
-            newnode = GameNode()
-            newnode.depth = depth
-            newnode.halfmovenumber = current_halfmovenumber[depth]
-            newnode.originatingnode_id = current_originatingnode_id[depth]
+            newnode = GameNode(depth, current_halfmovenumber[depth], current_originatingnode_id[depth], current_node_id)
+
             newnode.choice_id_at_originatingnode = index_of_edge_at_originating_node
             # Add node to gamesnodes dictionary
             gamenodes[current_node_id] = newnode

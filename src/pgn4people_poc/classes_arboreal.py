@@ -57,15 +57,66 @@ class GameNode:
                 are stored in a dictionary where the key value is an integer ID of the node, and the value is object of
                 class GameNode.
     """
-    def __init__(self):
-        self.originatingnode_id = constants.UNDEFINED_TREEISH_VALUE
-        self.choice_id_at_originatingnode = constants.UNDEFINED_TREEISH_VALUE
+   
+   # Define/initialize class attributes to support reporting statistics on the gametree
+    set_of_nodes = set()
+    set_of_nonterminal_nodes = set()
+    set_of_terminal_nodes = set()
+    max_variation_depth = 0
+    max_halfmove_length_of_line = 0
+    
+    
+    def __init__(self, depth, halfmovenumber, originating_node_id, node_id):
+        # Note that node_id is NOT an attribute of the node object; it is passed to the constructor for information
+        self.halfmovenumber = halfmovenumber
+        self.depth = depth
+        self.originatingnode_id = originating_node_id
         self.number_of_edges = 0
         self.edgeslist = []
         self.reordered_edgeslist = []
         self.map_reordered_to_original_edgeslist = []
-        self.halfmovenumber = constants.UNDEFINED_TREEISH_VALUE
-        self.depth = constants.UNDEFINED_TREEISH_VALUE
+        # It’s unclear to me whether the following two assignments actually need to be made. But it makes more it
+        # more transparent what other attributes will eventually be assigned
+        self.choice_id_at_originatingnode = constants.UNDEFINED_TREEISH_VALUE
+
+        # QUERY: Do the following need to be done a node-by-node basis? Or could they be done retrospectivaly looking
+        # at only the terminal nodes?
+        # Updates maximum depth off the mainline that has been encountered
+        if depth > self.max_variation_depth:
+            self.max_variation_depth = depth
+        # Updates maximum length of a line that has been encountered
+        if halfmovenumber > self.max_halfmove_length_of_line:
+            self.max_halfmove_length_of_line = halfmovenumber
+
+        # Adds the node id of this new node to the set of all nodes.
+        # Note that node_id was passed as an argument to this constructor precisely for this purpose. (node_id isn't
+        # an attribute of the node>)
+        self.set_of_nodes.add(node_id)
+
+        # Debug print
+        # print(f"New node #{node_id} of {len(self.set_of_nodes)}, ½#: {halfmovenumber} depth: {depth} # non-term nodes: {len(self.set_of_nonterminal_nodes)}")
+
+
+    def install_new_edge_on_originating_node(self, new_edge, originating_node_id):
+        """
+        (a) Adds a newly discovered Edge to its originating node, (b) increments number of edges at originating node,
+        and (c) add this originating node to the set of nonterminal nodes (since we know it has at least one successor).
+
+        USAGE: method is meant to be called on gamenodes[originating_node_id]
+
+        NOTE: originating_node_id is passed as an argument solely to allow originating_node_id to be added to
+        set_of_nonterminal_nodes. (originating_node_id is not needed for the addition of the new edge, because this 
+        method is called on the appropriate node.)
+
+        Alternatively, the node could be added to the set of nonterminal nodes only the first time an edge is
+        installed. It's not clear that imposing that condition would save time, because evaluating it could take as
+        much time as redundantly adding the node to the set of nonterminal nodes.
+        """
+        self.number_of_edges += 1
+        self.edgeslist.append(new_edge)
+
+        self.set_of_nonterminal_nodes.add(originating_node_id)
+
 
 
 class Edge:
