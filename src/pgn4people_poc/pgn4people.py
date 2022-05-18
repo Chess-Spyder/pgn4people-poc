@@ -15,7 +15,6 @@ from . traverse_tree import (deviation_history_of_node,
 from . utilities import ReportError
 
 
-
 def main():
     """ Main entry point of the app """
 
@@ -32,13 +31,11 @@ def main():
 #   Starts by showing the main line
     target_node_id = 0
 
+    #  Traverses the tree and displays the variations table to the console
     do_keep_exploring = True
     while do_keep_exploring: 
-#       Traverses the tree and displays the variations table to the console
-
 #       Computes the deviation history required to achieve the specified target_node_id
         deviation_history = deviation_history_of_node(nodedict, target_node_id)
-
         print_header_for_variations_table(target_node_id, deviation_history)
 
 #       Displays to console the new mainline and first halfmove of each deviation from this new mainline
@@ -51,6 +48,8 @@ def main():
             if node_id_chosen == constants.RESET_COMMAND:
                 target_node_id = constants.INITIAL_NODE_ID
                 print("Tree reset to original starting point.")
+            elif node_id_chosen == constants.REPORT_COMMAND:
+                print("Here is your report….")
             else:
                 target_node_id = nodedict[node_id_chosen].reordered_edgeslist[move_choice].destination_node_id
         else:

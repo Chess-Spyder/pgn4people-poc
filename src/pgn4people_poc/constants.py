@@ -74,6 +74,7 @@ BLACK_PLAYER_COLOR_STRING = "B"
 
 STOP_SIGN = "stop"
 RESET_COMMAND = "reset"
+REPORT_COMMAND = "report"
 
 # WARNING: FIRST_NODE_TO_BE_PRINTED is NOT a constant, despite being defined in the constants.py file. This value
 # needs to be referred to from two modules (construct_output.py and traverse_tree.py) and I didn't want to pass it as

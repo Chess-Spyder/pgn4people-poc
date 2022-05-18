@@ -23,7 +23,7 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
 #   Construct long string by concatenation
     request_to_user_part_1 = "\nEnter on one line, each separated by a space:\n"
     request_to_user_part_2 = "(a) move number,\n(b) player color, ‘W’ or ‘B’, "
-    request_to_user_part_3 = "and\n(c) move choice (e.g., ‘a’, ‘b’, ‘c’, etc.),\nor 'reset', or 'stop':\n"
+    request_to_user_part_3 = "and\n(c) move choice (e.g., ‘a’, ‘b’, ‘c’, etc.),\nor 'reset', 'report', or 'stop':\n"
     request_to_user = request_to_user_part_1 + request_to_user_part_2 + request_to_user_part_3
 
 #   Initialize booleans for checking validity of user input
@@ -49,7 +49,10 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
 #           Test whether user wants to reset to the initial node
             if lowercase_response.startswith(constants.RESET_COMMAND):
                 return constants.RESET_COMMAND, None
-#       User didn't request to stop or reset
+#           Test whether user wants a report characterizing the size and complexity of the tree
+            if lowercase_response.startswith(constants.REPORT_COMMAND):
+                return constants.REPORT_COMMAND, None
+#       User didn't request to stop, reset, or produce a report
         if number_of_fields_in_response != 3:
 #           When the number of fields supplied is wrong, we don't even try to assess the validity of the first three.
             report_input_errors_to_user(response_list,
