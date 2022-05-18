@@ -8,9 +8,8 @@ import os
 from . import constants
 from . construct_output import print_header_for_variations_table
 from . get_process_user_input import get_node_id_move_choice_for_next_line_to_display
-from . process_pgn_file import (build_tree_from_pgnstring,
-                                read_filesystem_pgnfile_into_string,
-                                read_resource_pgnfile_into_string)
+from . process_pgn_file import (acquire_pgnstring,
+                                build_tree_from_pgnstring)
 from . traverse_tree import (deviation_history_of_node,
                              display_mainline_given_deviation_history)
 from . utilities import ReportError
@@ -22,20 +21,8 @@ def main():
 
     print(f"I am in main(). cwd: {os.getcwd()}")
 
-    # Which of the available sample PGNs is to be read
-    pgnfilepath = constants.PGNFILE6
-
-    # Get string of PGN from built-in PGN file or other source
-    # Branches depending on whether sample PGN file is to be read (a) from the file system or (b) as a resource
-    if constants.do_read_pgn_from_file_system:
-        pgnstring = read_filesystem_pgnfile_into_string(constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE)
-    else:
-        pgnstring = read_resource_pgnfile_into_string(constants.PACKAGE_FOR_SAMPLE_PGN,
-                                                      constants.CHOSEN_SAMPLE_PGN_FILE)
-    if not pgnstring:
-        raise ReportError("Error in PGN: No valid movetext found.")
-
-   
+#   Acquires pgnstring from appropriate file
+    pgnstring = acquire_pgnstring()
 
 #   Builds tree from pgn file
     nodedict = build_tree_from_pgnstring(pgnstring)
@@ -47,14 +34,16 @@ def main():
 
     do_keep_exploring = True
     while do_keep_exploring: 
-#       Traverses the tree and displays the main line (with halfmove alternatives)  
+#       Traverses the tree and displays the variations table to the console
 
 #       Computes the deviation history required to achieve the specified target_node_id
         deviation_history = deviation_history_of_node(nodedict, target_node_id)
 
         print_header_for_variations_table(target_node_id, deviation_history)
-#       Displays to terminal the new mainline and first halfmove of each deviation from this new mainline
+
+#       Displays to console the new mainline and first halfmove of each deviation from this new mainline
         display_mainline_given_deviation_history(nodedict, deviation_history, fullmovenummber_to_node_id_lookup_table)
+        
 #       Seeks user’s desire of what line to explore next and computes next target_node_id
         node_id_chosen, move_choice = \
             get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_lookup_table)

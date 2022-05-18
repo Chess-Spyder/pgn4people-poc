@@ -6,7 +6,26 @@ from importlib.resources import files
 import re
 
 from . build_tree import buildtree
+from . import constants
 from . utilities import ReportError
+
+def acquire_pgnstring():
+    """
+    Get string of PGN from built-in PGN file or other source
+    """
+    # Which of the available sample PGNs is to be read
+    pgnfilepath = constants.CHOSEN_SAMPLE_PGN_FILE
+
+    # Branches depending on whether sample PGN file is to be read (a) from the file system or (b) as a resource
+    if constants.do_read_pgn_from_file_system:
+        pgnstring = read_filesystem_pgnfile_into_string(constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE)
+    else:
+        pgnstring = read_resource_pgnfile_into_string(constants.PACKAGE_FOR_SAMPLE_PGN,
+                                                      constants.CHOSEN_SAMPLE_PGN_FILE)
+    if not pgnstring:
+        raise ReportError("Error in PGN: No valid movetext found.")
+    return pgnstring
+
 
 def build_tree_from_pgnstring(pgnstring):
     """ Takes string of PGN, tokenize it, and build tree from it. Return dictionary of nodes."""
