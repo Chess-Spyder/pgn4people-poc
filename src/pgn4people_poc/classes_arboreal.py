@@ -139,3 +139,31 @@ class Edge:
     def __init__(self, movetext, destination_node_id):
         self.movetext = movetext
         self.destination_node_id = destination_node_id
+
+
+class GameTreeReport:
+    """
+    Set of data characterizing a game tree in terms of number of lines, length
+    of lines, and hierarchical depth.
+
+    Object attributes:
+        number_of_lines: Number of terminal nodes
+        max_halfmove_length_of_a_line : The halfmove length of the longest line (measured in halfmoves)
+        max_depth_of_a_line: The maximum depth associated with a terminal node. (The number of deviations from the
+            mainline required to reach that terminal node.)
+        halfmove_length_histogram: A collections.Counter dict of {halfmove_length: frequency} key:value pairs, where frequency is 
+            the number of terminal nodes with halfmove equal to the given halfmove_length.
+        depth_histogram: A collections.Counter dict of {depth: frequency} key:value pairs, where frequency is the number
+            of terminal nodes with depth equal to the given depth.
+    """
+    def __init__(self,
+                 number_of_lines,
+                 max_halfmove_length_of_a_line,
+                 max_depth_of_a_line,
+                 halfmove_length_histogram,
+                 depth_histogram):
+        self.number_of_lines = constants.UNDEFINED_TREEISH_VALUE
+        self.max_halfmove_length_of_a_line = constants.UNDEFINED_TREEISH_VALUE
+        self.max_depth_of_a_line = constants.UNDEFINED_TREEISH_VALUE
+        self.halfmove_length_histogram = {}
+        self.depth_histogram = {}
