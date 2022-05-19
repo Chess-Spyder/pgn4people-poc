@@ -49,6 +49,7 @@ def buildtree(tokenlist):
             The new edge (movetext, id of destingation node) is appended to the originating node’s .edgeslist.
         A new node is created, corresponding to the position reached after this new movetext’s move is taken.
             This new node may turn out to be a terminal node.
+        The node_id of the new node is added to the GameNode-class attribute set_of_nodes.
     
     The halfmovenumber is a property of a node; it is the halfmove number of every action that is spawned
     directly from that node.
@@ -105,6 +106,8 @@ def buildtree(tokenlist):
                 .number_of_edges
             (Reason: A node is created when its *first* move is encountered, but further parsing may reveal
             additional moves that also belong, as alternatives, to the same node.)
+            Everytime an edge is added to an originating node, the node_id of the originating node is added to
+            set_of_nonterminal_nodes
         The node is added to the gamenodes directory, using current_node_id as the key
             gamenodes[current_node_id] = newnode
     
