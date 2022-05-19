@@ -2,6 +2,8 @@
 
 import os
 
+# do_read_pgn_from_file_system = True
+DO_READ_PGN_FROM_FILE_SYSTEM = False
 NAME_OF_IMPORT_PACKAGE = "pgn4people_poc"
 
 # Name of directory of sample PGNs
@@ -19,9 +21,6 @@ ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES = os.path.abspath(RELATIVE_PATH_FOR_SAMPLE_PG
 
 #Computes package entity from which sample PGN can be read
 PACKAGE_FOR_SAMPLE_PGN = NAME_OF_IMPORT_PACKAGE + "." + DIRNAME_SAMPLE_PGNS
-
-# do_read_pgn_from_file_system = True
-do_read_pgn_from_file_system = False
 
 # Names of sample PGN files
 PGNFILE1 = "test_pgn_1_simple_one_variation.pgn"

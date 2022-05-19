@@ -17,7 +17,7 @@ def acquire_pgnstring():
     pgnfilepath = constants.CHOSEN_SAMPLE_PGN_FILE
 
     # Branches depending on whether sample PGN file is to be read (a) from the file system or (b) as a resource
-    if constants.do_read_pgn_from_file_system:
+    if constants.DO_READ_PGN_FROM_FILE_SYSTEM:
         pgnstring = read_filesystem_pgnfile_into_string(constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE)
     else:
         pgnstring = read_resource_pgnfile_into_string(constants.PACKAGE_FOR_SAMPLE_PGN,
