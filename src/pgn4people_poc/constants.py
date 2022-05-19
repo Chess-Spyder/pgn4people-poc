@@ -2,8 +2,23 @@
 
 import os
 
+#   BEHAVIORAL CONSTANTS
+
 # do_read_pgn_from_file_system = True
 DO_READ_PGN_FROM_FILE_SYSTEM = False
+
+# Boolean whether to clear console between each variation table
+DO_CLEAR_CONSOLE_EACH_TIME = True
+
+# Whether to precede each alternative movetext by a letter of the alphabet
+# If true, when printed, each alternative halfmove will be preceded by a single letter of the alphabet, e.g., "a:", "b:",
+# etc.
+# If false, the user would still enter the appropriate letter (e.g, "c" for the third alternative), but it would be up the
+# user to manually count which position the alternative to be chosen occupied.
+DO_PREFIX_MOVETEXT_WITH_ALPHA = True
+
+#   CONSTANTS RELATED TO FILE LOCATIONS
+
 NAME_OF_IMPORT_PACKAGE = "pgn4people_poc"
 
 # Name of directory of sample PGNs
@@ -36,7 +51,8 @@ CHOSEN_SAMPLE_PGN_FILE = PGNFILE6
 # Filesystem path of chosen sample PGN file
 PATH_TO_CHOSEN_SAMPLE_PGN_FILE = os.path.join(ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES, CHOSEN_SAMPLE_PGN_FILE)
 
-# Arboreal constants
+# ARBOREAL CONSTANTS
+
 UNDEFINED_NODE_MOVE_VALUE = -1
 UNDEFINED_TREEISH_VALUE = -1
 NODE_IS_TERMINAL_NODE = -1
@@ -46,31 +62,24 @@ INITIAL_NODE_ID = 0
 # The choice_id at a node that corresponds to the main line.
 INDEX_MAINLINE = 0
 
-# Configuration constant
-# Boolean
-# If true, when printed, each alternative halfmove will be preceded by a single letter of the alphabet, e.g., "a:", "b:",
-# etc.
-# If false, the user would still enter the appropriate letter (e.g, "c" for the third alternative), but it would be up the
-# user to manually count which position the alternative to be chosen occupied.
-DO_PREFIX_MOVETEXT_WITH_ALPHA = True
+# VARIATIONS TABLE CONSTANTS
 
 # String constants
 REPEATED_STRING_FOR_TABLE_HEADER = " ♕"
-
-# Boolean whether to clear console between each variation table
-DO_CLEAR_CONSOLE_EACH_TIME = True
 
 # Note: (a) BLACK_MOVE_PREFIX is a true ellipsis to economize on space but (b) BLACK_MOVE_DEFERRED is more spacious
 # because it needs to span an entire movetext element of a White move.
 WHITE_MOVE_ELLIPSIS = "... "
 BLACK_MOVE_DEFERRED = "... "
 BLACK_MOVE_PREFIX = "…"
+
 MOVETEXT_WIDTH_IN_CHARACTERS = 11
 
 # String constants for testing validity of user input
 WHITE_PLAYER_COLOR_STRING = "W"
 BLACK_PLAYER_COLOR_STRING = "B"
 
+# User-input constants
 STOP_SIGN = "stop"
 RESET_COMMAND = "reset"
 REPORT_COMMAND = "report"
