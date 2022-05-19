@@ -144,7 +144,6 @@ def print_single_node(  node_id,
         value_for_lookup_dictionary = (node_id, number_of_edges - 1)
         fullmovenummber_to_node_id_lookup_table[key_for_lookup_dictionary] = value_for_lookup_dictionary
 
-
 #       Check whether there are non-mainline alternatives to process
         if number_of_edges > 1:
 #           There are non-mainline alternatives to process

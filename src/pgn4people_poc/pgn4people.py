@@ -5,7 +5,9 @@ Module Docstring
 
 import os
 
+from . classes_arboreal import GameTreeReport
 from . import constants
+                                         output_GameTreeReport)
 from . construct_output import print_header_for_variations_table
 from . get_process_user_input import get_node_id_move_choice_for_next_line_to_display
 from . process_pgn_file import (acquire_pgnstring,
@@ -49,7 +51,7 @@ def main():
                 target_node_id = constants.INITIAL_NODE_ID
                 print("Tree reset to original starting point.")
             elif node_id_chosen == constants.REPORT_COMMAND:
-                print("Here is your report….")
+                output_GameTreeReport()
             else:
                 target_node_id = nodedict[node_id_chosen].reordered_edgeslist[move_choice].destination_node_id
         else:

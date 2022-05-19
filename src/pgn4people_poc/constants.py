@@ -84,6 +84,16 @@ STOP_SIGN = "stop"
 RESET_COMMAND = "reset"
 REPORT_COMMAND = "report"
 
+# CONSTANTS FOR GameTreeReport
+# Width for (a) depth or (b) halfmove-length
+KEY_WIDTH_IN_CHARACTERS = 4
+
+FREQ_WIDTH_IN_CHARACTERS = 11
+
+KEY_STAT_DESCRIPTION_WIDTH = 27
+KEY_STAT_VALUE_WIDTH = 5
+
+
 # WARNING: FIRST_NODE_TO_BE_PRINTED is NOT a constant, despite being defined in the constants.py file. This value
 # needs to be referred to from two modules (construct_output.py and traverse_tree.py) and I didn't want to pass it as
 # an argument.
