@@ -59,9 +59,9 @@ class GameNode:
     """
    
    # Define/initialize class attributes to support reporting statistics on the gametree
-    set_of_nodes = set()
-    set_of_nonterminal_nodes = set()
-    set_of_terminal_nodes = set()
+    set_of_node_IDs = set()
+    set_of_nonterminal_node_IDs = set()
+    set_of_terminal_node_IDs = set()
     max_variation_depth = 0
     max_halfmove_length_of_line = 0
     
@@ -91,7 +91,7 @@ class GameNode:
         # Adds the node id of this new node to the set of all nodes.
         # Note that node_id was passed as an argument to this constructor precisely for this purpose. (node_id isn't
         # an attribute of the node>)
-        self.set_of_nodes.add(node_id)
+        self.set_of_node_IDs.add(node_id)
 
         # Debug print
         # print(f"New node #{node_id} of {len(self.set_of_nodes)}, ½#: {halfmovenumber} depth: {depth} # non-term nodes: {len(self.set_of_nonterminal_nodes)}")
@@ -115,7 +115,7 @@ class GameNode:
         self.number_of_edges += 1
         self.edgeslist.append(new_edge)
 
-        self.set_of_nonterminal_nodes.add(originating_node_id)
+        self.set_of_nonterminal_node_IDs.add(originating_node_id)
 
 
 
@@ -147,6 +147,7 @@ class GameTreeReport:
     of lines, and hierarchical depth.
 
     Object attributes:
+        number_of_nodes: Total number of all nodes, terminal and nonterminal
         number_of_lines: Number of terminal nodes
         max_halfmove_length_of_a_line : The halfmove length of the longest line (measured in halfmoves)
         max_depth_of_a_line: The maximum depth associated with a terminal node. (The number of deviations from the
@@ -156,14 +157,15 @@ class GameTreeReport:
         depth_histogram: A collections.Counter dict of {depth: frequency} key:value pairs, where frequency is the number
             of terminal nodes with depth equal to the given depth.
     """
-    def __init__(self,
-                 number_of_lines,
-                 max_halfmove_length_of_a_line,
-                 max_depth_of_a_line,
-                 halfmove_length_histogram,
-                 depth_histogram):
-        self.number_of_lines = constants.UNDEFINED_TREEISH_VALUE
-        self.max_halfmove_length_of_a_line = constants.UNDEFINED_TREEISH_VALUE
-        self.max_depth_of_a_line = constants.UNDEFINED_TREEISH_VALUE
-        self.halfmove_length_histogram = {}
-        self.depth_histogram = {}
+    # def __init__(self,
+    #              number_of_nodes,
+    #              number_of_lines,
+    #              max_halfmove_length_of_a_line,
+    #              max_depth_of_a_line,
+    #              halfmove_length_histogram,
+    #              depth_histogram):
+    #     self.number_of_lines = constants.UNDEFINED_TREEISH_VALUE
+    #     self.max_halfmove_length_of_a_line = constants.UNDEFINED_TREEISH_VALUE
+    #     self.max_depth_of_a_line = constants.UNDEFINED_TREEISH_VALUE
+    #     self.halfmove_length_histogram = {}
+    #     self.depth_histogram = {}
