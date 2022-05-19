@@ -16,7 +16,8 @@ def characterize_gametree(nodedict):
     Takes nodedict as representation of the tree as {node_id: node} key:value pairs, where node is an instance of the
     GameNode class.
 
-    Returns an object of class GameTreeReport:
+    Records the results in class attributes of the GameTreeReport class;
+        number_of_nodes: Number of positions
         number_of_lines: Number of terminal nodes
         max_halfmove_length_of_a_line : The halfmove length of the longest line (measured in halfmoves)
         max_depth_of_a_line: The maximum depth associated with a terminal node. (The number of deviations from the
