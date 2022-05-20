@@ -128,8 +128,11 @@ def output_GameTreeReport():
         print_string_2 = f"{GameTreeReport.depth_histogram[depth]:{constants.FREQ_WIDTH_IN_CHARACTERS}}"
         print(print_string_1, print_string_2)
     
+    print("\n(The length of a line is the number of halfmoves from and")
+    print("including White’s first move to the last move of the line.)")
+
     # Print halfmove length histogram
-    print("\nHALFMOVE LENGTH HISTOGRAM")
+    print("\nHALFMOVE-LENGTH HISTOGRAM")
     print("Length     Frequency")
     for halfmove_length in sorted(GameTreeReport.halfmove_length_histogram):
         print_string_1 = f"{halfmove_length:{constants.KEY_WIDTH_IN_CHARACTERS}} "
