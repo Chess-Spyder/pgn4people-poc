@@ -161,7 +161,19 @@ def output_node_report(nodedict):
 
     sorted_node_ids = sorted(GameNode.set_of_node_IDs)
     print_end = ""
-    print("Node #   ½#   Depth  #edges   Edges")
+    print("NOTES:")
+    print("\nThe halfmove number (“½#”) of a node is the halfmove number that")
+    print("would be associated with a move made from that node. The halfmove")
+    print("number of a line is the halfmove number of the corresponding terminal")
+    print("node, MINUS ONE (because the halfmove number associated with a")
+    print("terminal node is one greater than the halfmove number of the corresponding")
+    print("line).")
+    print("\nThe depth of a line is the number of deviations from mainline")
+    print("continuations required to arrive at that position.")
+    print("\nEach ‘edge’ is described by a pair: (a) the movetext of a move, e.g.,")
+    print("“e4”, and (b) the ID of the destination node, i.e., the node that would be")
+    print("reached if that move were played.")
+    print("\nNode #   ½#   Depth  #edges   Edges")
     for node_id in sorted_node_ids:
         node = nodedict[node_id]
         value_list = [
@@ -175,16 +187,10 @@ def output_node_report(nodedict):
             print(value, end=print_end)
         print("   ", end=print_end)
         for edge in node.edgeslist:
-            print(f"{edge.movetext:7}", end=print_end)
+            # print(f"{edge.movetext:7}", end=print_end)
+            print(f"({edge.movetext:5}, {edge.destination_node_id:3}) ", end=print_end)
         print("")
-    print("\nThe halfmove number (“½#”) of a node is the halfmove number that")
-    print("would be associated with a move made from that node. The halfmove")
-    print("number of a line is the halfmove number of the corresponding terminal")
-    print("node, MINUS ONE (because the halfmove number associated with a")
-    print("terminal node is one greater than the halfmove number of the corresponding")
-    print("line).")
-    print("\nThe depth of a line is the number of deviations from mainline")
-    print("continuations required to arrive at that position.")
+
 
     # Wait for user input (of any kind) before dismissing the summary table and moving forward
     wait_for_any_user_input()
