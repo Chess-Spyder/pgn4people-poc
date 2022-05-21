@@ -6,13 +6,13 @@ Module Docstring
 import os
 
 from . classes_arboreal import GameTreeReport
+from . build_tree import buildtree
 from . import constants
 from . compile_and_output_report import (characterize_gametree,
                                          output_GameTreeReport)
 from . construct_output import print_header_for_variations_table
 from . get_process_user_input import get_node_id_move_choice_for_next_line_to_display
-from . process_pgn_file import (acquire_pgnstring,
-                                build_tree_from_pgnstring)
+from . process_pgn_file import acquire_tokenized_pgnstring
 from . traverse_tree import (deviation_history_of_node,
                              display_mainline_given_deviation_history)
 from . utilities import ReportError
@@ -23,11 +23,11 @@ def main():
 
     print(f"I am in main(). cwd: {os.getcwd()}")
 
-#   Acquires pgnstring from appropriate file
-    pgnstring = acquire_pgnstring()
+#   Acquires tokenized pgnstring from appropriate file
+    tokenlist = acquire_tokenized_pgnstring()
 
 #   Builds tree from pgn file
-    nodedict = build_tree_from_pgnstring(pgnstring)
+    nodedict = buildtree(tokenlist)
 
     fullmovenummber_to_node_id_lookup_table = {}
 
