@@ -5,7 +5,7 @@ import os
 #   BEHAVIORAL CONSTANTS
 
 # do_read_pgn_from_file_system = True
-DO_READ_PGN_FROM_FILE_SYSTEM = False
+DO_READ_SAMPLE_PGN_FROM_FILE_SYSTEM = False
 
 # Boolean whether to clear console between each variation table
 DO_CLEAR_CONSOLE_EACH_TIME = True
@@ -93,6 +93,14 @@ FREQ_WIDTH_IN_CHARACTERS = 11
 
 KEY_STAT_DESCRIPTION_WIDTH = 27
 KEY_STAT_VALUE_WIDTH = 5
+
+# ARGPARSER CONSTANTS
+ARGPARSER_DESCRIPTION = "Demonstrates a better way to view deeply nested PGN files. You can optionally supply the path to your own PGN file."
+
+ARGPARSER_USAGE_1 = "To use your own PGN file (rather than the supplied sample), enter the path to\n"
+ARGPARSER_USAGE_2 = "the file after the pgn4people command. (Rather than typing the path, you can\n"
+ARGPARSER_USAGE_3 = "drag the file’s icon to the command line. "
+ARGPARSER_USAGE = ARGPARSER_USAGE_1 + ARGPARSER_USAGE_2 + ARGPARSER_USAGE_3
 
 
 # WARNING: FIRST_NODE_TO_BE_PRINTED is NOT a constant, despite being defined in the constants.py file. This value

@@ -5,78 +5,44 @@ Functions to help parse PGN file of a chess game.
 from importlib.resources import files
 import re
 
-from . build_tree import buildtree
 from . import constants
+from . process_CLI import check_CLI_for_user_pgnfile
 from . utilities import ReportError
 
-def acquire_pgnstring():
+def acquire_tokenized_pgnstring():
     """
-    Get string of PGN from built-in PGN file or other source
+    Get string of PGN from either (a) file specified by user in command line or (b) a built-in PGN file,
+    strips the headers, and tokenizes the remaining movetext.
     """
-    # Which of the available sample PGNs is to be read
-    pgnfilepath = constants.CHOSEN_SAMPLE_PGN_FILE
 
-    # Branches depending on whether sample PGN file is to be read (a) from the file system or (b) as a resource
-    if constants.DO_READ_PGN_FROM_FILE_SYSTEM:
-        pgnstring = read_filesystem_pgnfile_into_string(constants.PATH_TO_CHOSEN_SAMPLE_PGN_FILE)
+    # Checks command line to see whether user specified her own PGN file to view
+    # user_pgn_fileobject will be either (a) a file object or (b) None
+    # user_pgn_fileobject = check_CLI_for_user_pgnfile_using_FileType()
+    user_pgn_filepath = check_CLI_for_user_pgnfile()
+
+    if user_pgn_filepath is None:
+        # User didn't specify her own PGN file, so use sample PGN file included in the package
+        string_read_from_file = read_resource_pgnfile_into_string(constants.PACKAGE_FOR_SAMPLE_PGN,
+                                                                  constants.CHOSEN_SAMPLE_PGN_FILE)
     else:
-        pgnstring = read_resource_pgnfile_into_string(constants.PACKAGE_FOR_SAMPLE_PGN,
-                                                      constants.CHOSEN_SAMPLE_PGN_FILE)
+        # string_read_from_file = user_pgn_fileobject.read()
+        with user_pgn_filepath.open('r') as file:
+            string_read_from_file = file.read()
+    
+    pgnstring = strip_headers_from_pgn_file(string_read_from_file)
+
     if not pgnstring:
         raise ReportError("Error in PGN: No valid movetext found.")
-    return pgnstring
-
-
-def build_tree_from_pgnstring(pgnstring):
-    """ Takes string of PGN, tokenize it, and build tree from it. Return dictionary of nodes."""
-
-
+   
     # Parse string into a list of tokens, either (a) a movetext entry (e.g., "e4"), (b) “(”, or (c) “)”.
     tokenlist = tokenize_pgnstring(pgnstring)
 
-    # Build tree from tokenlist
-    nodedict = buildtree(tokenlist)
-
-    return nodedict
-
-
-def read_filesystem_pgnfile_into_string(pgnfilepath):
-    """
-    Read raw PGN text file on the file system (as opposed to a package resource) and return its non-header contents as a
-    character string.
-
-    Skips over tag-pair header section (by advancing until the first blank line is reached), thus considers only the
-    first game in a multi-game PGN file.
-
-    Assumes that textual comments have already been stripped by the user before being provided to pgnfocus to be read.
-    """
-    with open(pgnfilepath, "r") as currentpgnfile:
-        # Iterate through each line in the file until an entirely whitespace line is found.
-        # This results in the pointer into the file being located after the tag-pair header section.
-        # See https://stackoverflow.com/a/11873623/8401379
-        # Note: The .isspace() string method returns `True` iff all characters in the string are
-        #     whitespace characters, where these include the newline `\n` character
-
-        next(line for line in currentpgnfile if line.isspace())
-
-        #   Read the remaining (non-header) data in the file and return it as a string.
-        string_read_from_file = currentpgnfile.read()
-    return string_read_from_file
+    return tokenlist
 
 
 def read_resource_pgnfile_into_string(pgnresource_package, pgnresource_filename):
     """
-    Read raw PGN text file that is present as a packaged resource (rather than guaranteed to be on the file system) and
-    return its non-header contents as a character string.
-
-    Skips over tag-pair header section by finding the first non-whitespace character after the first “blank line,”
-    defined by two consecutive newline characters. (Note that this is not very robust: Even a single whitespace
-    character (other than a newline character) between the pair of newline characters will cause the blank line to fail
-    to be detected.
-    
-    Considers only the first game in a multi-game PGN file.
-
-    Assumes that textual comments have already been stripped by the user before being provided to pgnfocus to be read.
+    Read raw PGN text file that is present as a packaged resource (rather than guaranteed to be on the file system).
     """
 
     # Constructs a chained package representation of the location of the desired sample PGN file
@@ -89,23 +55,50 @@ def read_resource_pgnfile_into_string(pgnresource_package, pgnresource_filename)
 
     string_read_from_file = resource_location_as_string.read_text()
 
+    # # Find index of first character after a blank line (where I assume that the only way a blank line occurs is as two
+    # # adjacent newline characters—i.e., there is no white space separarting the two newline characters).
+    # index_of_first_newline_of_a_consecutive_pair = string_read_from_file.find("\n\n")
+
+    # if index_of_first_newline_of_a_consecutive_pair == -1:
+    #     raise ReportError("Error in PGN: No blank line (two consecutive newline characters) found.")
+
+    # # Index of first character after the pair of consecutive newline characters is two characters beyond the
+    # # occurrence of the first of the pair of newline characters
+    # index_of_first_char_after_blank_line = index_of_first_newline_of_a_consecutive_pair + 2
+
+    # relevant_portion_of_string = string_read_from_file[index_of_first_char_after_blank_line::]
+
+    # # Remove any beginning white space
+    # relevant_portion_of_string = relevant_portion_of_string.lstrip()
+
+    return string_read_from_file
+
+
+def strip_headers_from_pgn_file(string_read_from_file):
+    """
+    Takes string read from PGN file and strips the headers to return a string ready for tokenizing.
+
+    Assumes that textual comments have already been stripped by the user before being provided to pgnfocus to be read.
+    """
     # Find index of first character after a blank line (where I assume that the only way a blank line occurs is as two
-    # adjacent newline characters—i.e., there is no white space separarting the two newline characters).
+    # adjacent newline characters—i.e., there is no white space separating the two newline characters).
     index_of_first_newline_of_a_consecutive_pair = string_read_from_file.find("\n\n")
 
     if index_of_first_newline_of_a_consecutive_pair == -1:
+        # Two consecutive newline characters not found
         raise ReportError("Error in PGN: No blank line (two consecutive newline characters) found.")
 
     # Index of first character after the pair of consecutive newline characters is two characters beyond the
     # occurrence of the first of the pair of newline characters
     index_of_first_char_after_blank_line = index_of_first_newline_of_a_consecutive_pair + 2
 
-    relevant_portion_of_string = string_read_from_file[index_of_first_char_after_blank_line::]
+    # The desired substring is a slice
+    movetext_string = string_read_from_file[index_of_first_char_after_blank_line::]
 
-    # Remove any beginning white space
-    relevant_portion_of_string = relevant_portion_of_string.lstrip()
+    # Remove any remaining leading white space
+    movetext_string = movetext_string.lstrip()
 
-    return relevant_portion_of_string
+    return movetext_string
 
 
 def tokenize_pgnstring(pgnstring):
