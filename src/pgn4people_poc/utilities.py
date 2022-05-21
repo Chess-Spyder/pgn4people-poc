@@ -4,6 +4,8 @@ import os
 
 from yachalk import chalk
 
+from . import constants
+
 def is_even_number(number):
     return (number % 2) == 0
 
@@ -58,6 +60,15 @@ def clear_console():
         clear_command = clear_command_mac_linux
     os.system(clear_command)
 
+
+def conditionally_clear_console():
+    if(constants.DO_CLEAR_CONSOLE_EACH_TIME):
+        clear_console()
+
+
+def wait_for_any_user_input():
+    waiting = input(chalk.red_bright("\nPress <RETURN> to continue.\n"))
+    
 
 def format_nonfatal_error_text(string):
     """

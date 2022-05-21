@@ -5,10 +5,12 @@ of lines, length of lines, and hierarchical depth.
 
 from yachalk import chalk
 
-from . classes_arboreal import (GameNode,
+from . classes_arboreal import (Edge,
+                                GameNode,
                                 GameTreeReport)
 from . import constants
-from . utilities import clear_console
+from . utilities import (conditionally_clear_console,
+                         wait_for_any_user_input)
 
 
 def characterize_gametree(nodedict):
@@ -20,13 +22,14 @@ def characterize_gametree(nodedict):
         number_of_nodes: Number of positions
         number_of_lines: Number of terminal nodes
         max_halfmove_length_of_a_line : The halfmove length of the longest line (measured in halfmoves)
+            The length of a line is the halfmove number associated with the line’s terminal node MINUS 1, because the
+            halfmove associated with the terminal node corresponds to a move never made (since it’s a terminal mode).
         max_depth_of_a_line: The maximum depth associated with a terminal node. (The number of deviations from the
             mainline required to reach that terminal node.)
         halfmove_length_histogram: A collections.Counter dict of {halfmove_length: frequency} key:value pairs, where frequency is 
             the number of terminal nodes with halfmove equal to the given halfmove_length.
         depth_histogram: A collections.Counter dict of {depth: frequency} key:value pairs, where frequency is the number
             of terminal nodes with depth equal to the given depth.
-
 
     There is a one-to-one relationship between (a) a “line” and (b) a terminal node.
 
@@ -69,7 +72,10 @@ def characterize_gametree(nodedict):
             GameTreeReport.depth_histogram[depth] = 1
     
         # Process halfmove_length
-        halfmove_length = terminal_node.halfmovenumber
+        # The length of a line is the halfmove number associated with the line’s terminal node MINUS 1, because the
+        # halfmove number associated with the terminal node corresponds to a move never made (since it’s a terminal
+        # mode).
+        halfmove_length = terminal_node.halfmovenumber - 1
 
         if halfmove_length > GameTreeReport.max_halfmove_length_of_a_line:
             GameTreeReport.max_halfmove_length_of_a_line = halfmove_length
@@ -87,8 +93,7 @@ def output_GameTreeReport():
     # For formatting with f-strings, see Eric Leung, “Print fixed fields using f-strings in Python,”
     # dev.to, August 18, 2020. https://dev.to/erictleung/print-fixed-fields-using-f-strings-in-python-26ng
 
-    if(constants.DO_CLEAR_CONSOLE_EACH_TIME):
-        clear_console()
+    conditionally_clear_console()
 
     header_summary = chalk.magenta("\nSUMMARY OF STATISTICS FOR THIS GAME TREE\n")
     print(header_summary)
@@ -140,4 +145,46 @@ def output_GameTreeReport():
         print(print_string_1, print_string_2)
 
     # Wait for user input (of any kind) before dismissing the summary table and moving forward
-    waiting = input(chalk.red_bright("\nPress <RETURN> to continue.\n"))
+    wait_for_any_user_input()
+
+
+def output_node_report(nodedict):
+    """
+    For testing/debug purposes, only for SMALL trees: output each node and selected of its attributes.
+    """
+
+    conditionally_clear_console()
+
+    header_summary = chalk.magenta("\nNODE REPORT\n")
+    print(header_summary)
+
+
+    sorted_node_ids = sorted(GameNode.set_of_node_IDs)
+    print_end = ""
+    print("Node #   ½#   Depth  #edges   Edges")
+    for node_id in sorted_node_ids:
+        node = nodedict[node_id]
+        value_list = [
+                     f"{node_id:5}",
+                     f"{node.halfmovenumber:5}",
+                     f"{node.depth:7}",
+                     f"{node.number_of_edges:7}   ",
+                     ]
+
+        for value in value_list:
+            print(value, end=print_end)
+        print("   ", end=print_end)
+        for edge in node.edgeslist:
+            print(f"{edge.movetext:7}", end=print_end)
+        print("")
+    print("\nThe halfmove number (“½#”) of a node is the halfmove number that")
+    print("would be associated with a move made from that node. The halfmove")
+    print("number of a line is the halfmove number of the corresponding terminal")
+    print("node, MINUS ONE (because the halfmove number associated with a")
+    print("terminal node is one greater than the halfmove number of the corresponding")
+    print("line).")
+    print("\nThe depth of a line is the number of deviations from mainline")
+    print("continuations required to arrive at that position.")
+
+    # Wait for user input (of any kind) before dismissing the summary table and moving forward
+    wait_for_any_user_input()

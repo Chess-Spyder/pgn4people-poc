@@ -83,6 +83,7 @@ BLACK_PLAYER_COLOR_STRING = "B"
 STOP_SIGN = "stop"
 RESET_COMMAND = "reset"
 REPORT_COMMAND = "report"
+NODEREPORT_COMMAND = "nodereport"
 
 # CONSTANTS FOR GameTreeReport
 # Width for (a) depth or (b) halfmove-length

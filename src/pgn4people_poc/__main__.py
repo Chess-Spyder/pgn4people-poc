@@ -5,6 +5,7 @@ See, e.g., https://docs.python.org/3/library/__main__.html
 
 from . pgn4people import main
 
+
 main()
 
 

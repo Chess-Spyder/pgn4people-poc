@@ -118,7 +118,6 @@ class GameNode:
         self.set_of_nonterminal_node_IDs.add(originating_node_id)
 
 
-
 class Edge:
     """
     Characterizes an “edge,” which refers to option/action at a node, with the following attributes

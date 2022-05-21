@@ -5,17 +5,21 @@ Module Docstring
 
 import os
 
+<<<<<<< Updated upstream
 from . classes_arboreal import GameTreeReport
+=======
+from . build_tree import buildtree
+>>>>>>> Stashed changes
 from . import constants
 from . compile_and_output_report import (characterize_gametree,
-                                         output_GameTreeReport)
+                                         output_GameTreeReport,
+                                         output_node_report)
 from . construct_output import print_header_for_variations_table
 from . get_process_user_input import get_node_id_move_choice_for_next_line_to_display
 from . process_pgn_file import (acquire_pgnstring,
                                 build_tree_from_pgnstring)
 from . traverse_tree import (deviation_history_of_node,
                              display_mainline_given_deviation_history)
-from . utilities import ReportError
 
 
 def main():
@@ -54,6 +58,8 @@ def main():
             elif node_id_chosen == constants.REPORT_COMMAND:
                 characterize_gametree(nodedict)
                 output_GameTreeReport()
+            elif node_id_chosen == constants.NODEREPORT_COMMAND:
+                output_node_report(nodedict)
             else:
                 target_node_id = nodedict[node_id_chosen].reordered_edgeslist[move_choice].destination_node_id
         else:
