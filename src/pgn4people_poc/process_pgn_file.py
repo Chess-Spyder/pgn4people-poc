@@ -8,6 +8,7 @@ import re
 from . import constants
 from . process_CLI import check_CLI_for_user_pgnfile
 from . utilities import ReportError
+from . strip_balanced_braces import strip_balanced_braces_from_string
 
 def acquire_tokenized_pgnstring():
     """
@@ -30,6 +31,8 @@ def acquire_tokenized_pgnstring():
             string_read_from_file = file.read()
     
     pgnstring = strip_headers_from_pgn_file(string_read_from_file)
+
+    pgnstring = strip_balanced_braces_from_string(pgnstring)
 
     if not pgnstring:
         raise ReportError("Error in PGN: No valid movetext found.")
