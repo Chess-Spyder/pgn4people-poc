@@ -11,20 +11,21 @@ Currently, __pgn4people-poc__ is just a demo, just a proof of concept. (That’s
 
 ## Overview
 In contrast to most repositories, this README will focus much more on the *why* and *what* but much less on the *how*:
-* __pgn4people__ proposes a perhaps radically different interface for viewing and navigating through PGN. Any proposal for radical change should be accompanied by a clear, comprehensive, and compelling critique of the status quo to be replaced. Thus I spend a lot of time here on the *why*.
-* The *what* tells you what using this new interface is like. This is the most important consideration. Whether to prefer __pgn4people__ over the status quo is almost solely a question of whether you see the value in this *what*.
-* The *how* of __pgn4people__’s implementation is of less relevance. I wrote __pgn4people__ from scratch in Python for this proof of concept, but its interface paradigm would be relevant to any chess app/site regardless of its frontend or backend technologies. __pgn4people__ isn’t meant to inspire *new* apps or websites, it’s meant to inspire developers of *already existing* apps and websites to *add __pgn4people__ as an electable feature*. Existing apps and websites differ greatly in the details of how they implement their PGN-display/navigation features; I can’t give any useful guidance on incorporating __pgn4people__ into any particular app or website. But there’s no need: After seeing the *what*, any particular developer will see almost instantly how to implement __pgn4people__ in their product. Doing so requires combining only tools and techniques already present in their code.
+* __pgn4people__ proposes a radically different interface for viewing and navigating through PGN. Any proposal for radical change should be accompanied by a clear, comprehensive, and compelling critique of the status quo to be replaced. Thus I spend a lot of time here on the *why*.
+* The *what* tells you what using this new interface is like. This is an important consideration. Whether to prefer __pgn4people__ over the status quo is almost solely a question of whether you see the value in this *what*.
+* The *how* of __pgn4people__’s implementation is of less relevance. I wrote __pgn4people__ from scratch in Python for this proof of concept, but its interface paradigm would be relevant to any chess app/site regardless of its frontend or backend technologies. __pgn4people__ isn’t meant to inspire primaily *new* apps or websites, it was motivated by wanting to inspire developers of *already existing* apps and websites to *add __pgn4people__ as an electable feature*.
+  * Existing apps and websites differ greatly in the details of how they implement their PGN-display/navigation features; I can’t give any useful guidance on incorporating __pgn4people__ into any particular app or website. But there’s no need: After seeing the *what*, any particular developer will see almost instantly how to implement __pgn4people__ in their product. Doing so requires combining only tools and techniques already present in their code.
 
 The next section of this README is [Context](#context), which provides the *why*. It discusses:
 * [Portable Game Notation (PGN)](#portable-game-notation-pgn). Since you’re reading this in the first place, you might well know enough about PGN to skip that discussion.
-* [The problem addressed: PGN was designed to be read by computers, not people](#the-problem-addressed-pgn-was-designed-to-be-read-by-computers-not-people). Unless you’re already convinced that traditional PGN interfaces are less than highly satisfactory for users to navigate complex game trees, I recommend looking at this section.
+* [The problem addressed: PGN was designed to be read by computers, not people](#the-problem-addressed-pgn-was-designed-to-be-read-by-computers-not-people). Unless you’re already convinced that traditional PGN interfaces are less than highly satisfactory for users to navigate complex game trees, I recommend looking at this section. 
 * [Survey of the better existing interfaces](https://github.com/jimratliff/pgnfocus/blob/main/README.md#survey-of-the-better-existing-interfaces). In particular, the example of Lichess’s Study facility attempting to display meaningfully a test PGN file is good to keep in mind before you see in [the following section](#the-pgnfocus-interface-approach) how very differently __pgn4people__ presents the same file.
 
 The next section after Context is the *what*: [The pgn4people interface approach](https://github.com/jimratliff/pgnfocus/blob/main/README.md#the-pgnfocus-interface-approach). If you’re already familiar with PGN interfaces and their frustrations, feel free to jump here directly.
 
 After you read this section, and consider the example of using __pgn4people__ it gives, you’ll understand what the __pgn4people__ paradigm is all about. You don’t need to actually install and run the code to fully understand __pgn4people__. 
 
-However, if you do want to play with the code, everything you need to know is at [Playing around with the __pgn4people-poc__ code](https://github.com/jimratliff/pgnfocus/blob/main/README.md#playing-around-with-the-pgnfocus-code).
+However, if you do want to play with the code, everything you need to know is at [Playing around with  __pgn4people-poc__](https://github.com/jimratliff/pgnfocus/blob/main/README.md#playing-around-with-the-pgnfocus-code).
 
 Then what? If you wish that your favorite FILL IN THE ___ chess software or website offered __pgn4people__’s paradigm for navigating PGN:
 * If you’re the developer, implement it! I bet that, once you’ve seen the examples here, you’ll know exactly how to implement it in your own code. But of course feel free to [ask me questions](https://github.com/jimratliff).
@@ -125,7 +126,7 @@ __pgn4people-poc__ is offered in hopes that existing developers will incorporate
   * Receive instructions from the user from the command line.
     * Thus references above like “she simply clicks on one of the halfmoves available at that point” are aspirational. The ability to click on a move is not currently implemented.
 
-# Playing around with the __pgn4people-poc__ code
+# Playing around with the __pgn4people-poc__
 The main point of __pgn4people-poc__ is to serve as a demo of a new paradigm that might well be instantly grasped once the above description is read. (I had to code __pgn4people-poc__ in order to prepare the examples, but now that that is done, the examples themselves do the explaining.) But if you’d like to actually play around with the code, using it to navigate either the included sample PGN file or a PGN file of your own, feel free! This section is for you.
 
 ## Dependencies
