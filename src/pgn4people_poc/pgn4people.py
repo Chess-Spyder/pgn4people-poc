@@ -21,8 +21,6 @@ from . traverse_tree import (deviation_history_of_node,
 def main():
     """ Main entry point of the app """
 
-    print(f"I am in main(). cwd: {os.getcwd()}")
-
 #   Acquires tokenized pgnstring from appropriate file
     tokenlist = acquire_tokenized_pgnstring()
 
