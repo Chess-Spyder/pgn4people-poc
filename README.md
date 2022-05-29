@@ -65,11 +65,11 @@ PGN was developed, first and foremost, for *data interchange*, primarily between
 
 Annotated chess games, and particularly opening repertoires, can be structurally very complex (in a game-tree sense) in that the variations become deeply nested: play at some position can branch off with multiple possible moves and each of those moves may branch off into multiple replies, …, and so on, almost _ad infinitum_. PGN encodes any variation as an _interruption_ of the line from which it sprung. These interruptions can separate—by a great distance in the PGN code—two moves that in a chess sense are actually adjacent. For example, in a Black repertoire where the main line started with the Sicilian Defense, 1.e4 c5, all of the repertoire’s analysis against both 1.d4 and 1.c4 would interrupt the two first halfmoves that in a chess sense are adjacent: 1.e4 1…c5. (See graphic immediately below.)
 
-<img width="1154" alt="Variations_are_interruptions" src="https://user-images.githubusercontent.com/8410716/160752781-3a25c68a-661d-4f07-978b-803981a55ab7.png">
+<img width="1154" alt="Variations_are_interruptions" src="https://user-images.githubusercontent.com/8410716/170889901-f73fb044-4140-4aa0-9f31-57de3ea0c14c.png">
 
 This separation can be yawningly cavernous. See, for example, the next graphic, which is taken from an example PGN that is supplied with __pgn4people-poc__, where the analysis of 1.d4 and 1.c4 separates these two moves by about *80 lines* in a text file. In traditional interfaces, the user would have to navigate through all of that irrelevant analysis just to follow the main line.
 
-<img width="1465" alt="Discontinuous_PGNs" src="https://user-images.githubusercontent.com/8410716/160748340-9984061f-9b90-4e78-8f02-cf5139e996ef.png">
+<img width="1465" alt="Discontinuous_PGNs" src="https://user-images.githubusercontent.com/8410716/170889934-882435c3-31fc-4bb8-8c9e-ceeb4ab34cd7.png">
 
 The usability of traditional interfaces doesn‘t scale well with increases in structural complexity. When the variations, subvariations, and subsubvariations, … are highly nested, it can be very difficult for the user to follow the game, for example:
 * To get an overall sense of where a particular move lies in the game tree
@@ -84,7 +84,7 @@ The deep-nesting problem is particularly severe when [developing an opening repe
 ### Survey of the better existing interfaces
 Some of the better interfaces, such as [HIARCS Chess Explorer Pro](https://www.hiarcs.com/mac-chess-explorer-pro.html), [Scid vs. PC/Mac](http://scidvspc.sourceforge.net/), and [Lichess.org’s ‘Study’ facility](https://lichess.org/study), admirably try to deal with the complexity of deeply nested variations by (a) displaying the main line of White’s and Black’s moves as two columns and (b) organizing the nesting of variations with successive levels of indentation. But indentation, while helpful at low levels of indentation, doesn’t scale well with increased levels of nesting. Each level of indentation squeezes the text into a narrower and narrower column on the right side of the window. Eventually, there’s no room for an additional level of nesting. (See the graphic immediately below showing an example using Lichess’s Study facility.) See also the FAQ [“How does __pgn4people__ compare to ChessTempo’s PGN Viewer?”](#how-does-pgn4people-compare-to-chesstempos-pgn-viewer).
 
-<img width="1932" alt="Lichess_Study_example" src="https://user-images.githubusercontent.com/8410716/160756591-bfcbe548-56be-4031-8196-e2b7424bba19.png">
+<img width="1932" alt="Lichess_Study_example" src="https://user-images.githubusercontent.com/8410716/170889959-e06dceba-3b39-4746-9596-2879e01bf9f2.png">
 
 # The __pgn4people__ interface approach
 In favorable contrast to even the best traditional interfaces, the usability of __pgn4people__ scales essentially perfectly with increased levels of nesting. In fact, the interface for displaying the entire repertoire represented by the [Encyclopædia of Chess Openings](https://en.wikipedia.org/wiki/Encyclopaedia_of_Chess_Openings) or Nick De Firmian’s [Modern Chess Openings](https://www.penguinrandomhouse.com/books/38620/modern-chess-openings-15th-edition-by-nick-de-firmian/) would appear no more complicated to the user than would displaying a single annotated game with variations only one level deep.
@@ -93,7 +93,7 @@ The problem with traditional interfaces arises in part because they insist on pr
 
 When the user first opens a new game in __pgn4people__, she sees primarily the _main line_ arranged in two columns (for White’s and Black’s moves, respectively), possibly supplemented at any halfmove by a horizontal list of halfmove alternatives, each representing the beginning of a single variation branching off the main line at that point. (See graphic immediately below highlighting the alternatives White has at her sixth move to the mainline choice 5.Bg5, including the third alternative “c: Bc4”.)
 
-<img width="1334" alt="pgnfocus_after_click_1" src="https://user-images.githubusercontent.com/8410716/162631396-8ac9174a-338b-4682-b405-bac23a93288c.png">
+<img width="1334" alt="pgn4people_after_click_1" src="https://user-images.githubusercontent.com/8410716/170890039-fc44f9d0-6838-43a4-b5ed-907b3c73ee23.png">
 
 If she wants to explore off the main line at any given point, she simply clicks on one of the halfmoves available at that point. (In this command-line interface implementation, rather than clicking on one of the halfmove alternatives, the user selects the alternative with a command-line instruction. In the example in the above graphic, that command is “`6 W c`”, corresponding to the 6th move by White and choice of the third alternative labeled “c”. (See §[Interacting with __pgn4people__](#interacting-with-pgn4people) below.) In response (see graphic immediately below):
 * The alternative halfmove on which she clicked is temporarily promoted (for purposes of the visualization) to the mainline move, and the previously mainline halfmove is demoted to the first alternative (and the others are shuffled as necessary, otherwise maintaining their original ordering with respect to all other halfmoves other than the original mainline halfmove and the user-selected halfmove alternative). (See the FAQ [Why is it important/helpful to promote the chosen alternative to be the new (temporary) main line?](#why-is-it-importanthelpful-to-promote-the-chosen-alternative-to-be-the-new-temporary-main-line).)
@@ -103,7 +103,7 @@ If she wants to explore off the main line at any given point, she simply clicks 
 
 See the graphic immediately below for an example where the user chooses to eschew the mainline 6.Bg5 against the Najdorf and explore instead 6.Bc4 (the [Fischer-Sozin Attack](https://www.ichess.net/blog/bobby-fischer-vs-garry-kasparov-sicilian-najdorf/)) at that point.
 
-<img width="1872" alt="pgnfocus_after_click_2" src="https://user-images.githubusercontent.com/8410716/162628704-79dae41f-accc-49bb-a28f-513f90099de6.png">
+<img width="1872" alt="pgn4people_after_click_2" src="https://user-images.githubusercontent.com/8410716/170890052-0b40bb82-638b-422b-81b9-9178914bf506.png">
 
 See also the FAQ [What does the color coding of the halfmoves in the output of __pgn4people__ signify?](#what-does-the-color-coding-of-the-halfmoves-in-the-output-of-pgn4people-signify), which also presents another, more-extended example of how __pgn4people__ works.
 
@@ -190,7 +190,7 @@ At any position where White is to move, and White has alternatives to the main l
 
 On any row that has a move for Black, the alternatives on that row are all moves for Black. This is reinforced by prefacing each alternative with an ellipsis (…). See graphic immediately below.
 
-<img width="1697" alt="Printed_variations_table_When_both_players'_moves_are_on_same_row" src="https://user-images.githubusercontent.com/8410716/163103244-2299106f-7a8d-40bd-8160-e50769826b30.png">
+<img width="1697" alt="Printed_variations_table_When_both_players'_moves_are_on_same_row" src="https://user-images.githubusercontent.com/8410716/170890084-308ff14f-6006-4366-8a43-24e3e335e29a.png">
 
 ## What does the color coding of the halfmoves in the output of __pgn4people__ signify?
 Based on the original PGN, each halfmove is assigned a color based on its relationship to its immediate-predecessor position. If the halfmove is the default (mainline) move from that predecessor position, it is colored black. If the halfmove is the first alternative, it is colored red. If it is the second alternative, it is colored green, etc. These color assignments are not changed when the user selects a halfmove to be temporarily promoted.
@@ -199,7 +199,7 @@ Thus one can, for example, tell the original hierarchical position of a halfmove
 
 See the graphic immediately below for an extended example:
 
-<img width="1958" alt="Color_coding_example" src="https://user-images.githubusercontent.com/8410716/162897560-39a196d0-a0a6-44aa-888b-d4ffc7d2aa4f.png">
+<img width="1958" alt="Color_coding_example" src="https://user-images.githubusercontent.com/8410716/170890121-6423f101-d210-4d38-94ad-4ebbf2701642.png">
 
 ## Why is it important/helpful to promote the chosen alternative to be the new (temporary) main line?
 The temporary (and reversible and/or supersedable) promotion of the chosen alternative serves two important purposes:
@@ -220,7 +220,7 @@ That said, this problem has been solved—though its solution is almost never ad
 * When a halfmove has an associated comment, it is styled differently in the move log from halfmoves that do not have a comment. (The background color of halfmoves with comments is “Serenade” (RGB = 251, 231, 209). The background color for halfmoves without a comment is white.) This allows a user to know at a glance which halfmoves have comments and which don’t.
 * When the game advances to a halfmove with a comment, that comment is displayed in the comment text box beneath the board/move log. When the game advances to a halfmove without a comment, that text box is cleared.
 
-<img width="862" alt="Example_PGN_Browser_RedHotPawn_comments_displayed_contextually" src="https://user-images.githubusercontent.com/8410716/162658173-7eaf135c-cf05-4423-83ba-d49723b3399d.png">
+<img width="862" alt="Example_PGN_Browser_RedHotPawn_comments_displayed_contextually" src="https://user-images.githubusercontent.com/8410716/170890181-cf5a8a08-b006-405e-a638-629a94b7600a.png">
 
 This method would be easily adapted to __pgn4people__.
 
@@ -238,8 +238,7 @@ Unlike __pgn4people__, however, ChessTempo’s PGN Viewer doesn’t promote the 
 
 And ChessTempo’s PGN Viewer displays the list of alternatives vertically, rather than horizontally as __pgn4people__ does, greatly spreading out vertically the display of the moves, decreasing how many mainline moves can be displayed for a given vertical size of the viewport.
 
-<img width="1846" alt="ChessTempo_PGN_viewer_example" src="https://user-images.githubusercontent.com/8410716/168459340-5d87eb29-4518-49a0-8fb3-601b3bbb3215.png">
-
+<img width="1846" alt="ChessTempo_PGN_viewer_example" src="https://user-images.githubusercontent.com/8410716/170890188-86112e9d-9bc9-4846-96b9-99db360eeaa4.png">
 
 ## How does __pgn4people__ compare to a standard “Opening Explorer” interface?
 Many chess sites have some version of an “Opening Explorer” that allows the user to step through opening possibilities, one halfmove at a time, choosing at each halfmove from among a set of common, or not so common, alternatives. For example, [Lichess’s Opening Explorer](https://lichess.org/analysis#explorer), [Chess.com’s Opening Explorer](https://www.chess.com/openings), and [Chess24’s](https://chess24.com/en/analysis) (click on the "Opening tree" tab).
