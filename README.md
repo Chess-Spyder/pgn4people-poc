@@ -1,6 +1,6 @@
 # pgn4people: A better way to view PGN chess games (proof-of-concept demo)
 
-<img width="1956" alt="Annotated_pgnfocus_first_output with traditional" src="https://user-images.githubusercontent.com/8410716/160718975-02020e59-9163-4853-9069-9519dc85ad46.png">
+<img width="1956" alt="Annotated_pgn4people_first_output with traditional" src="https://user-images.githubusercontent.com/8410716/170889780-b5a181ff-5f4f-4751-8f04-197a3058cbe0.png">
 
 ## TL;DR
 A chess game’s PGN can be very difficult for humans to read, parse, navigate, and edit. It can be a messy maze that is easy to get lost in, particularly when there are long and/or deeply nested variations, subvariations, sub-subvarations, etc. And common chess interfaces don’t help enough. __pgn4people__ provides an alternative paradigm that embraces _just-in-time complexity_: show the user only as much of the mess as is relevant to her _right that moment_.
@@ -52,9 +52,7 @@ However, when a chess player wants to [analyze and _annotate_  her game](https:/
 
 [Traditional interfaces](https://lichess.org/study/nEGI6dm9) typically combine both (a) a graphical representation of a chessboard, where the pieces move to reflect progressing through the PGN and on which the user can move the pieces to effect changes to the PGN, and (b) a large-ish text field through which the user views, scrolls, and interacts with the PGN itself. (See graphic immediately below.)
 
-<img width="1409" alt="Traditional_interface_example" src="https://user-images.githubusercontent.com/8410716/168458976-7655e2cd-6d76-41e4-81f7-cab914c7b06b.png">
-
-
+<img width="1409" alt="Traditional_interface_example" src="https://user-images.githubusercontent.com/8410716/170889817-85bdb96c-afe9-4b4c-9276-2b596c394dcf.png">
 
 ### The problem addressed: PGN was designed to be read by computers, not people
 PGN was developed, first and foremost, for *data interchange*, primarily between nonhumans, in order to address compatibility problems between computer programs. As the [PGN standard document](http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c2.1) noted in 1994:
