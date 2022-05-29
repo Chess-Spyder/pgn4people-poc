@@ -77,15 +77,27 @@ def read_resource_pgnfile_into_string(pgnresource_package, pgnresource_filename)
     return string_read_from_file
 
 
+def find_next_blank_line(string):
+    """
+    # Returns index of first newline character of a pair of consecutive newline characters
+    # I assume that the only way a blank line occurs is as two adjacent newline characters—i.e., there is no white space
+    # separating the two newline characters).
+    #
+    # If a pair of consecutive newline characters is not found, the return value will be -1
+    """
+    return string.find("\n\n")
+
 def strip_headers_from_pgn_file(string_read_from_file):
     """
-    Takes string read from PGN file and strips the headers to return a string ready for tokenizing.
-
-    Assumes that textual comments have already been stripped by the user before being provided to pgnfocus to be read.
+    Takes string read from PGN file and prepares it for tokenizing by:
+        Skips over initial set of headers, followed by a blank line. The next text is the beginning of the relevant
+            movetext.
+        Searches for a second game in the PGN by searching for a subsequent blank line.
+        Returns the text between the beginning of the relevant movetext and any subsequent blank line.
     """
-    # Find index of first character after a blank line (where I assume that the only way a blank line occurs is as two
-    # adjacent newline characters—i.e., there is no white space separating the two newline characters).
-    index_of_first_newline_of_a_consecutive_pair = string_read_from_file.find("\n\n")
+
+    # Search for first blank line, which should be the line immediately following the series of headers
+    index_of_first_newline_of_a_consecutive_pair = find_next_blank_line(string_read_from_file)
 
     if index_of_first_newline_of_a_consecutive_pair == -1:
         # Two consecutive newline characters not found
@@ -95,8 +107,14 @@ def strip_headers_from_pgn_file(string_read_from_file):
     # occurrence of the first of the pair of newline characters
     index_of_first_char_after_blank_line = index_of_first_newline_of_a_consecutive_pair + 2
 
+    # Search for a subsequent blank line separating the first game from a second game
+    index_subsequent_blank_line = find_next_blank_line(string_read_from_file[index_of_first_char_after_blank_line::])
+
     # The desired substring is a slice
-    movetext_string = string_read_from_file[index_of_first_char_after_blank_line::]
+    # The end of the slice is either (a) the first newline char of a pair of consecurity newline chars or (b) is -1.
+    # because find_next_blank_line didn't find a next blank line. In that case, the -1 as the end of the slice indicates
+    # the last character of the string.
+    movetext_string = string_read_from_file[index_of_first_char_after_blank_line:index_subsequent_blank_line:]
 
     # Remove any remaining leading white space
     movetext_string = movetext_string.lstrip()
