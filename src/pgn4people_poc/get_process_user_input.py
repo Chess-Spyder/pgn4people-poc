@@ -23,7 +23,7 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
 #   Construct long string by concatenation
     request_to_user_part_1 = "\nEnter on one line, each separated by a space:\n"
     request_to_user_part_2 = "(a) move number,\n(b) player color, ‘W’ or ‘B’, "
-    request_to_user_part_3 = "and\n(c) move choice (e.g., ‘a’, ‘b’, ‘c’, etc.),\nor 'reset', 'report', 'nodereport', or 'stop':\n"
+    request_to_user_part_3 = "and\n(c) move choice (e.g., ‘a’, ‘b’, ‘c’, etc.),\nor ‘reset’, ‘report’, ‘nodereport’, or ‘stop’:\n"
     request_to_user = request_to_user_part_1 + request_to_user_part_2 + request_to_user_part_3
 
 #   Initialize booleans for checking validity of user input
