@@ -5,7 +5,7 @@
 ## TL;DR
 A chess game’s PGN can be very difficult for humans to read, parse, navigate, and edit. It can be a messy maze that is easy to get lost in, particularly when there are long and/or deeply nested variations, subvariations, sub-subvarations, etc. And common chess interfaces don’t help enough. __pgn4people__ provides an alternative paradigm that embraces _just-in-time complexity_: show the user only as much of the mess as is relevant to her _right that moment_.
 
-__pgn4people__ is especially useful for opening repertoires. Currently, players break their repertoires into many (even hundreds) of separate PGN files simply because it’s not feasible to navigate the lines of an entire repertoire from within a single PGN. But that’s due to an _interface failure_, not the inherent complexity of chess. With __pgn4people__, displaying and navigating through the entire repertoire represented by the [Encyclopædia of Chess Openings](https://en.wikipedia.org/wiki/Encyclopaedia_of_Chess_Openings) or Nick De Firmian’s [Modern Chess Openings](https://www.penguinrandomhouse.com/books/38620/modern-chess-openings-15th-edition-by-nick-de-firmian/) would appear no more complicated to the user than would displaying a single annotated game with variations only one level deep.
+__pgn4people__ is especially useful for opening repertoires. Currently, players break their repertoires into many (even hundreds) of separate PGN files simply because it’s not feasible to navigate the lines of an entire repertoire from within a single PGN. But that’s due to an _interface failure_, not the inherent complexity of chess. With __pgn4people__, displaying and navigating through the entire repertoire represented by the [Encyclopædia of Chess Openings (ECO)](https://en.wikipedia.org/wiki/Encyclopaedia_of_Chess_Openings) or   Nick De Firmian’s equally encyclopedic [Modern Chess Openings (MCO)](https://www.penguinrandomhouse.com/books/38620/modern-chess-openings-15th-edition-by-nick-de-firmian/) would appear no more complicated to the user than would displaying a single annotated game with variations only one level deep.
 
 Currently, __pgn4people-poc__ is just a demo, just a proof of concept. (That’s what the “-poc” in pgn4people-poc stands for.) And __pgn4people-poc__ is not intended to ever replace any current chess website or application software. Instead, the hope is that __pgn4people-poc__ will inspire the developers of current chess websites and applications to add—as an option— __pgn4people__’s approach to displaying PGN. (Of course, please excuse the crude command-line interface. That is _not_ an intended part of __pgn4people__, it’s just an artifact of this quickly coded demonstration project, __pgn4people-poc__.)
 
@@ -25,7 +25,7 @@ The next section after Context is the *what*: [The pgn4people interface approach
 
 After you read this section, and consider the example of using __pgn4people__ it gives, you’ll understand what the __pgn4people__ paradigm is all about. You don’t need to actually install and run the code to fully understand __pgn4people__. 
 
-However, if you do want to play with the code, everything you need to know is at [Playing around with  __pgn4people-poc__](https://github.com/jimratliff/pgn4people-poc#playing-around-with-pgn4people-poc).
+However, if you do want to play with the program, everything you need to know is at [Playing around with  __pgn4people-poc__](https://github.com/jimratliff/pgn4people-poc#playing-around-with-pgn4people-poc).
 
 Then what? If you wish that your favorite FILL IN THE ___ chess software or website offered __pgn4people__’s paradigm for navigating PGN:
 * If you’re the developer, implement it! I bet that, once you’ve seen the examples here, you’ll know exactly how to implement it in your own code. But of course feel free to [ask me questions](https://github.com/jimratliff).
@@ -46,7 +46,7 @@ If the FAQs don’t cover it, [contact me](https://github.com/jimratliff).
 ### Portable Game Notation (PGN)
 The moves of a chess game are recorded and published using [Portable Game Notation](https://en.wikipedia.org/wiki/Portable_Game_Notation) (PGN). In order to specify and/or discuss moves different from those actually played in the game, the PGN standard is enhanced with [Recursive Annotated Variations](http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c8.2.5) (RAV), which permits the insertion of alternative strings of moves, possibly nested many levels deep, inside parenthetical strings. Essentially all chess websites (e.g., [Chess.com](https://www.chess.com/analysis) and [lichess](https://lichess.org/analysis)) and apps (e.g., [HIARCS Chess Explorer](https://www.hiarcs.com/), [Scid vs. PC/Mac](http://scidvspc.sourceforge.net/), and [ChessBase](https://shop.chessbase.com/en/products/chessbase_16_premium_package)) allow a user to import PGN for a game or to export PGN from a game.
 
-Chess players do not always deal entirely directly with raw PGN but rather through an interface that hides or suppresses the raw PGN. In many cases, users wanting to [watch a live game](https://lichess.org/games) or [play through a previously played game](https://www.chessgames.com/perl/chessgame?gid=1024991)—even possibly exploring its alternative sidelines—can do so without ever interacting directly with the PGN itself by using a graphical interface of the chessboard.
+Chess players do not always deal entirely directly with raw PGN but rather through an interface that hides or suppresses the raw PGN. In many cases, users wanting to [watch a live game](https://lichess.org/games) or [play through a previously played game](https://www.chessgames.com/perl/chessgame?gid=1024991)—even possibly explore its alternative sidelines—can do so without ever interacting directly with the PGN itself by using a graphical interface of the chessboard.
 
 However, when a chess player wants to [analyze and _annotate_  her game](https://www.youtube.com/watch?v=MXYO7j0Vg7A), she needs to be able to understand and navigate through the PGN in order to add text-comment annotations and to enter variations. Another important use case is [developing an opening repertoire](https://www.youtube.com/watch?v=xGdqaXZWZC8), whereby a player specifies her chosen responses to potential moves of opponents in the opening.
 
@@ -55,13 +55,13 @@ However, when a chess player wants to [analyze and _annotate_  her game](https:/
 <img width="1409" alt="Traditional_interface_example" src="https://user-images.githubusercontent.com/8410716/170889817-85bdb96c-afe9-4b4c-9276-2b596c394dcf.png">
 
 ### The problem addressed: PGN was designed to be read by computers, not people
-PGN was developed, first and foremost, for *data interchange*, primarily between nonhumans, in order to address compatibility problems between computer programs. As the [PGN standard document](http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c2.1) noted in 1994:
+PGN was developed, first and foremost, for *data interchange*, primarily between nonhumans, in order to address compatibility problems between computer programs. As the [PGN standard](http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c2.1) noted in 1994:
 > Computer usage among chessplayers has become quite common in recent years and a variety of different programs, both commercial and public domain, are used to generate, access, and propagate chess game data. … Unfortunately, many programs have had serious problems with several aspects of the external representation of chess game data. Sometimes these problems become more visible when a user attempts to move significant quantities of data from one program to another; if there has been no real effort to ensure portability of data, then the chances for a successful transfer are small at best.
 
 [Thus](http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c1):
 > PGN is proposed as a universal portable representation for data interchange. The idea is to allow the construction of a family of chess applications that can quickly and easily process chess game data using PGN for import and export among themselves.
 
-(OK, saying that “PGN was designed to be read by computers, not people” isn’t quite fair, because I’m cherry picking a little 😉, but it does capture a reality, particularly when the PGN of a game is deeply nested with long variations. The [PGN standard document](http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c1) does allege that “PGN is structured for easy reading and writing *by human users* and for easy parsing and generation by computer programs.” However, as I illustrate below, readability by humans was a lower priority that is sometimes sacrificed. And that’s OK, because as the standard also states: “PGN is not intended to be a general purpose standard that is suitable for every possible use; no such standard could fill all conceivable requirements.”)
+(OK, saying that “PGN was designed to be read by computers, not people” isn’t quite fair, because I’m cherry picking a little 😉, but it does capture a reality, particularly when the PGN of a game is deeply nested with long variations. The [PGN standard](http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c1) does allege that “PGN is structured for easy reading and writing *by human users* and for easy parsing and generation by computer programs.” However, as I illustrate below, readability by humans was a lower priority that is sometimes sacrificed. And that’s OK, because as the standard also states: “PGN is not intended to be a general purpose standard that is suitable for every possible use; no such standard could fill all conceivable requirements.”)
 
 Annotated chess games, and particularly opening repertoires, can be structurally very complex (in a game-tree sense) in that the variations become deeply nested: play at some position can branch off with multiple possible moves and each of those moves may branch off into multiple replies, …, and so on, almost _ad infinitum_. PGN encodes any variation as an _interruption_ of the line from which it sprung. These interruptions can separate—by a great distance in the PGN code—two moves that in a chess sense are actually adjacent. For example, in a Black repertoire where the main line started with the Sicilian Defense, 1.e4 c5, all of the repertoire’s analysis against both 1.d4 and 1.c4 would interrupt the two first halfmoves that in a chess sense are adjacent: 1.e4 1…c5. (See graphic immediately below.)
 
@@ -79,7 +79,7 @@ The usability of traditional interfaces doesn‘t scale well with increases in s
 * To figure out what the alternative moves are at any point
 * To figure out what the path of choices were that led to the current position
 
-The deep-nesting problem is particularly severe when [developing an opening repertoire](https://www.youtube.com/watch?v=xGdqaXZWZC8)—so much so that players reflexively break what should be a single “game” for a Black repertoire or a White repertoire into numerous—even hundreds of—individual PGN files, just because it would be intractable—with *current* tools—to work with an entire reportoire housed in a single PGN file. I submit, however—and this is the premise of __pgn4people__—that this is an _interface_ problem, not an inevitable result of the inherent complexity of the game of chess.
+The deep-nesting problem is particularly severe when developing an opening repertoire—so much so that players reflexively break what should be a single “game” for a Black repertoire or a White repertoire into numerous—even hundreds of—individual PGN files, just because it would be intractable—with *current* tools—to work with an entire reportoire housed in a single PGN file. I submit, however—and this is the premise of __pgn4people__—that this is an _interface_ problem, not an inevitable result of the inherent complexity of the game of chess.
 
 ### Survey of the better existing interfaces
 Some of the better interfaces, such as [HIARCS Chess Explorer Pro](https://www.hiarcs.com/mac-chess-explorer-pro.html), [Scid vs. PC/Mac](http://scidvspc.sourceforge.net/), and [Lichess.org’s ‘Study’ facility](https://lichess.org/study), admirably try to deal with the complexity of deeply nested variations by (a) displaying the main line of White’s and Black’s moves as two columns and (b) organizing the nesting of variations with successive levels of indentation. But indentation, while helpful at low levels of indentation, doesn’t scale well with increased levels of nesting. Each level of indentation squeezes the text into a narrower and narrower column on the right side of the window. Eventually, there’s no room for an additional level of nesting. (See the graphic immediately below showing an example using Lichess’s Study facility.) See also the FAQ [“How does __pgn4people__ compare to ChessTempo’s PGN Viewer?”](#how-does-pgn4people-compare-to-chesstempos-pgn-viewer).
@@ -87,7 +87,7 @@ Some of the better interfaces, such as [HIARCS Chess Explorer Pro](https://www.h
 <img width="1932" alt="Lichess_Study_example" src="https://user-images.githubusercontent.com/8410716/170889959-e06dceba-3b39-4746-9596-2879e01bf9f2.png">
 
 # The __pgn4people__ interface approach
-In favorable contrast to even the best traditional interfaces, the usability of __pgn4people__ scales essentially perfectly with increased levels of nesting. In fact, the interface for displaying the entire repertoire represented by the [Encyclopædia of Chess Openings](https://en.wikipedia.org/wiki/Encyclopaedia_of_Chess_Openings) or Nick De Firmian’s [Modern Chess Openings](https://www.penguinrandomhouse.com/books/38620/modern-chess-openings-15th-edition-by-nick-de-firmian/) would appear no more complicated to the user than would displaying a single annotated game with variations only one level deep.
+In favorable contrast to even the best traditional interfaces, the usability of __pgn4people__ scales essentially perfectly with increased levels of nesting. In fact, the interface for displaying the entire repertoire represented by the [Encyclopædia of Chess Openings (ECO)](https://en.wikipedia.org/wiki/Encyclopaedia_of_Chess_Openings) or Nick De Firmian’s equally encyclopedic [Modern Chess Openings (MCO)](https://www.penguinrandomhouse.com/books/38620/modern-chess-openings-15th-edition-by-nick-de-firmian/) would appear no more complicated to the user than would displaying a single annotated game with variations only one level deep.
 
 The problem with traditional interfaces arises in part because they insist on presenting to the reader the full complexity of the entire game all at once, rather than only that part of the complexity that is relevant to the user at any particular moment, and that unneeded complexity obfuscates the immediately relevant structure of the game. In opposition to that approach, __pgn4people__ can be said to adopt a policy of _just-in-time complexity_.
 
@@ -105,7 +105,7 @@ See the graphic immediately below for an example where the user chooses to esche
 
 <img width="1872" alt="pgn4people_after_click_2" src="https://user-images.githubusercontent.com/8410716/170890052-0b40bb82-638b-422b-81b9-9178914bf506.png">
 
-See also the FAQ [What does the color coding of the halfmoves in the output of __pgn4people__ signify?](#what-does-the-color-coding-of-the-halfmoves-in-the-output-of-pgn4people-signify), which also presents another, more-extended example of how __pgn4people__ works.
+See also the FAQ [What does the color coding of the halfmoves in the output of __pgn4people__ signify?](#what-does-the-color-coding-of-the-halfmoves-in-the-output-of-pgn4people-signify), which presents another, more-extended example of how __pgn4people__ works.
 
 ## Goal of __pgn4people__
 __pgn4people-poc__ is _not_ meant to replace any existing software or even to be used by any player for any serious chess work. Existing websites and applications have highly developed functionalities that __pgn4people-poc__ has no interest in trying to replicate.
@@ -118,11 +118,12 @@ __pgn4people-poc__ is offered in hopes that existing developers will incorporate
 * __pgn4people-poc__ is a _demonstration_, or _proof of concept_. It is not a mature product able to fulfill any chess-analysis need.
   * There is essentially zero chess-specific logic in __pgn4people-poc__. The PGN is not analyzed from a chess point of view. E.g., the “movetext” “Nf3” means no more to __pgn4people-poc__ than would “xq5r”.
   * Instead, the logic of __pgn4people-poc__ is, more abstractly, an alternative method for visualizing complex trees.
-* Any text annotations in the PGN file are ignored.
 * There is no graphical user interface for __pgn4people-poc__. Instead, __pgn4people-poc__ is configured to:
   * Display its output to the terminal
   * Receive instructions from the user from the command line.
     * Thus references above like “she simply clicks on one of the halfmoves available at that point” are aspirational. The ability to click on a move is not currently implemented.
+* Any text annotations in the PGN file are ignored.
+* Only the first game of a multi-game PGN file is considered.
 
 # Playing around with __pgn4people-poc__
 The main point of __pgn4people-poc__ is to serve as a demo of a new paradigm that might well be instantly grasped once the above description is read. (I had to code __pgn4people-poc__ in order to prepare the examples, but now that that is done, the examples themselves do the explaining.) But if you’d like to actually play around with the program, using it to navigate either the included sample PGN file or a PGN file of your own, feel free! This section is for you.
@@ -143,7 +144,7 @@ pip3 install pgnpeople-poc
 python -m pip install pgnpeople-poc
 python3 -m pip install pgnpeople-poc
 ```
-For more information about `pip` and installing Python packages from PyPI, see (a) “[Installing Packages](https://packaging.python.org/en/latest/tutorials/installing-packages),” from the PyPA’s Python Packaging User Guide and (b) sdfsdfsdf, “[Getting Started With `pip`](https://realpython.com/what-is-pip/#getting-started-with-pip),” from Real Python’s “[Using Python's pip to Manage Your Projects' Dependencies](https://realpython.com/what-is-pip/).”
+For more information about `pip` and installing Python packages from PyPI, see (a) “[Installing Packages](https://packaging.python.org/en/latest/tutorials/installing-packages),” from the PyPA’s Python Packaging User Guide and (b) “[Getting Started With `pip`](https://realpython.com/what-is-pip/#getting-started-with-pip),” from Real Python’s “[Using Python's pip to Manage Your Projects' Dependencies](https://realpython.com/what-is-pip/).”
 
 
 ## Run __pgn4people__
@@ -227,8 +228,6 @@ This method would be easily adapted to __pgn4people__.
 ## How can I substitute my own PGN file for the default PGN file?
 To use your own PGN file, make sure it is extremely well behaved, because __pgn4people__ isn’t very tolerant. It should be consistent with the more-exacting “[export format](http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c3.2)” of PGN. The best way to get it into export format is to import the PGN into another chess website/application  (if it’s not already resident in one) and then export the PGN from there.
 
-Also, make sure that the PGN file contains only one game. (That’s what __pgn4people__ expects, and it gets confused when it encounters the headers of a second game.)
-
 Then you just need to add the path to this file as an argument on the command line when you invoke `pgn4people`. (See [Run pgn4people](#run-pgn4people).)
 
 ## How does __pgn4people__ compare to ChessTempo's PGN Viewer?
@@ -241,9 +240,9 @@ And ChessTempo’s PGN Viewer displays the list of alternatives vertically, rath
 <img width="1846" alt="ChessTempo_PGN_viewer_example" src="https://user-images.githubusercontent.com/8410716/170890188-86112e9d-9bc9-4846-96b9-99db360eeaa4.png">
 
 ## How does __pgn4people__ compare to a standard “Opening Explorer” interface?
-Many chess sites have some version of an “Opening Explorer” that allows the user to step through opening possibilities, one halfmove at a time, choosing at each halfmove from among a set of common, or not so common, alternatives. For example, [Lichess’s Opening Explorer](https://lichess.org/analysis#explorer), [Chess.com’s Opening Explorer](https://www.chess.com/openings), and [Chess24’s](https://chess24.com/en/analysis) (click on the "Opening tree" tab).
+Many chess sites have some version of an “Opening Explorer” that allows the user to step through opening possibilities, one halfmove at a time, choosing at each halfmove from among a set of common, or not so common, alternatives. For example, [Lichess’s Opening Explorer](https://lichess.org/analysis#explorer) and [Chess.com’s Opening Explorer](https://www.chess.com/openings).
 
-The Opening Explorer interface has something in common with both __pgn4people__ and with [ChessTempo’s PGN Viewer](##how-does-pgn4people-compare-to-chesstempos-pgn-viewer): alternatives are displayed initially only one halfmove deep. Opening Explorers are similar to ChessTempo’s PGN Viewer as well in deploying the alternative halfmoves vertically downward rather than horizontally to the right like __pgn4people__.
+The Opening Explorer interface has something in common with both __pgn4people__ and with [ChessTempo’s PGN Viewer](#how-does-pgn4people-compare-to-chesstempos-pgn-viewer): alternatives are displayed initially only one halfmove deep. Opening Explorers are similar to ChessTempo’s PGN Viewer as well in deploying the alternative halfmoves vertically downward rather than horizontally to the right like __pgn4people__.
 
 The Opening Explorer interface shares another important characteric with __pgn4people__: When the user clicks on a move to choose it, that move is effectively promoted to be the new main line. (See [Why is it important/helpful to promote the chosen alternative to be the new (temporary) main line?](#why-is-it-importanthelpful-to-promote-the-chosen-alternative-to-be-the-new-temporary-main-line).)
 
