@@ -43,7 +43,7 @@ PGNFILE2 = "test_pgn_2_simple_repeated_variations_and_depth_2_variation.pgn"
 PGNFILE3 = "test_pgn_3_space_between_movenumber_and_movetext.pgn"
 PGNFILE4 = "test_pgn_4.pgn"
 PGNFILE5 = "test_pgn_5.pgn"
-PGNFILE6 = "test_pgn_6.pgn"
+PGNFILE6 = "demo_pgn_1"
 
 # Chosen sample PGN file to analyze; used for both (a) filesystem and (b) resource locations of the file
 CHOSEN_SAMPLE_PGN_FILE = PGNFILE6

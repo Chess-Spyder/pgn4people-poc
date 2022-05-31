@@ -1,13 +1,10 @@
-[Event "?"]
+[Event "PGN4people Demo"]
 [Site "?"]
-[Date "2022.03.21"]
+[Date "2022.06.01"]
 [Round "?"]
-[White "MCO for PGNfocus"]
-[Black "?"]
+[White "Sample PGN"]
+[Black "for PGN4people demo"]
 [Result "*"]
-[EventDate "????.??.??"]
-[ECO "B99"]
-[PlyCount "31"]
 
 1.e4 ( 1.d4 d5 ( 1...f5 2.g3 ( 2.c4 Nf6 ( 2...e6 3.Nc3 d5 4.e3 Bd6 5.Nf3 c6 ) 
 3.g3 e6 4.Bg2 ) 2...Nf6 3.Bg2 g6 4.Nf3 Bg7 5.O-O O-O 6.c4 d6 7.Nc3 ) ( 1...Nf6 
