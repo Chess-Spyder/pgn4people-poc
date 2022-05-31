@@ -21,28 +21,28 @@ from . traverse_tree import (deviation_history_of_node,
 def main():
     """ Main entry point of the app """
 
-#   Acquires tokenized pgnstring from appropriate file
-    tokenlist = acquire_tokenized_pgnstring()
+    # Acquires tokenized pgnstring and PGN-source metadata from appropriate file
+    tokenlist, pgn_source = acquire_tokenized_pgnstring()
 
-#   Builds tree from pgn file
+    # Builds tree from pgn file
     nodedict = buildtree(tokenlist)
 
     fullmovenummber_to_node_id_lookup_table = {}
 
-#   Starts by showing the main line
+    # Starts by showing the main line
     target_node_id = 0
 
     #  Traverses the tree and displays the variations table to the console
     do_keep_exploring = True
     while do_keep_exploring: 
-#       Computes the deviation history required to achieve the specified target_node_id
+        # Computes the deviation history required to achieve the specified target_node_id
         deviation_history = deviation_history_of_node(nodedict, target_node_id)
-        print_header_for_variations_table(target_node_id, deviation_history)
+        print_header_for_variations_table(target_node_id, deviation_history, pgn_source)
 
-#       Displays to console the new mainline and first halfmove of each deviation from this new mainline
+    # Displays to console the new mainline and first halfmove of each deviation from this new mainline
         display_mainline_given_deviation_history(nodedict, deviation_history, fullmovenummber_to_node_id_lookup_table)
         
-#       Seeks user’s desire of what line to explore next and computes next target_node_id
+    # Seeks user’s desire of what line to explore next and computes next target_node_id
         node_id_chosen, move_choice = \
             get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_lookup_table)
         if node_id_chosen != constants.STOP_SIGN:
@@ -59,7 +59,7 @@ def main():
         else:
             do_keep_exploring = False
             print("You have told me to stop. I obey.")
-#   End of while keep_exploring
+    # End of while keep_exploring
 
 
 if __name__ == "__main__":
