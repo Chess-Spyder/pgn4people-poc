@@ -3,6 +3,7 @@ Functions to help parse PGN file of a chess game.
 """
 
 from importlib.resources import files
+import os
 import re
 
 from . import constants
@@ -25,10 +26,14 @@ def acquire_tokenized_pgnstring():
         # User didn't specify her own PGN file, so use sample PGN file included in the package
         string_read_from_file = read_resource_pgnfile_into_string(constants.PACKAGE_FOR_SAMPLE_PGN,
                                                                   constants.CHOSEN_SAMPLE_PGN_FILE)
+        is_sample_pgn = True
+        pgn_source = PGNSource(is_sample_pgn, None)
     else:
         # string_read_from_file = user_pgn_fileobject.read()
         with user_pgn_filepath.open('r') as file:
             string_read_from_file = file.read()
+            is_sample_pgn = False
+            pgn_source = PGNSource(is_sample_pgn, user_pgn_filepath)
     
     pgnstring = strip_headers_from_pgn_file(string_read_from_file)
 
@@ -40,7 +45,22 @@ def acquire_tokenized_pgnstring():
     # Parse string into a list of tokens, either (a) a movetext entry (e.g., "e4"), (b) “(”, or (c) “)”.
     tokenlist = tokenize_pgnstring(pgnstring)
 
-    return tokenlist
+    return tokenlist, pgn_source
+
+
+class PGNSource():
+    """
+    Class instance embodies metadata for the chosen PGN file to be communicated, e.g., for output header
+    """
+    def __init__(self, is_sample_pgn, path_to_pgnfile):
+        self.is_sample_pgn = is_sample_pgn
+        if path_to_pgnfile is None:
+            self.path_to_pgnfile = None
+            self.filename_of_pgnfile = None
+        else:
+            self.path_to_pgnfile = path_to_pgnfile
+            self.filename_of_pgnfile = os.path.basename(path_to_pgnfile)
+
 
 
 def read_resource_pgnfile_into_string(pgnresource_package, pgnresource_filename):

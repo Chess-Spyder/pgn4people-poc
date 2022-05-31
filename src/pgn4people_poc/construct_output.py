@@ -5,6 +5,7 @@ Constructs output of the variations table.
 from yachalk import chalk
 
 from . import constants
+from . import get_process_user_input
 from . utilities import ( clear_console,
                           lowercase_alpha_from_num)
 from . pgn_utilities import (   fullmovenumber_from_halfmove,
@@ -12,10 +13,17 @@ from . pgn_utilities import (   fullmovenumber_from_halfmove,
                                 is_White_move )
 
 
-def print_header_for_variations_table(target_node_id, deviation_history):
+def print_header_for_variations_table(target_node_id, deviation_history, pgn_source):
     if(constants.DO_CLEAR_CONSOLE_EACH_TIME):
         clear_console()
     print("\n", 40*constants.REPEATED_STRING_FOR_TABLE_HEADER, "\n")
+    print("Welcome to PGN4people!")
+
+    # pgn_source is instance of class PGNSource, and contains metadata for the user-supplied PGN file, if one was
+    # provided.
+    pgn_source_string = "Built-in sample PGN" if pgn_source.is_sample_pgn else pgn_source.filename_of_pgnfile
+    
+    print(f"PGN analyzed: {pgn_source_string}")
     print(f"Target node: {target_node_id}")
     print(f"Deviation history required to achieve the specified target node: {deviation_history}")
 

@@ -48,6 +48,8 @@ PGNFILE6 = "test_pgn_6.pgn"
 # Chosen sample PGN file to analyze; used for both (a) filesystem and (b) resource locations of the file
 CHOSEN_SAMPLE_PGN_FILE = PGNFILE6
 
+
+
 # Filesystem path of chosen sample PGN file
 PATH_TO_CHOSEN_SAMPLE_PGN_FILE = os.path.join(ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES, CHOSEN_SAMPLE_PGN_FILE)
 
