@@ -97,15 +97,17 @@ def read_resource_pgnfile_into_string(pgnresource_package, pgnresource_filename)
     return string_read_from_file
 
 
-def find_next_blank_line(string):
+def find_next_blank_line(string, index_to_start):
     """
-    # Returns index of first newline character of a pair of consecutive newline characters
+    # Returns index of first newline character of a pair of consecutive newline characters, where the scan begins at
+    # index_to_start
     # I assume that the only way a blank line occurs is as two adjacent newline characters—i.e., there is no white space
     # separating the two newline characters).
     #
     # If a pair of consecutive newline characters is not found, the return value will be -1
     """
-    return string.find("\n\n")
+    index_of_first_newline_char_of_a_pair = string.find("\n\n", index_to_start)
+    return index_of_first_newline_char_of_a_pair
 
 def strip_headers_from_pgn_file(string_read_from_file):
     """
@@ -117,7 +119,7 @@ def strip_headers_from_pgn_file(string_read_from_file):
     """
 
     # Search for first blank line, which should be the line immediately following the series of headers
-    index_of_first_newline_of_a_consecutive_pair = find_next_blank_line(string_read_from_file)
+    index_of_first_newline_of_a_consecutive_pair = find_next_blank_line(string_read_from_file, 0)
 
     if index_of_first_newline_of_a_consecutive_pair == -1:
         # Two consecutive newline characters not found
@@ -128,7 +130,7 @@ def strip_headers_from_pgn_file(string_read_from_file):
     index_of_first_char_after_blank_line = index_of_first_newline_of_a_consecutive_pair + 2
 
     # Search for a subsequent blank line separating the first game from a second game
-    index_subsequent_blank_line = find_next_blank_line(string_read_from_file[index_of_first_char_after_blank_line::])
+    index_subsequent_blank_line = find_next_blank_line(string_read_from_file, index_of_first_char_after_blank_line)
 
     # The desired substring is a slice
     # The end of the slice is either (a) the first newline char of a pair of consecurity newline chars or (b) is -1.
