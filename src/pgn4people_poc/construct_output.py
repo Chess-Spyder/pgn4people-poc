@@ -87,6 +87,8 @@ def print_single_node(  node_id,
 #   If first node, create some vertical white space
     if constants.FIRST_NODE_TO_BE_PRINTED:
         print("\n")
+        print(7*" ", "MAIN LINE")
+        print(4*" ", "WHITE", 4*" ", "BLACK")
     constants.FIRST_NODE_TO_BE_PRINTED = False
 
     if number_of_edges > 0:
