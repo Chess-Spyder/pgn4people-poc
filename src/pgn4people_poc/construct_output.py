@@ -19,9 +19,14 @@ def print_header_for_variations_table(target_node_id, deviation_history, pgn_sou
     print("\n", 40*constants.REPEATED_STRING_FOR_TABLE_HEADER, "\n")
     print("Welcome to PGN4people!")
 
+    # Assigns string to describe the PGN being used in order to display that string on the variations-table header.
     # pgn_source is instance of class PGNSource, and contains metadata for the user-supplied PGN file, if one was
     # provided.
-    pgn_source_string = "Built-in sample PGN" if pgn_source.is_sample_pgn else pgn_source.filename_of_pgnfile
+    
+    if pgn_source.is_sample_pgn:
+        pgn_source_string = f"{constants.public_basename_sample_PGN}, v{constants.version_sample_PGN}"
+    else:
+        pgn_source_string = pgn_source.filename_of_pgnfile
     
     print(f"PGN analyzed: {pgn_source_string}")
     print(f"Target node: {target_node_id}")

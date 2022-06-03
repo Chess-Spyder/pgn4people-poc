@@ -48,6 +48,9 @@ PGNFILE6 = "demo_pgn_1.pgn"
 # Chosen sample PGN file to analyze; used for both (a) filesystem and (b) resource locations of the file
 CHOSEN_SAMPLE_PGN_FILE = PGNFILE6
 
+# Descriptor presented when sample PGN is chosen
+public_basename_sample_PGN = "Built-in sample PGN"
+version_sample_PGN = "1.0.0"
 
 
 # Filesystem path of chosen sample PGN file
