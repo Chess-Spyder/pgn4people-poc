@@ -35,8 +35,9 @@ def acquire_tokenized_pgnstring():
             string_read_from_file = file.read()
             is_sample_pgn = False
             pgn_source = PGNSource(is_sample_pgn, user_pgn_filepath)
+                pgn_source = PGNSource(is_sample_pgn, user_pgn_filepath)
     
-    pgnstring = strip_headers_from_pgn_file(string_read_from_file)
+    pgnstring = strip_headers_from_pgn_file(string_read_from_file, pgn_source)
 
     pgnstring = strip_balanced_braces_from_string(pgnstring)
 

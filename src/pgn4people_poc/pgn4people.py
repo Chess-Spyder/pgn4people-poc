@@ -22,7 +22,7 @@ def main():
     """ Main entry point of the app """
 
     # Acquires tokenized pgnstring and PGN-source metadata from appropriate file
-    tokenlist, pgn_source = acquire_tokenized_pgnstring()
+    (tokenlist, pgn_source) = acquire_tokenized_pgnstring()
 
     # Builds tree from pgn file
     nodedict = buildtree(tokenlist)
