@@ -275,7 +275,7 @@ def buildtree(tokenlist):
             is_preceded_by_closed_paren = True
 
         else:
-            raise ReportError(f"Unexpected token, {token}, neither parenthesis or movetext.")
+            raise ReportError(f"Error in PGN: First token, {token},  is not movetext.")
 
     return gamenodes
 
