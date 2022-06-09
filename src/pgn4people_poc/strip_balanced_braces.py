@@ -2,7 +2,7 @@
 Module for strip_balanced_braces_from_string()
 """
 
-from . utilities import pgn_error_fatal_error
+from . error_processing import pgn_error_fatal_error
 
 def strip_balanced_braces_from_string(string_to_strip):
     """
@@ -64,7 +64,7 @@ def strip_balanced_braces_from_string(string_to_strip):
             if index_found == -1:
                 # No additional brace is found. Thus the left brace that triggered the call to this function is
                 # an unmatched left brace
-                error_message_pt_1 = f"PGN error: PGN terminated with a still-unmatched left brace, “{{”, "
+                error_message_pt_1 = f"PGN terminated with a still-unmatched left brace, “{{”, "
                 error_message_pt_2 = f"encountered at index {index_after_first_left_brace-1}."
                 pgn_error_fatal_error(error_message_pt_1 + error_message_pt_2)
             if is_right_brace:
@@ -90,7 +90,7 @@ def strip_balanced_braces_from_string(string_to_strip):
         search_result = scan_for_next_brace(string_to_strip, beginning_of_current_substring, left_brace, right_brace)
         index_found, is_right_brace, is_left_brace = search_result
         if is_right_brace:
-            pgn_error_fatal_error(f'PGN error: Unexpected excess right brace, “}}”, encountered at index {index_found}.')
+            pgn_error_fatal_error(f'Unexpected excess right brace, “}}”, encountered at index {index_found}.')
         if index_found == -1:
             # No more braces in the string. Save the current substring to the end.
             # Set end_of_current_substring to trigger the end of this while loop
@@ -111,12 +111,11 @@ def strip_balanced_braces_from_string(string_to_strip):
             # Start the scan at the character after the just-found left brace.
             # Set beginning_of_current_substring to the character after the end of this brace-balanced expression.
             # If the brace-enclosed expression is NOT brace balanced, skip_over_remainder_of_balanced_expression
-            # throughs a ValueError rather than returning here.
+            # throughs a PGN fatal error, and exits rather than returning here.
             beginning_of_current_substring = skip_over_remainder_of_balanced_expression(index_found + 1) + 1
 
     # Reached after falling through while loop. Thus every brace-enclosed expression was resolved as brace balanced
     # by the end of the string.
-    # Construct new string that is the join of the list of retained substrings.
     stripped_string = "".join(list_of_substrings)
     return stripped_string
 

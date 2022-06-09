@@ -16,7 +16,7 @@ from . get_process_user_input import get_node_id_move_choice_for_next_line_to_di
 from . process_pgn_file import acquire_tokenized_pgnstring
 from . traverse_tree import (deviation_history_of_node,
                              display_mainline_given_deviation_history)
-from . utilities import print_fatal_error_exit_without_traceback
+from . error_processing import print_fatal_error_exit_without_traceback
 
 
 def main():

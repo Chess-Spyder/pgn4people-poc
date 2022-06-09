@@ -4,7 +4,7 @@ Asks for, receives, parses, and iterates until satisfactory input from user
 """
 
 from . import constants
-from . utilities import print_nonfatal_error
+from . error_processing import print_nonfatal_error
 from . utilities import num_from_alpha
 
 

@@ -110,7 +110,6 @@ ARGPARSER_USAGE_2 = "the file after the pgn4people command. (Rather than typing 
 ARGPARSER_USAGE_3 = "drag the file’s icon to the command line. "
 ARGPARSER_USAGE = ARGPARSER_USAGE_1 + ARGPARSER_USAGE_2 + ARGPARSER_USAGE_3
 
-
 # WARNING: FIRST_NODE_TO_BE_PRINTED is NOT a constant, despite being defined in the constants.py file. This value
 # needs to be referred to from two modules (construct_output.py and traverse_tree.py) and I didn't want to pass it as
 # an argument.

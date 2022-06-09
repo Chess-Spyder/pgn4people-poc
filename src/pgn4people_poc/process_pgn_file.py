@@ -8,8 +8,7 @@ import re
 
 from . import constants
 from . process_CLI import check_CLI_for_user_pgnfile
-# from . error_processing import format_error_text
-from . utilities import print_fatal_error_exit_without_traceback, pgn_error_fatal_error
+from . error_processing import print_fatal_error_exit_without_traceback, pgn_error_fatal_error
 from . strip_balanced_braces import strip_balanced_braces_from_string
 
 def acquire_tokenized_pgnstring():
@@ -224,7 +223,8 @@ def pgn_file_not_found_fatal_error(user_pgn_filepath, original_error_message):
 
 def pgn_file_no_blank_line_after_headers(pgn_source):
     errmsg_list = []
-    errmsg_list.append("No blank line (two consecutive newline characters) found after headers.\n")
-    errmsg_list.append("Note: LOOKING empty is not enough. There must be no whitespace characters on the line.")
+    errmsg_list.append("No blank line found after headers.\n")
+    # errmsg_list.append("No blank line (two consecutive newline characters) found after headers.\n")
+    # errmsg_list.append("Note: LOOKING empty is not enough. There must be no whitespace characters on the line.")
     error_message = "".join(errmsg_list)
     pgn_error_fatal_error(error_message, pgn_source)

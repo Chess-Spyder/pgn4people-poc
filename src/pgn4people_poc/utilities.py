@@ -1,9 +1,11 @@
 """ Utilities more general than those found in more-targeted utility modules """
 
 import os
-import sys
+# import sys
 
 from yachalk import chalk
+
+from . error_processing import fatal_developer_error
 
 from . import constants
 # from . error_processing import format_error_text
@@ -72,89 +74,3 @@ def wait_for_any_user_input():
     waiting = input(chalk.red_bright("\nPress <RETURN> to continue.\n"))
 
 
-# class ReportError(Exception):
-#     """ Base class for other exceptions """
-#     def __init__(self, *args):
-#         if args:
-#             self.message = args[0]
-#         else:
-#             self.message = None
-    
-#     def __str__(self):
-#         error_message = format_error_text('ERROR DETECTED')
-#         print(error_message)
-#         if self.message:
-#             return 'ReportError, {0}, '.format(self.message)
-#         else:
-#             return 'ReportError has been raised'
-
-def format_error_text(string):
-    """
-    Formats as red text a string that is intended as an error message that stands out in the console
-    """
-
-    formatted_string = chalk.red_bright(string)
-    return formatted_string
-
-
-def print_nonfatal_error(string):
-    """
-    Prints an error message for a nonfatal error
-    """
-    print(format_error_text(string))
-
-
-def print_fatal_error_exit_without_traceback(string):
-    """
-    Prints an error message for a fatal error, and exit without traceback
-    """
-    errmsg_list = []
-    errmsg_list.append(f"FATAL ERROR! 💩 ")
-    errmsg_list.append(str(string))
-    errmsg_list.append("\nI must exit. Buh bye! 😘")
-    error_message = "".join(errmsg_list)
-
-    print(format_error_text(error_message))
-    # Exits without throwing a traceback to the user.
-    # A traceback gives scary info that's irrelevant to the user (e.g., where in the code the exception
-    # occurred.)
-    sys.exit(1)
-
-def pgn_error_fatal_error(string, pgn_source = None):
-    """
-    Reports fatal error in PGN file being processed. Program exits without traceback.
-
-    string:     Error message specific to this particular instance of a fatal PGN error.
-    pgn_source: An instance of class PGNSource, containing information about the PGN being processed, whether it's the
-                built-in sample PGN or the file specified by the user in a command-line argument. If the CLI-specified
-                file, contains the path of the file.
-    """
-    errmsg_list = []
-    errmsg_list.append(f"PGN ERROR: {string}")
-
-    if pgn_source is not None:
-        if pgn_source.is_sample_pgn:
-            errmsg_list.append(f"\nThe error arose in the built-in sample PGN. Thus, this is a DEVELOPER ERROR! 😳")
-        else:
-            errmsg_list.append(f"\nThe problem arose in the PGN file you specified on the command line, viz.:\n")
-            errmsg_list.append(str(pgn_source.path_to_pgnfile))
-
-    error_message = "".join(errmsg_list)
-    print_fatal_error_exit_without_traceback(error_message)
-    # print_fatal_error_exit_without_traceback("Howdy!")
-
-
-def fatal_developer_error(string):
-    """
-    Raises fatal developer error: An error that should NOT occur under any conceivable set of user inputs. It can result
-    only from developer error or an erroneous understanding of, or assumption by, the developer.
-    """
-    errmsg_list = []
-    errmsg_list.append("FATAL DEVELOPER ERROR. THIS SHOULD NOT HAPPEN! 🙀")
-    errmsg_list.append(string)
-    print(format_error_text(errmsg_list))
-    raise FatalDeveloperError
-
-
-class FatalDeveloperError(Exception):
-    pass
