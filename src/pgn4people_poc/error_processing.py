@@ -79,5 +79,5 @@ def fatal_developer_error(string):
     raise FatalDeveloperError
 
 
-class FatalDeveloperError(Exception):
+class FatalDeveloperError(RuntimeError):
     pass
