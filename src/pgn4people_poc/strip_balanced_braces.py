@@ -2,6 +2,8 @@
 Module for strip_balanced_braces_from_string()
 """
 
+from . utilities import pgn_error_fatal_error
+
 def strip_balanced_braces_from_string(string_to_strip):
     """
     Take a string and remove all balanced-braced expressions and return the new stripped string.
@@ -62,7 +64,7 @@ def strip_balanced_braces_from_string(string_to_strip):
             if index_found == -1:
                 # No additional brace is found. Thus the left brace that triggered the call to this function is
                 # an unmatched left brace
-                error_message_pt_1 = f"PGN error: PGN terminated with an unmatched left brace, “{{”, "
+                error_message_pt_1 = f"PGN error: PGN terminated with a still-unmatched left brace, “{{”, "
                 error_message_pt_2 = f"encountered at index {index_after_first_left_brace-1}."
                 pgn_error_fatal_error(error_message_pt_1 + error_message_pt_2)
             if is_right_brace:

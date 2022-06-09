@@ -1,6 +1,7 @@
 """ Utilities more general than those found in more-targeted utility modules """
 
 import os
+import sys
 
 from yachalk import chalk
 
@@ -13,6 +14,7 @@ def is_even_number(number):
 
 def is_odd_number(number):
     return (number % 2) != 0
+
 
 def lowercase_alpha_from_num(number):
     """

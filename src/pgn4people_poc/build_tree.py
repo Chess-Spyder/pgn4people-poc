@@ -161,8 +161,10 @@ def buildtree(tokenlist):
     is_preceded_by_closed_paren = False
 
     for token in tokenlist:
+        # print(f"Debug: Token: {token}. Current_node_id: {current_node_id}")
         # Branches based on whether current token is (a) movetext, (b) “(”, or (c) “)”.
         if pgn_utilities.ismovetext(token):
+            # print(f"Debug: ismovetext = True, token: {token}")
             # Token is movetext, which defines an edge that connects (a) the node with id
             # current_originatingnode_id[depth] to a node about to be created with id current_node_id.
             # Processing now branches based on whether the immediately preceding token was (a) “(’, (b) “)”,
@@ -235,6 +237,7 @@ def buildtree(tokenlist):
             current_node_id += 1
 
         elif token == "(":
+            # print(f'Debug: token == "(" is true. current_node_id: {current_node_id}')
             # Check that this isn't the first token (which should not be “(”).
             if current_node_id == 1:
                 # raise ReportError("Error in PGN: “(” encountered on first token.")
@@ -256,6 +259,7 @@ def buildtree(tokenlist):
             is_preceded_by_open_paren = True
     
         elif token == ")":
+            # print(f'Debug: token == ")" is true. current_node_id: {current_node_id}')
             # Check that this isn't the first token (which should not be “)”).
             if current_node_id == 1:
                 pgn_error_fatal_error("“)” encountered on first token after headers.")

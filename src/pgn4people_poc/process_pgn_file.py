@@ -20,7 +20,6 @@ def acquire_tokenized_pgnstring():
 
     # Checks command line to see whether user specified her own PGN file to view
     # user_pgn_fileobject will be either (a) a file object or (b) None
-    # user_pgn_fileobject = check_CLI_for_user_pgnfile_using_FileType()
     user_pgn_filepath = check_CLI_for_user_pgnfile()
 
     if user_pgn_filepath is None:
@@ -52,13 +51,15 @@ def acquire_tokenized_pgnstring():
 
     return tokenlist, pgn_source
 
+
 class PGNSource():
     """
     Class instance embodies metadata for the chosen PGN file to be communicated, e.g., for output header
     """
     def __init__(self, is_sample_pgn, path_to_pgnfile):
         self.is_sample_pgn = is_sample_pgn
-        if path_to_pgnfile is None:            self.path_to_pgnfile = None
+        if path_to_pgnfile is None:
+            self.path_to_pgnfile = None
             self.filename_of_pgnfile = None
         else:
             self.path_to_pgnfile = path_to_pgnfile
@@ -137,6 +138,7 @@ def strip_headers_from_pgn_file(string_read_from_file, pgn_source):
 
     # Search for a subsequent blank line separating the first game from a second game
     index_subsequent_blank_line = find_next_blank_line(string_read_from_file, index_of_first_char_after_blank_line)
+
     # The desired substring is a slice
     # The end of the slice is either (a) the first newline char of a pair of consecurity newline chars or (b) is -1.
     # because find_next_blank_line didn't find a next blank line. In that case, the -1 as the end of the slice indicates
@@ -199,6 +201,8 @@ def strip_leading_movenumber_indication(string_to_strip):
     stripped_string = regex_pattern.sub("",string_to_strip)
 
     return stripped_string
+
+
 def pgn_file_not_found_fatal_error(user_pgn_filepath, original_error_message):
     """
     Called when user-specified file could not be found at path specified in CLI argument. This is a fatal error.

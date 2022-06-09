@@ -56,6 +56,9 @@ version_sample_PGN = "1.0.0"
 # Filesystem path of chosen sample PGN file
 PATH_TO_CHOSEN_SAMPLE_PGN_FILE = os.path.join(ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES, CHOSEN_SAMPLE_PGN_FILE)
 
+# Name of entry point a user types in the CLI to execute the program
+entry_point_name = "pgn4people"
+
 # ARBOREAL CONSTANTS
 
 UNDEFINED_NODE_MOVE_VALUE = -1

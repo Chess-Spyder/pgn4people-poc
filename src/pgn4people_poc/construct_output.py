@@ -8,9 +8,9 @@ from . import constants
 from . import get_process_user_input
 from . utilities import ( clear_console,
                           lowercase_alpha_from_num)
-from . pgn_utilities import (   fullmovenumber_from_halfmove,
-                                is_Black_move,
-                                is_White_move )
+from . pgn_utilities import (fullmovenumber_from_halfmove,
+                             is_Black_move,
+                             is_White_move )
 
 
 def print_header_for_variations_table(target_node_id, deviation_history, pgn_source):
