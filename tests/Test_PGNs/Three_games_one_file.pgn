@@ -1,0 +1,89 @@
+[Event "?"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "R0_EM_25"]
+[Black "1.e4 d6 2.Nf3 Nf6 3.e5"]
+[Result "*"]
+[ECO "C41"]
+
+1.e4 d6 2.Nf3 Nf6 3.e5 dxe5 4.Nxe5 Nbd7 5.Nxd7 ( 5.f4 c5 6.Be2 g6 7.c3 {
+White's fight against Black's c5-pawn will leave White with an IQP.} 7...
+Bg7 8.Bf3 O-O 9.d4 cxd4 10.cxd4 Nb6 {To further control the d5-square that
+blockades the d4-IQP.} 11.O-O Nbd5 $10 {Blockading the IQP.} ) ( 5.Nc4 e5 
+6.Be2 Bc5 7.O-O O-O $10 ) ( 5.d4 $2 Nxe5 6.dxe5 Qxd1+ 7.Kxd1 Ng4 {
+threatening both (a) …♞g4xf2+, winning at least an Exchange, and (b) 
+…♞g4xe5, winning a pawn.} ) 5...Bxd7 6.d4 e6 {Stockfish and Leela both
+prefer this to Mamedov's 6…g6. (Bakhodir Kholmirzaev v. Rauf Mamedov, 
+6th Agzamov Memorial, 2012.) Though it looks unnatural with Black's 
+light-square bishop on d7, it will play ♝d7-c6 to get on a better 
+diagonal.} 7.Be2 ( 7.Nc3 Bc6 {By putting pressure on g2 pawn, restricts 
+freedom of WBf1.} 8.Be3 Bb4 {Pinning ♘c3 and threatening to intensify 
+pressure on it with (a) …♞f6-d5 or (b) …♞f6-e4.} 9.a3 ( 9.Qd3 O-O 
+10.O-O-O {with each side launching an attack on the side opposite its 
+king.} ) 9...Bxc3+ 10.bxc3 Nd5 11.Bd2 Qh4 $1 {A very clever move (found by
+Stockfish), threatening 12…♛h4-e4+ with a triple attack (a) check to 
+the miserable ♔e1, (b) the c2-pawn, and (c) the g2-pawn. Whichever piece
+interposes for the check leaves something undefended.} ) 7...c5 8.O-O Qc7 
+9.Na3 Rd8 10.Nb5 Qb6 11.dxc5 ( 11.a4 a6 12.dxc5 Bxc5 {transposes.} ) 11...
+Bxc5 12.a4 a6 13.a5 Qc6 14.Nc3 Qc7 *
+
+[Event "?"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "R0_EM_25"]
+[Black "1.e4 d6 2.Nf3 Nf6 3.e5"]
+[Result "*"]
+[ECO "C41"]
+
+1.e4 d6 2.Nf3 Nf6 3.e5 dxe5 4.Nxe5 Nbd7 5.Nxd7 ( 5.f4 c5 6.Be2 g6 7.c3 {
+White's fight against Black's c5-pawn will leave White with an IQP.} 7...
+Bg7 8.Bf3 O-O 9.d4 cxd4 10.cxd4 Nb6 {To further control the d5-square that
+blockades the d4-IQP.} 11.O-O Nbd5 $10 {Blockading the IQP.} ) ( 5.Nc4 e5 
+6.Be2 Bc5 7.O-O O-O $10 ) ( 5.d4 $2 Nxe5 6.dxe5 Qxd1+ 7.Kxd1 Ng4 {
+threatening both (a) …♞g4xf2+, winning at least an Exchange, and (b) 
+…♞g4xe5, winning a pawn.} ) 5...Bxd7 6.d4 e6 {Stockfish and Leela both
+prefer this to Mamedov's 6…g6. (Bakhodir Kholmirzaev v. Rauf Mamedov, 
+6th Agzamov Memorial, 2012.) Though it looks unnatural with Black's 
+light-square bishop on d7, it will play ♝d7-c6 to get on a better 
+diagonal.} 7.Be2 ( 7.Nc3 Bc6 {By putting pressure on g2 pawn, restricts 
+freedom of WBf1.} 8.Be3 Bb4 {Pinning ♘c3 and threatening to intensify 
+pressure on it with (a) …♞f6-d5 or (b) …♞f6-e4.} 9.a3 ( 9.Qd3 O-O 
+10.O-O-O {with each side launching an attack on the side opposite its 
+king.} ) 9...Bxc3+ 10.bxc3 Nd5 11.Bd2 Qh4 $1 {A very clever move (found by
+Stockfish), threatening 12…♛h4-e4+ with a triple attack (a) check to 
+the miserable ♔e1, (b) the c2-pawn, and (c) the g2-pawn. Whichever piece
+interposes for the check leaves something undefended.} ) 7...c5 8.O-O Qc7 
+9.Na3 Rd8 10.Nb5 Qb6 11.dxc5 ( 11.a4 a6 12.dxc5 Bxc5 {transposes.} ) 11...
+Bxc5 12.a4 a6 13.a5 Qc6 14.Nc3 Qc7 *
+
+[Event "?"]
+[Site "?"]
+[Date "????.??.??"]
+[Round "?"]
+[White "R0_EM_25"]
+[Black "1.e4 d6 2.Nf3 Nf6 3.e5"]
+[Result "*"]
+[ECO "C41"]
+
+1.e4 d6 2.Nf3 Nf6 3.e5 dxe5 4.Nxe5 Nbd7 5.Nxd7 ( 5.f4 c5 6.Be2 g6 7.c3 {
+White's fight against Black's c5-pawn will leave White with an IQP.} 7...
+Bg7 8.Bf3 O-O 9.d4 cxd4 10.cxd4 Nb6 {To further control the d5-square that
+blockades the d4-IQP.} 11.O-O Nbd5 $10 {Blockading the IQP.} ) ( 5.Nc4 e5 
+6.Be2 Bc5 7.O-O O-O $10 ) ( 5.d4 $2 Nxe5 6.dxe5 Qxd1+ 7.Kxd1 Ng4 {
+threatening both (a) …♞g4xf2+, winning at least an Exchange, and (b) 
+…♞g4xe5, winning a pawn.} ) 5...Bxd7 6.d4 e6 {Stockfish and Leela both
+prefer this to Mamedov's 6…g6. (Bakhodir Kholmirzaev v. Rauf Mamedov, 
+6th Agzamov Memorial, 2012.) Though it looks unnatural with Black's 
+light-square bishop on d7, it will play ♝d7-c6 to get on a better 
+diagonal.} 7.Be2 ( 7.Nc3 Bc6 {By putting pressure on g2 pawn, restricts 
+freedom of WBf1.} 8.Be3 Bb4 {Pinning ♘c3 and threatening to intensify 
+pressure on it with (a) …♞f6-d5 or (b) …♞f6-e4.} 9.a3 ( 9.Qd3 O-O 
+10.O-O-O {with each side launching an attack on the side opposite its 
+king.} ) 9...Bxc3+ 10.bxc3 Nd5 11.Bd2 Qh4 $1 {A very clever move (found by
+Stockfish), threatening 12…♛h4-e4+ with a triple attack (a) check to 
+the miserable ♔e1, (b) the c2-pawn, and (c) the g2-pawn. Whichever piece
+interposes for the check leaves something undefended.} ) 7...c5 8.O-O Qc7 
+9.Na3 Rd8 10.Nb5 Qb6 11.dxc5 ( 11.a4 a6 12.dxc5 Bxc5 {transposes.} ) 11...
+Bxc5 12.a4 a6 13.a5 Qc6 14.Nc3 Qc7 *
