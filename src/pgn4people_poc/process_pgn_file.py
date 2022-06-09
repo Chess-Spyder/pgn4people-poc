@@ -31,11 +31,13 @@ def acquire_tokenized_pgnstring():
         pgn_source = PGNSource(is_sample_pgn, None)
     else:
         # string_read_from_file = user_pgn_fileobject.read()
-        with user_pgn_filepath.open('r') as file:
-            string_read_from_file = file.read()
-            is_sample_pgn = False
-            pgn_source = PGNSource(is_sample_pgn, user_pgn_filepath)
+        try:
+            with user_pgn_filepath.open('r') as file:
+                string_read_from_file = file.read()
+                is_sample_pgn = False
                 pgn_source = PGNSource(is_sample_pgn, user_pgn_filepath)
+        except FileNotFoundError as err:
+            pgn_file_not_found_fatal_error(user_pgn_filepath, err)
     
     pgnstring = strip_headers_from_pgn_file(string_read_from_file, pgn_source)
 
