@@ -64,7 +64,7 @@ def strip_balanced_braces_from_string(string_to_strip):
                 # an unmatched left brace
                 error_message_pt_1 = f"PGN error: PGN terminated with an unmatched left brace, “{{”, "
                 error_message_pt_2 = f"encountered at index {index_after_first_left_brace-1}."
-                raise ValueError(error_message_pt_1 + error_message_pt_2)
+                pgn_error_fatal_error(error_message_pt_1 + error_message_pt_2)
             if is_right_brace:
                 # A right brace decreases the brace imbalance
                 net_left_braces -= 1
@@ -88,7 +88,7 @@ def strip_balanced_braces_from_string(string_to_strip):
         search_result = scan_for_next_brace(string_to_strip, beginning_of_current_substring, left_brace, right_brace)
         index_found, is_right_brace, is_left_brace = search_result
         if is_right_brace:
-            raise ValueError(f'PGN error: Unexpected excess right brace, “}}”, encountered at index {index_found}.')
+            pgn_error_fatal_error(f'PGN error: Unexpected excess right brace, “}}”, encountered at index {index_found}.')
         if index_found == -1:
             # No more braces in the string. Save the current substring to the end.
             # Set end_of_current_substring to trigger the end of this while loop
