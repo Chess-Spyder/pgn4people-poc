@@ -112,13 +112,14 @@ def find_next_blank_line(string, index_to_start):
     index_of_first_newline_char_of_a_pair = string.find("\n\n", index_to_start)
     return index_of_first_newline_char_of_a_pair
 
-def strip_headers_from_pgn_file(string_read_from_file):
+def strip_headers_from_pgn_file(string_read_from_file, pgn_source):
     """
     Takes string read from PGN file and prepares it for tokenizing by:
         Skips over initial set of headers, followed by a blank line. The next text is the beginning of the relevant
             movetext.
         Searches for a second game in the PGN by searching for a subsequent blank line.
         Returns the text between the beginning of the relevant movetext and any subsequent blank line.
+    pgn_source is passed here solely to allow it to be used in error messages. (Seems less than ideal.)
     """
 
     # Search for first blank line, which should be the line immediately following the series of headers
