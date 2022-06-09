@@ -4,7 +4,6 @@ Checks argument on command line for a path to a user-supplied PGN file.
 
 import argparse
 import pathlib
-
 # Note: check_CLI_for_user_file belongs to jdr_utilities
 def check_CLI_for_user_file():
 
