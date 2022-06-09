@@ -3,7 +3,7 @@
 from . classes_arboreal import Edge
 from . classes_arboreal import GameNode
 from . import constants
-from . error_processing import pgn_error_fatal_error
+from . error_processing import fatal_pgn_error
 from . import pgn_utilities
 
 
@@ -241,7 +241,7 @@ def buildtree(tokenlist):
             # Check that this isn't the first token (which should not be “(”).
             if current_node_id == 1:
                 # raise ReportError("Error in PGN: “(” encountered on first token.")
-                pgn_error_fatal_error("“(” encountered on first token after headers.")
+                fatal_pgn_error("“(” encountered on first token after headers.")
 
             # A “(” begins a new variation at a depth one greater than the movetext immediately before the “(”.
             #   Thus, we increase the depth.
@@ -262,7 +262,7 @@ def buildtree(tokenlist):
             # print(f'Debug: token == ")" is true. current_node_id: {current_node_id}')
             # Check that this isn't the first token (which should not be “)”).
             if current_node_id == 1:
-                pgn_error_fatal_error("“)” encountered on first token after headers.")
+                fatal_pgn_error("“)” encountered on first token after headers.")
                 # raise ReportError("Error in PGN: “)” encountered on first token.")
 
             # A “)” ends the current variation and reverts to either (a) a previous line with depth one less or
@@ -280,7 +280,7 @@ def buildtree(tokenlist):
 
         else:
             # raise ReportError(f"Error in PGN: First token, {token},  is not movetext.")
-            pgn_error_fatal_error(f"First token, “{token}”,  is not movetext.")
+            fatal_pgn_error(f"First token, “{token}”,  is not movetext.")
 
     return gamenodes
 

@@ -7,7 +7,7 @@ import os
 import re
 
 from . import constants
-from . error_processing import print_fatal_error_exit_without_traceback, pgn_error_fatal_error
+from . error_processing import fatal_error_exit_without_traceback, fatal_pgn_error
 from . jdr_utilities import check_CLI_for_user_file
 from . jdr_utilities import id_text_between_first_two_blankish_lines
 from . strip_balanced_braces import strip_balanced_braces_from_string
@@ -43,7 +43,7 @@ def acquire_tokenized_pgnstring():
     pgnstring = strip_balanced_braces_from_string(pgnstring)
 
     if not pgnstring:
-        pgn_error_fatal_error("No valid movetext found", pgn_source)
+        fatal_pgn_error("No valid movetext found", pgn_source)
         # raise ReportError("Error in PGN: No valid movetext found.")
    
     # Parse string into a list of tokens, either (a) a movetext entry (e.g., "e4"), (b) “(”, or (c) “)”.
@@ -239,7 +239,7 @@ def pgn_file_not_found_fatal_error(user_pgn_filepath, original_error_message):
     errmsg_list.append("(a) a different file path or (b) no argument at all to use a default PGN file.")
     errmsg_list.append(f"\nOriginal error message = “str({original_error_message})”")
     error_message = "".join(errmsg_list)
-    print_fatal_error_exit_without_traceback(error_message)
+    fatal_error_exit_without_traceback(error_message)
 
 
 def pgn_error_no_blank_line_after_headers(pgn_source):
@@ -248,4 +248,4 @@ def pgn_error_no_blank_line_after_headers(pgn_source):
     # errmsg_list.append("No blank line (two consecutive newline characters) found after headers.\n")
     # errmsg_list.append("Note: LOOKING empty is not enough. There must be no whitespace characters on the line.")
     error_message = "".join(errmsg_list)
-    pgn_error_fatal_error(error_message, pgn_source)
+    fatal_pgn_error(error_message, pgn_source)

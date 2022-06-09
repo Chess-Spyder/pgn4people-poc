@@ -27,7 +27,7 @@ def print_nonfatal_error(string):
     print(format_error_text(string))
 
 
-def print_fatal_error_exit_without_traceback(string):
+def fatal_error_exit_without_traceback(string):
     """
     Prints an error message for a fatal error, and exit without traceback
 
@@ -43,7 +43,7 @@ def print_fatal_error_exit_without_traceback(string):
     print(format_error_text(error_message))
     sys.exit(1)
 
-def pgn_error_fatal_error(string, pgn_source = None):
+def fatal_pgn_error(string, pgn_source = None):
     """
     Reports fatal error in PGN file being processed. Program exits without traceback.
 
@@ -63,7 +63,7 @@ def pgn_error_fatal_error(string, pgn_source = None):
             errmsg_list.append(str(pgn_source.path_to_pgnfile))
 
     error_message = "".join(errmsg_list)
-    print_fatal_error_exit_without_traceback(error_message)
+    fatal_error_exit_without_traceback(error_message)
 
 
 def fatal_developer_error(string):
