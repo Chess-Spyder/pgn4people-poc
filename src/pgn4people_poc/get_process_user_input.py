@@ -4,8 +4,8 @@ Asks for, receives, parses, and iterates until satisfactory input from user
 """
 
 from . import constants
-from . utilities import (format_nonfatal_error_text,
-                         num_from_alpha)
+from . utilities import print_nonfatal_error
+from . utilities import num_from_alpha
 
 
 def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_lookup_table):
@@ -135,11 +135,11 @@ def report_input_errors_to_user(response_list,
     """
     number_of_fields_in_response = len(response_list)
     if number_of_fields_in_response == 0:
-        print(format_nonfatal_error_text("Empty response. Enter ‘stop’ if you want to stop."))
+        print_nonfatal_error("Empty response. Enter ‘stop’ if you want to stop.")
     elif number_of_fields_in_response != 3:
         good_grammar_string = "field" if number_of_fields_in_response == 1 else "fields"
         error_message = f"I expected 3 fields. You entered {number_of_fields_in_response} {good_grammar_string}."
-        print(format_nonfatal_error_text(error_message))
+        print_nonfatal_error(error_message)
     else:
 #       There were exactly three fields but nonetheless there is at least one error.
 #       Tabulates number of errors
@@ -162,35 +162,35 @@ def report_input_errors_to_user(response_list,
         string_number_of_errors = "was one error" if number_of_errors == 1 else f"were {number_of_errors} errors"
         
         number_of_errors_message = "There " + string_number_of_errors + " in your input:"
-        print(format_nonfatal_error_text(number_of_errors_message))
+        print_nonfatal_error(number_of_errors_message)
 
 #               Itemize errors to user
         if not is_fullmovenumber_numeric:
             not_numeric_message = f"The first field, “{response_list[0]}”, was not numeric, but should have been."
-            print(format_nonfatal_error_text(not_numeric_message))
+            print_nonfatal_error(not_numeric_message)
         
         if not is_valid_player_color:
             bad_color_message = f"The second field, “{response_list[1]}”, did not indicate a valid player color."
-            print(format_nonfatal_error_text(bad_color_message))
+            print_nonfatal_error(bad_color_message)
         
         if not is_a_single_alpha:
             not_single_alpha_message = f"The third field, “{response_list[2]}”, should have been a single letter."
-            print(format_nonfatal_error_text(not_single_alpha_message))
+            print_nonfatal_error(not_single_alpha_message)
 
         if is_invalid_key:
             not_valid_key_message_part_1 = f"The combination of fullmovenumber {response_list[0]} "
             not_valid_key_message_part_2 = f"and player color {response_list[1]} was not a valid combination here."
-            print(format_nonfatal_error_text(not_valid_key_message_part_1 + not_valid_key_message_part_2))
+            print_nonfatal_error(not_valid_key_message_part_1 + not_valid_key_message_part_2)
 
         if is_alpha_out_of_range:
             alpha_out_of_range_message_part_1 = f"The move choice “{response_list[2]}” is not available for this "
             alpha_out_of_range_message_part_2 = f"combination of move # ({response_list[0]}) and "
             alpha_out_of_range_message_part_3 = f"color ({response_list[1]})."
-            print(format_nonfatal_error_text(alpha_out_of_range_message_part_1
+            print_nonfatal_error(alpha_out_of_range_message_part_1
                                                 + alpha_out_of_range_message_part_2
-                                                + alpha_out_of_range_message_part_3))
+                                                + alpha_out_of_range_message_part_3)
 #   End of branches. Now invite user to try again.
-    print(format_nonfatal_error_text("Please try again."))
+    print_nonfatal_error("Please try again.")
 
 
 
