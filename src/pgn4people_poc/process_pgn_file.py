@@ -7,7 +7,7 @@ import os
 import re
 
 from . import constants
-from . process_CLI import check_CLI_for_user_pgnfile
+from . process_CLI import check_CLI_for_user_file
 from . error_processing import print_fatal_error_exit_without_traceback, pgn_error_fatal_error
 from . strip_balanced_braces import strip_balanced_braces_from_string
 
@@ -19,7 +19,7 @@ def acquire_tokenized_pgnstring():
 
     # Checks command line to see whether user specified her own PGN file to view
     # user_pgn_fileobject will be either (a) a file object or (b) None
-    user_pgn_filepath = check_CLI_for_user_pgnfile()
+    user_pgn_filepath = check_CLI_for_user_file()
 
     if user_pgn_filepath is None:
         # User didn't specify her own PGN file, so use sample PGN file included in the package
