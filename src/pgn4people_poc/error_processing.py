@@ -72,11 +72,12 @@ def fatal_developer_error(string):
     only from developer error or an erroneous understanding of, or assumption by, the developer.
     """
     errmsg_list = []
-    errmsg_list.append("FATAL DEVELOPER ERROR. THIS SHOULD NOT HAPPEN! 🙀")
+    errmsg_list.append("\nFATAL DEVELOPER ERROR. THIS SHOULD NOT HAPPEN! 🙀")
     if string:
-     errmsg_list.append(string)
-    print(format_error_text(errmsg_list))
-    raise FatalDeveloperError
+        errmsg_list.append(string)
+    error_message = "".join(errmsg_list)
+    print(format_error_text(error_message))
+    raise FatalDeveloperError(error_message)
 
 
 class FatalDeveloperError(RuntimeError):
