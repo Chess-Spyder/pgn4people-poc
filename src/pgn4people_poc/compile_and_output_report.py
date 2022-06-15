@@ -1,6 +1,6 @@
 """
-Construct and output report characterizing the current game tree in terms of number
-of lines, length of lines, and hierarchical depth.
+Construct and output report characterizing the current game tree in terms of
+number of lines, length of lines, and hierarchical depth.
 """
 
 from yachalk import chalk
@@ -33,8 +33,11 @@ def characterize_gametree(nodedict):
 
     There is a one-to-one relationship between (a) a “line” and (b) a terminal node.
 
-    The set of terminal nodes (set_of_terminal_nodes) is a class attribute of the GameNode class and can  be accessed
-    via any node: node.set_of_terminal_nodes.
+    The set of terminal nodes (set_of_terminal_nodes) is a class attribute of the GameNode class and can be accessed
+    (read) via any node: node.set_of_terminal_nodes.
+        However, .set_of_terminal_nodes shouldn't be changed when referenced as node.set_of_terminal_nodes, because
+        then .set_of_terminal_nodes would become an instance attribute. (That said, I apparently was getting away with
+        it. But since I didn't understand why, I changed it to self.__class__.set_of_terminal_nodes,)
 
     However, while set_of_nodes and set_of_nonterminal_nodes are both compiled during the buildtree() process, 
     set_of_terminal_nodes is not and must be derived from set_of_nodes and set_of_nonterminal_nodes.

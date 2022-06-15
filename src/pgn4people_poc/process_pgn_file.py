@@ -44,7 +44,6 @@ def acquire_tokenized_pgnstring():
 
     if not pgnstring:
         fatal_pgn_error("No valid movetext found", pgn_source)
-        # raise ReportError("Error in PGN: No valid movetext found.")
    
     # Parse string into a list of tokens, either (a) a movetext entry (e.g., "e4"), (b) “(”, or (c) “)”.
     tokenlist = tokenize_pgnstring(pgnstring)

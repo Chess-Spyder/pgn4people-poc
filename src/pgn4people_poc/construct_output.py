@@ -204,11 +204,10 @@ def print_single_node(  node_id,
                 black_movetext_to_print,
                 black_id_of_original_edge,
                 end_argument)
-#       End flushing of orphaned carry-over text
 
 #       For avoidance of doubt: the following return statement also breaks out of the function.
         return constants.NODE_IS_TERMINAL_NODE
-#   End processing terminal node
+#       End processing terminal node
 #   END OF FUNCTION
 
 def reordered_edgeslist(node, choice_id_as_mainline):

@@ -7,7 +7,6 @@ from . error_processing import fatal_pgn_error
 from . import pgn_utilities
 
 
-
 def buildtree(tokenlist):
     """
     Build the game tree—as a dictionary (“gamenodes”) of game nodes—from supplied list of PGN tokens. Return gamenodes.
@@ -19,7 +18,7 @@ def buildtree(tokenlist):
             When the number of available move options at a node is zero, that node is a “terminal node.”
 
     A move corresponds to the graph-theoretic concept of an “edge.” An edge originates at one node and connects
-        to another node (which latter node then is an immediate successor node to the originating node).
+        to another node (which latter node then is an “immediate successor” node to the “originating node”).
         Here, where the originating node is already specified, an edge (which is an instance of class Edge) refers to
         a pair of (a) the movetext descriptor of the move (e.g., "Nf3") and (b) the id of the destination node.
 
@@ -28,7 +27,9 @@ def buildtree(tokenlist):
 
     At each node, the alternative moves available there are indexed 0, 1, … , n-1, where n is the number of 
     available moves.
-        By convention: At any node, the first move is the mainline move at that node and has index 0.
+
+    By convention: At any node, the first move is the mainline move at, and conditional on,  that node and has
+    index 0.
 
     The data structure of a node, as defined in the dictionary gamenodes, by design provides sufficient information
     for bi-directional (forward and backward) traversal of the tree. Thus, the user can explore the tree forward
@@ -36,6 +37,8 @@ def buildtree(tokenlist):
 
     Each node ν contains the specification of:
         Its (unique) immediate-predecessor node.
+            This uniqueness could be relaxed if the focus were on an opening repertoire, rather than an actual game
+            played. Then transpositions could be accounted for.
         The action (identified by that action’s index) at the immediate-predecessor node that led to the current node ν.
         The number of edges that emanate from this node ν.
         A list of those edges; i.e., of (movetext, id of destination node) pairs.
@@ -50,7 +53,7 @@ def buildtree(tokenlist):
             The new edge (movetext, id of destingation node) is appended to the originating node’s .edgeslist.
         A new node is created, corresponding to the position reached after this new movetext’s move is taken.
             This new node may turn out to be a terminal node.
-        The node_id of the new node is added to the GameNode-class attribute set_of_nodes.
+        The node_id of the new node is added to the GameNode-class attribute .set_of_nodes.
     
     The halfmovenumber is a property of a node; it is the halfmove number of every action that is spawned
     directly from that node.
@@ -59,7 +62,7 @@ def buildtree(tokenlist):
         Construct the unique path from the 0-index initial node to the target node.
             This is called the path of the node.
             The path of the node is an ordered sequence of (node, action) pairs such that taking the given action
-            at a node leads to the next node in the sequence.
+            at a node leads to the next node on the path.
         At each node along this path that precedes the target node, there is a unique action at that node that
             results in continuing along the path.
         At each such node, the required action is either
@@ -72,7 +75,7 @@ def buildtree(tokenlist):
     The main line of a game is determined by the unique terminal node that has depth zero.
     
     Although, at any point during the parsing of the PGN tokens, many lines/variations can be in flux,
-    at any point, for each hierarchical depth, there is only one line/variation of that depth that is in flux.
+    for each hierarchical depth, there is only one line/variation of that depth that is in flux.
     Reason: for a particular depth, a line at that depth is fully completed before another line of that depth
     is spawned.
 
@@ -93,7 +96,7 @@ def buildtree(tokenlist):
             The following attributes are initialized by the class definition when an instance is created:
                 .depth
                     .depth is either (a) inherited from an immediately previous movetext/node, (b) increased by
-                    a “(” token, or (c) decreased by a “)” token.
+                    an immediately preceding “(” token, or (c) decreased by an immediately preceding “)” token.
                 .halfmovenumber, from current_halfmovenumber[depth]
                 .number_of_edges = 0 (I.e., initializing this attribute as a counter.)
             The following attributes are assigned immediately
@@ -101,17 +104,19 @@ def buildtree(tokenlist):
             The following attribute can be assigned only after the originating node's .edgeslist
             is updated about the existence of this node:
                 .choice_id_at_originatingnode
-            The following attributes can be assigned only retrospectively, awaiting further discovery through
-            continued parsing of the tokens:
+            The following attributes can be assigned only retrospectively/iteratively, awaiting further discovery
+            through continued parsing of the tokens:
                 .edgeslist
                 .number_of_edges
             (Reason: A node is created when its *first* move is encountered, but further parsing may reveal
             additional moves that also belong, as alternatives, to the same node.)
-            Everytime an edge is added to an originating node, the node_id of the originating node is added to
-            set_of_nonterminal_nodes
-        The node is added to the gamenodes directory, using current_node_id as the key
-            gamenodes[current_node_id] = newnode
-    
+        
+        
+    Everytime an edge is added to an originating node, the node_id of the originating node is added to
+    the class attribute .set_of_nonterminal_nodes.
+        This is a useful set. Compiling it in real time saves having to re-visit all nodes to see whether each 
+        is a terminal node.
+
     When a “(” token is encountered:
         The immediately following movetext will begin a new variation at a depth one greater than the movetext
         immediately before the “(”. Thus we increase the depth.
@@ -161,10 +166,8 @@ def buildtree(tokenlist):
     is_preceded_by_closed_paren = False
 
     for token in tokenlist:
-        # print(f"Debug: Token: {token}. Current_node_id: {current_node_id}")
         # Branches based on whether current token is (a) movetext, (b) “(”, or (c) “)”.
         if pgn_utilities.ismovetext(token):
-            # print(f"Debug: ismovetext = True, token: {token}")
             # Token is movetext, which defines an edge that connects (a) the node with id
             # current_originatingnode_id[depth] to a node about to be created with id current_node_id.
             # Processing now branches based on whether the immediately preceding token was (a) “(’, (b) “)”,
@@ -237,10 +240,8 @@ def buildtree(tokenlist):
             current_node_id += 1
 
         elif token == "(":
-            # print(f'Debug: token == "(" is true. current_node_id: {current_node_id}')
             # Check that this isn't the first token (which should not be “(”).
             if current_node_id == 1:
-                # raise ReportError("Error in PGN: “(” encountered on first token.")
                 fatal_pgn_error("“(” encountered on first token after headers.")
 
             # A “(” begins a new variation at a depth one greater than the movetext immediately before the “(”.
@@ -259,11 +260,9 @@ def buildtree(tokenlist):
             is_preceded_by_open_paren = True
     
         elif token == ")":
-            # print(f'Debug: token == ")" is true. current_node_id: {current_node_id}')
             # Check that this isn't the first token (which should not be “)”).
             if current_node_id == 1:
                 fatal_pgn_error("“)” encountered on first token after headers.")
-                # raise ReportError("Error in PGN: “)” encountered on first token.")
 
             # A “)” ends the current variation and reverts to either (a) a previous line with depth one less or
             # (b) a new variation of the same depth that begins immediately. (This occurs when a node has two or
@@ -279,7 +278,6 @@ def buildtree(tokenlist):
             is_preceded_by_closed_paren = True
 
         else:
-            # raise ReportError(f"Error in PGN: First token, {token},  is not movetext.")
             fatal_pgn_error(f"First token, “{token}”,  is not movetext.")
 
     return gamenodes

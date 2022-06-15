@@ -10,10 +10,10 @@ DO_READ_SAMPLE_PGN_FROM_FILE_SYSTEM = False
 # Boolean whether to clear console between each variation table
 DO_CLEAR_CONSOLE_EACH_TIME = True
 
-# Whether to precede each alternative movetext by a letter of the alphabet
-# If true, when printed, each alternative halfmove will be preceded by a single letter of the alphabet, e.g., "a:", "b:",
-# etc.
-# If false, the user would still enter the appropriate letter (e.g, "c" for the third alternative), but it would be up the
+# Whether, in the variations table,  to precede each alternative movetext by a letter of the alphabet
+# If True, when printed, each alternative halfmove will be preceded by a single letter of the alphabet, e.g., "a:",
+# "b:", etc.
+# If False, the user would still enter the appropriate letter (e.g, "c" for the third alternative), but it would be up the
 # user to manually count which position the alternative to be chosen occupied.
 DO_PREFIX_MOVETEXT_WITH_ALPHA = True
 
