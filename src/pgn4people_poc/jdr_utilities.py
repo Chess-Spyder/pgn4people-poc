@@ -7,9 +7,9 @@ import pathlib
 import re
 
 # Note: check_CLI_for_user_file belongs to jdr_utilities
-def check_CLI_for_user_file():
+def check_CLI_for_user_file(description=None, epilog=None):
 
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description=description, epilog=epilog)
     
     # Defines argument
     #   nargs='?': One argument will be consumed from the command line if possible, and produced as a single item.
