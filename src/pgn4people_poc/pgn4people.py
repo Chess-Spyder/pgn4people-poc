@@ -59,7 +59,7 @@ def main():
                 target_node_id = nodedict[node_id_chosen].reordered_edgeslist[move_choice].destination_node_id
         else:
             do_keep_exploring = False
-            print("You have told me to stop. I obey.")
+            print("You have told me to stop 🛑. I obey.")
     # End of while keep_exploring
 
 
