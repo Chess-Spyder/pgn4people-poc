@@ -20,7 +20,7 @@ def acquire_tokenized_pgnstring():
 
     # Checks command line to see whether user specified her own PGN file to view
     # user_pgn_fileobject will be either (a) a file object or (b) None
-    user_pgn_filepath = check_CLI_for_user_file()
+    user_pgn_filepath = check_CLI_for_user_file(constants.HELP_DESCRIPTION, constants.HELP_EPILOG)
 
     if user_pgn_filepath is None:
         # User didn't specify her own PGN file, so use sample PGN file included in the package

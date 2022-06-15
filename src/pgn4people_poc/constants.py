@@ -103,12 +103,17 @@ KEY_STAT_DESCRIPTION_WIDTH = 27
 KEY_STAT_VALUE_WIDTH = 5
 
 # ARGPARSER CONSTANTS
-ARGPARSER_DESCRIPTION = "Demonstrates a better way to view deeply nested PGN files. You can optionally supply the path to your own PGN file."
+ARGPARSER_DESCRIPTION = "A proof-of-concept demonstration of a better way to view deeply nested PGN files. You can optionally supply the path to your own PGN file. "
 
 ARGPARSER_USAGE_1 = "To use your own PGN file (rather than the supplied sample), enter the path to\n"
 ARGPARSER_USAGE_2 = "the file after the pgn4people command. (Rather than typing the path, you can\n"
-ARGPARSER_USAGE_3 = "drag the file’s icon to the command line. "
-ARGPARSER_USAGE = ARGPARSER_USAGE_1 + ARGPARSER_USAGE_2 + ARGPARSER_USAGE_3
+ARGPARSER_USAGE_3 = "drag the file’s icon to the command line.) "
+ARGPARSER_USAGE_4 = "For more on PGN4people, see github.com/jimratliff/pgn4people-poc "
+ARGPARSER_USAGE = ARGPARSER_DESCRIPTION + ARGPARSER_USAGE_1 + ARGPARSER_USAGE_2 + ARGPARSER_USAGE_3
+
+# Help text if `pgn4people --help``
+HELP_DESCRIPTION = ARGPARSER_USAGE
+HELP_EPILOG = ARGPARSER_USAGE_4
 
 # WARNING: FIRST_NODE_TO_BE_PRINTED is NOT a constant, despite being defined in the constants.py file. This value
 # needs to be referred to from two modules (construct_output.py and traverse_tree.py) and I didn't want to pass it as
