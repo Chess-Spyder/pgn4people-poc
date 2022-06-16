@@ -38,15 +38,10 @@ ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES = os.path.abspath(RELATIVE_PATH_FOR_SAMPLE_PG
 PACKAGE_FOR_SAMPLE_PGN = NAME_OF_IMPORT_PACKAGE + "." + DIRNAME_SAMPLE_PGNS
 
 # Names of sample PGN files
-PGNFILE1 = "test_pgn_1_simple_one_variation.pgn"
-PGNFILE2 = "test_pgn_2_simple_repeated_variations_and_depth_2_variation.pgn"
-PGNFILE3 = "test_pgn_3_space_between_movenumber_and_movetext.pgn"
-PGNFILE4 = "test_pgn_4.pgn"
-PGNFILE5 = "test_pgn_5.pgn"
-PGNFILE6 = "demo_pgn_1.pgn"
+PGNFILE1 = "demo_pgn_1.pgn"
 
 # Chosen sample PGN file to analyze; used for both (a) filesystem and (b) resource locations of the file
-CHOSEN_SAMPLE_PGN_FILE = PGNFILE6
+CHOSEN_SAMPLE_PGN_FILE = PGNFILE1
 
 # Descriptor presented when sample PGN is chosen
 public_basename_sample_PGN = "Built-in sample PGN"
