@@ -4,8 +4,8 @@ import os
 
 #   BEHAVIORAL CONSTANTS
 
-# do_read_pgn_from_file_system = True
-DO_READ_SAMPLE_PGN_FROM_FILE_SYSTEM = False
+# Name of entry point a user types in the CLI to execute the program
+entry_point_name = "pgn4people"
 
 # Boolean whether to clear console between each variation table
 DO_CLEAR_CONSOLE_EACH_TIME = True
@@ -44,19 +44,15 @@ PGNFILE1 = "demo_pgn_1.pgn"
 CHOSEN_SAMPLE_PGN_FILE = PGNFILE1
 
 # Descriptor presented when sample PGN is chosen
-public_basename_sample_PGN = "Built-in sample PGN"
-version_sample_PGN = "1.0.0"
-
+# public_basename_sample_PGN = "Built-in sample PGN"
+PUBLIC_BASENAME_SAMPLE_PGN = f"Built-in sample PGN: {CHOSEN_SAMPLE_PGN_FILE}"
+VERSION_SAMPLE_PGN = "1.0.0"
 
 # Filesystem path of chosen sample PGN file
 PATH_TO_CHOSEN_SAMPLE_PGN_FILE = os.path.join(ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES, CHOSEN_SAMPLE_PGN_FILE)
 
-# Name of entry point a user types in the CLI to execute the program
-entry_point_name = "pgn4people"
-
 # ARBOREAL CONSTANTS
 
-UNDEFINED_NODE_MOVE_VALUE = -1
 UNDEFINED_TREEISH_VALUE = -1
 NODE_IS_TERMINAL_NODE = -1
 
@@ -83,6 +79,7 @@ WHITE_PLAYER_COLOR_STRING = "W"
 BLACK_PLAYER_COLOR_STRING = "B"
 
 # User-input constants
+# These must be lowercase, because they will be compared to lowercase-d versions of user inpu.
 STOP_SIGN = "stop"
 RESET_COMMAND = "reset"
 REPORT_COMMAND = "report"
@@ -98,17 +95,17 @@ KEY_STAT_DESCRIPTION_WIDTH = 27
 KEY_STAT_VALUE_WIDTH = 5
 
 # ARGPARSER CONSTANTS
-ARGPARSER_DESCRIPTION = "A proof-of-concept demonstration of a better way to view deeply nested PGN files. You can optionally supply the path to your own PGN file. "
+# Help text if `pgn4people --help`
+# Note that argparser appears to ignore newline characters
+HELP_DESCRIPTION = ("A proof-of-concept demonstration of a better way to view deeply nested PGN files. "
+                    "You can optionally supply the path to your own PGN file. To use your own PGN file "
+                    "(rather than the supplied sample), enter the path to the file after the pgn4people "
+                    "command. (Rather than typing the path, you can (a) drag the file’s icon to the command line "
+                    "or (b) “cd” (change directory) to the directory with your PGN file; then just type the "
+                    "file *name* (e.g., “mygame.pgn”); no path necessary.)")
 
-ARGPARSER_USAGE_1 = "To use your own PGN file (rather than the supplied sample), enter the path to\n"
-ARGPARSER_USAGE_2 = "the file after the pgn4people command. (Rather than typing the path, you can\n"
-ARGPARSER_USAGE_3 = "drag the file’s icon to the command line.) "
-ARGPARSER_USAGE_4 = "For more on PGN4people, see github.com/jimratliff/pgn4people-poc "
-ARGPARSER_USAGE = ARGPARSER_DESCRIPTION + ARGPARSER_USAGE_1 + ARGPARSER_USAGE_2 + ARGPARSER_USAGE_3
+HELP_EPILOG = "For more on PGN4people, see github.com/jimratliff/pgn4people-poc "
 
-# Help text if `pgn4people --help``
-HELP_DESCRIPTION = ARGPARSER_USAGE
-HELP_EPILOG = ARGPARSER_USAGE_4
 
 # WARNING: FIRST_NODE_TO_BE_PRINTED is NOT a constant, despite being defined in the constants.py file. This value
 # needs to be referred to from two modules (construct_output.py and traverse_tree.py) and I didn't want to pass it as

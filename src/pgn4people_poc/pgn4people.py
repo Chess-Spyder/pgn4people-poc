@@ -3,9 +3,6 @@ Module Docstring
 """
 
 
-import os
-
-from . classes_arboreal import GameTreeReport
 from . build_tree import buildtree
 from . import constants
 from . compile_and_output_report import (characterize_gametree,
@@ -16,7 +13,6 @@ from . get_process_user_input import get_node_id_move_choice_for_next_line_to_di
 from . process_pgn_file import acquire_tokenized_pgnstring
 from . traverse_tree import (deviation_history_of_node,
                              display_mainline_given_deviation_history)
-from . error_processing import fatal_error_exit_without_traceback
 
 
 def main():

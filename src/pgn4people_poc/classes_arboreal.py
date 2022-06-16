@@ -62,37 +62,25 @@ class GameNode:
    # Define/initialize class attributes to support reporting statistics on the gametree
     set_of_node_IDs = set()
     set_of_nonterminal_node_IDs = set()
-    set_of_terminal_node_IDs = set()
+    # set_of_terminal_node_IDs = set()  # Will be computed later, so doesn't need to be initialized
     max_variation_depth = 0
     max_halfmove_length_of_line = 0
     
     
     def __init__(self, depth, halfmovenumber, originating_node_id, node_id):
         # Note that node_id is NOT an attribute of the node object; it is passed to the constructor for information
-        self.halfmovenumber = halfmovenumber
         self.depth = depth
+        self.halfmovenumber = halfmovenumber
         self.originatingnode_id = originating_node_id
+
         self.number_of_edges = 0
         self.edgeslist = []
         self.reordered_edgeslist = []
         self.map_reordered_to_original_edgeslist = []
-        # It’s unclear to me whether the following two assignments actually need to be made. But it makes more it
-        # more transparent what other attributes will eventually be assigned
+
         self.choice_id_at_originatingnode = constants.UNDEFINED_TREEISH_VALUE
 
-        # QUERY: Do the following need to be done a node-by-node basis? Or could they be done retrospectivaly looking
-        # at only the terminal nodes?
-        # Updates maximum depth off the mainline that has been encountered
-        if depth > self.max_variation_depth:
-            self.max_variation_depth = depth
-        # Updates maximum length of a line that has been encountered
-        if halfmovenumber > self.max_halfmove_length_of_line:
-            self.max_halfmove_length_of_line = halfmovenumber
-
-        # Adds the node id of this new node to the set of all nodes (a class attribute)
-        # Note that node_id was passed as an argument to this constructor precisely for this purpose. (node_id isn't
-        # an attribute of the node>)
-        self.set_of_node_IDs.add(node_id)
+        self.__class__.set_of_node_IDs.add(node_id)
 
 
     def install_new_edge_on_originating_node(self, new_edge, originating_node_id):
@@ -118,7 +106,7 @@ class GameNode:
 
 class Edge:
     """
-    Characterizes an “edge,” which refers to option/action at a node, with the following attributes
+    Characterizes an “edge,” which refers to an option/action at a node, with the following attributes
         .movetext
             A string of movetext, e.g., “e4”, which is the chess characterization of the move when at the position
             corresponding to node.
@@ -144,15 +132,17 @@ class GameTreeReport:
     of lines, and hierarchical depth.
 
     Object attributes:
-        number_of_nodes: Total number of all nodes, terminal and nonterminal
+        number_of_nodes: Total number of all nodes, both terminal and nonterminal
         number_of_lines: Number of terminal nodes
         max_halfmove_length_of_a_line : The halfmove length of the longest line (measured in halfmoves)
         max_depth_of_a_line: The maximum depth associated with a terminal node. (The number of deviations from the
-            mainline required to reach that terminal node.)
-        halfmove_length_histogram: A collections.Counter dict of {halfmove_length: frequency} key:value pairs, where frequency is 
-            the number of terminal nodes with halfmove equal to the given halfmove_length.
+            mainline on the path that is required to reach that terminal node.)
+        halfmove_length_histogram: A collections.Counter dict of {halfmove_length: frequency} key:value pairs, where
+            frequency is the number of terminal nodes with halfmove equal to the given halfmove_length.
         depth_histogram: A collections.Counter dict of {depth: frequency} key:value pairs, where frequency is the number
             of terminal nodes with depth equal to the given depth.
+    
+    Used by characterize_gametree() in compile_and_output_report.py.
     """
     # def __init__(self,
     #              number_of_nodes,

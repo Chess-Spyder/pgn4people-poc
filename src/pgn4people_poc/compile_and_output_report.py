@@ -5,8 +5,7 @@ number of lines, length of lines, and hierarchical depth.
 
 from yachalk import chalk
 
-from . classes_arboreal import (Edge,
-                                GameNode,
+from . classes_arboreal import (GameNode,
                                 GameTreeReport)
 from . import constants
 from . utilities import (conditionally_clear_console,
@@ -26,8 +25,8 @@ def characterize_gametree(nodedict):
             halfmove associated with the terminal node corresponds to a move never made (since it’s a terminal mode).
         max_depth_of_a_line: The maximum depth associated with a terminal node. (The number of deviations from the
             mainline required to reach that terminal node.)
-        halfmove_length_histogram: A collections.Counter dict of {halfmove_length: frequency} key:value pairs, where frequency is 
-            the number of terminal nodes with halfmove equal to the given halfmove_length.
+        halfmove_length_histogram: A collections.Counter dict of {halfmove_length: frequency} key:value pairs, where
+            frequency is the number of terminal nodes with halfmove equal to the given halfmove_length.
         depth_histogram: A collections.Counter dict of {depth: frequency} key:value pairs, where frequency is the number
             of terminal nodes with depth equal to the given depth.
 
@@ -126,7 +125,7 @@ def output_GameTreeReport():
     print(print_string_1, print_string_2)
 
     print("\n(“Depth” of a line is the number of deviations from mainline")
-    print("continuations required to arrive at that position.)")
+    print("continuations required to arrive at the line’s terminal position.)")
 
     # Print depth histogram
     print("\nDEPTH HISTOGRAM")
@@ -153,7 +152,8 @@ def output_GameTreeReport():
 
 def output_node_report(nodedict):
     """
-    For testing/debug purposes, only for SMALL trees: output each node and selected of its attributes.
+    For testing/debug purposes: output each node and selected of its attributes.
+    Typically, only for SMALL trees, because otherwise the number of nodes printed is very large.
     """
 
     conditionally_clear_console()
@@ -161,8 +161,6 @@ def output_node_report(nodedict):
     header_summary = chalk.magenta("\nNODE REPORT\n")
     print(header_summary)
 
-
-    sorted_node_ids = sorted(GameNode.set_of_node_IDs)
     print_end = ""
     print("NOTES:")
     print("\nThe halfmove number (“½#”) of a node is the halfmove number that")
@@ -172,11 +170,13 @@ def output_node_report(nodedict):
     print("terminal node is one greater than the halfmove number of the corresponding")
     print("line).")
     print("\nThe depth of a line is the number of deviations from mainline")
-    print("continuations required to arrive at that position.")
+    print("continuations required to arrive at the line’s terminal position.")
     print("\nEach ‘edge’ is described by a pair: (a) the movetext of a move, e.g.,")
     print("“e4”, and (b) the ID of the destination node, i.e., the node that would be")
     print("reached if that move were played.")
     print("\nNode #   ½#   Depth  #edges   Edges")
+
+    sorted_node_ids = sorted(GameNode.set_of_node_IDs)
     for node_id in sorted_node_ids:
         node = nodedict[node_id]
         value_list = [

@@ -5,15 +5,12 @@ Error-processing functions
 
 import sys
 
-
 from yachalk import chalk
-
-
 
 
 def format_error_text(string):
     """
-    Formats as red text a string that is intended as an error message that stands out in the console
+    Formats as red text a string that is intended as an error message in order to stand out in the console
     """
 
     formatted_string = chalk.red_bright(string)
@@ -24,6 +21,7 @@ def print_nonfatal_error(string):
     """
     Prints an error message for a nonfatal error
     """
+
     print(format_error_text(string))
 
 
@@ -34,6 +32,7 @@ def fatal_error_exit_without_traceback(string):
     Exits without throwing a traceback to the user. (A traceback gives scary info that's irrelevant to the user
     (e.g., where in the code the exception occurred.)
     """
+
     errmsg_list = []
     errmsg_list.append(f"FATAL ERROR! 💩 ")
     errmsg_list.append(str(string))
@@ -71,10 +70,11 @@ def fatal_developer_error(string):
     Raises fatal developer error: An error that should NOT occur under any conceivable set of user inputs. It can result
     only from developer error or an erroneous understanding of, or assumption by, the developer.
     """
+
     errmsg_list = []
     errmsg_list.append("\nFATAL DEVELOPER ERROR. THIS SHOULD NOT HAPPEN! 🙀")
     if string:
-        errmsg_list.append(string)
+        errmsg_list.append("\n" + string)
     error_message = "".join(errmsg_list)
     print(format_error_text(error_message))
     raise FatalDeveloperError(error_message)

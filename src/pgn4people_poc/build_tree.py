@@ -149,7 +149,8 @@ def buildtree(tokenlist):
 
     # Create the id=constants.INITIAL_NODE_ID=0 node corresponding to the initial position (and to White's first move)
     originating_node_id_of_initial_node = constants.UNDEFINED_TREEISH_VALUE
-    newnode = GameNode(depth, current_halfmovenumber[depth], originating_node_id_of_initial_node, constants.INITIAL_NODE_ID)
+    newnode = GameNode( depth, current_halfmovenumber[depth],
+                        originating_node_id_of_initial_node, constants.INITIAL_NODE_ID)
     # Adds this new node as the first node in the gamenodes dictionary
     gamenodes[constants.INITIAL_NODE_ID] = newnode
 
@@ -211,9 +212,9 @@ def buildtree(tokenlist):
                 current_originatingnode_id[depth] = lastcreated_node_id
 
             # Define new edge corresponding to this token
+                # new_edge.movetext = token
+                # new_edge.destination_node_id = current_node_id
             new_edge = Edge(token, current_node_id)
-            # new_edge.movetext = token
-            # new_edge.destination_node_id = current_node_id
 
             latest_mainline_destination[depth] = current_node_id
 
@@ -232,6 +233,7 @@ def buildtree(tokenlist):
             newnode = GameNode(depth, current_halfmovenumber[depth], current_originatingnode_id[depth], current_node_id)
 
             newnode.choice_id_at_originatingnode = index_of_edge_at_originating_node
+            
             # Add node to gamesnodes dictionary
             gamenodes[current_node_id] = newnode
 
@@ -278,6 +280,8 @@ def buildtree(tokenlist):
             is_preceded_by_closed_paren = True
 
         else:
+            # It’s not that obvious what would trigger this branch, because currently any token not a “(” or “)” *IS*
+            # by definition movetext.
             fatal_pgn_error(f"First token, “{token}”,  is not movetext.")
 
     return gamenodes

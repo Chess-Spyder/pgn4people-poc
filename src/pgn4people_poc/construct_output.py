@@ -5,8 +5,7 @@ Constructs output of the variations table.
 from yachalk import chalk
 
 from . import constants
-from . import get_process_user_input
-from . utilities import ( clear_console,
+from . utilities import ( conditionally_clear_console,
                           lowercase_alpha_from_num)
 from . pgn_utilities import (fullmovenumber_from_halfmove,
                              is_Black_move,
@@ -14,8 +13,7 @@ from . pgn_utilities import (fullmovenumber_from_halfmove,
 
 
 def print_header_for_variations_table(target_node_id, deviation_history, pgn_source):
-    if(constants.DO_CLEAR_CONSOLE_EACH_TIME):
-        clear_console()
+    conditionally_clear_console()
     print("\n", 40*constants.REPEATED_STRING_FOR_TABLE_HEADER, "\n")
     print("Welcome to PGN4people!")
 
@@ -24,7 +22,7 @@ def print_header_for_variations_table(target_node_id, deviation_history, pgn_sou
     # provided.
     
     if pgn_source.is_sample_pgn:
-        pgn_source_string = f"{constants.public_basename_sample_PGN}, v{constants.version_sample_PGN}"
+        pgn_source_string = f"{constants.PUBLIC_BASENAME_SAMPLE_PGN}, v{constants.VERSION_SAMPLE_PGN}"
     else:
         pgn_source_string = pgn_source.filename_of_pgnfile
     
@@ -175,15 +173,18 @@ def print_single_node(  node_id,
 
                 id_of_reordered_edge = moveoption
                 id_of_original_edge = node.map_reordered_to_original_edgeslist[id_of_reordered_edge]
-                formatted_string_to_append = format_movetext(movetext_to_print, id_of_reordered_edge, id_of_original_edge)
+                formatted_string_to_append = format_movetext(movetext_to_print,
+                                                             id_of_reordered_edge,
+                                                             id_of_original_edge)
                 if constants.DO_PREFIX_MOVETEXT_WITH_ALPHA:
                     index = id_of_reordered_edge
-                    alphacharacter = format_label_of_alternative_halfmoves(lowercase_alpha_from_num(index))
+                    alphacharacter = (format_label_of_alternative_halfmoves(lowercase_alpha_from_num(index)))
                     formatted_string_to_append = f"{alphacharacter}: " + formatted_string_to_append
                 string_of_additional_moves_movetext += formatted_string_to_append
 
             print(string_of_additional_moves_movetext)
         else:
+            # There are no non-mainline moves
             pass
         return None
     else:
@@ -222,8 +223,8 @@ def reordered_edgeslist(node, choice_id_as_mainline):
             In other words, choice_id_as_mainline becomes the 0th element and all the other elements of edgeslist are
             imported into reordered_edgeslist in the same order they existed in edgeslist.
     
-        node.map_reordered_to_original_edgeslist[i] is the element of .edgeslist that is now in
-        the location reordered_edgeslist[i].
+        node.map_reordered_to_original_edgeslist[i] is the element of .edgeslist that is now in the location
+        reordered_edgeslist[i].
 
         node.map_reordered_to_original_edgeslist[i] answers the question:
         If the user clicks on the i-th index of the reordered edges, what original edge does that correspond to?
@@ -243,14 +244,15 @@ def reordered_edgeslist(node, choice_id_as_mainline):
     node.reordered_edgeslist.append(node.edgeslist[choice_id_as_mainline])
     node.map_reordered_to_original_edgeslist.append(choice_id_as_mainline)
 
-#   Loop over edgeslist, in order, beginning with the 0th-index element, skipping over the choice_id_as_mainline element,
-#   and transfer each element into reordered_edgeslist beginning with in the index=1 position.
+#   Loop over edgeslist, in order, beginning with the 0th-index element, skipping over the
+#   choice_id_as_mainline element, and transfer each element into reordered_edgeslist beginning with in the
+#   index=1 position.
     for jindex in range(0, number_of_choices):
         if jindex != choice_id_as_mainline:
             node.reordered_edgeslist.append(node.edgeslist[jindex])
             node.map_reordered_to_original_edgeslist.append(jindex)
         else:
-#           When jindex == choice_id_as_mainline, that element should not be copied to the reordered edges list,
+#           When jindex == choice_id_as_mainline, that element should not be copied to the reordered edges list
 #           because it was already copied in the first step.
             pass
 #   End of jindex loop
@@ -277,8 +279,12 @@ def print_only_mainline_moves_for_node( fullmovenumber,
     print('{:3}. '.format(fullmovenumber), end="")
 
 #   Formats White's and Black's movetext
-    formatted_white_movetext_to_print = format_movetext(white_movetext_to_print, id_of_reordered_edge, white_id_of_original_edge)
-    formatted_black_movetext_to_print = format_movetext(black_movetext_to_print, id_of_reordered_edge, black_id_of_original_edge)
+    formatted_white_movetext_to_print = format_movetext(white_movetext_to_print,
+                                                        id_of_reordered_edge,
+                                                        white_id_of_original_edge)
+    formatted_black_movetext_to_print = format_movetext(black_movetext_to_print,
+                                                        id_of_reordered_edge,
+                                                        black_id_of_original_edge)
 
 #   Prints the concatenation of the two formatted movetext strings
     print(formatted_white_movetext_to_print + formatted_black_movetext_to_print, end=end_argument)
@@ -287,7 +293,7 @@ def format_movetext(movetext_to_print, id_of_reordered_edge, id_of_original_edge
     """
     Formats movetext_to_print both (a) as to a given fixed width and (b) color.
 
-    The color formatting can be made to depend on either/both of id_of_reordered_edge and/or id_of_original_edge
+    The color formatting can be made to depend on either/both of id_of_reordered_edge and/or id_of_original_edge.
 
     id_of_reordered_edge is included as an argument for flexibility in the future, but is not currently used.
     """
