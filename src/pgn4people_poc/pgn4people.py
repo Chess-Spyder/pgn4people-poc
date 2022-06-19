@@ -25,6 +25,8 @@ def main():
     nodedict = buildtree(tokenlist)
 
     fullmovenummber_to_node_id_lookup_table = {}
+    examples_command_triples_white = []
+    examples_command_triples_black = []
 
     # Starts by showing the main line
     target_node_id = 0
@@ -37,11 +39,17 @@ def main():
         print_header_for_variations_table(target_node_id, deviation_history, pgn_source)
 
     # Displays to console the new mainline and first halfmove of each deviation from this new mainline
-        display_mainline_given_deviation_history(nodedict, deviation_history, fullmovenummber_to_node_id_lookup_table)
+        display_mainline_given_deviation_history(nodedict,
+                                                 deviation_history,
+                                                 fullmovenummber_to_node_id_lookup_table,
+                                                 examples_command_triples_white,
+                                                 examples_command_triples_black)
         
     # Seeks user’s desire of what line to explore next and computes next target_node_id
         node_id_chosen, move_choice = \
-            get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_lookup_table)
+            get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_lookup_table,
+                                                             examples_command_triples_white,
+                                                             examples_command_triples_black)
         if node_id_chosen != constants.STOP_SIGN:
             if node_id_chosen == constants.RESET_COMMAND:
                 target_node_id = constants.INITIAL_NODE_ID

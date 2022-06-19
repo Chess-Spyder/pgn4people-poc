@@ -40,6 +40,8 @@ def print_single_node(  node_id,
                         nodedict,
                         choice_id_as_mainline,
                         fullmovenummber_to_node_id_lookup_table,
+                        examples_command_triples_white,
+                        examples_command_triples_black,
                         carryover_white_movetext,
                         carryover_id_of_original_edge):
     """
@@ -131,6 +133,7 @@ def print_single_node(  node_id,
                 white_id_of_original_edge = id_of_original_edge
                 black_movetext_to_print = constants.BLACK_MOVE_DEFERRED
                 black_id_of_original_edge = -1
+
         else:
             # It's Black's move
             player_color_string = constants.BLACK_PLAYER_COLOR_STRING
@@ -163,6 +166,18 @@ def print_single_node(  node_id,
         key_for_lookup_dictionary = (fullmovenumber, player_color_string)
         value_for_lookup_dictionary = (node_id, number_of_edges - 1)
         fullmovenummber_to_node_id_lookup_table[key_for_lookup_dictionary] = value_for_lookup_dictionary
+
+        # Update the lists of white/black example command-triples
+        # examples_command_triples_white is a list of 2-tuples (fullmovenumber, number_of_edges)
+        # examples_command_triples_black is a list of 2-tuples (fullmovenumber, number_of_edges)
+        # For each list, each element (i.e., ordered pair) exists only when number_of_edges > 1
+        if number_of_edges > 1:
+            if player_color_string == constants.WHITE_PLAYER_COLOR_STRING:
+                examples_command_triples_white.append((fullmovenumber, number_of_edges))
+            else:
+                examples_command_triples_black.append((fullmovenumber, number_of_edges))
+
+        
 
         # Check whether there are non-mainline alternatives to process
         if number_of_edges > 1:

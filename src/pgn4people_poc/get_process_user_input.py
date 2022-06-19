@@ -2,12 +2,18 @@
 Asks for, receives, parses, and iterates until satisfactory input from user
 """
 
+
+import random
+
 from . import constants
 from . error_processing import print_nonfatal_error
-from . utilities import num_from_alpha
+from . utilities import (lowercase_alpha_from_num,
+                         num_from_alpha)
 
 
-def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_lookup_table):
+def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_lookup_table,
+                                                     examples_command_triples_white,
+                                                     examples_command_triples_black):
     """
     Ask user to supply (a) a (fullmovenumber, player color, move-choice letter) triple for the next line to explore or
     (b) one of several legitimate one-word keywords.
@@ -80,10 +86,10 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
             # that particular color is appropriate in the full context)
             player_color_lower = player_color.lower()
             if player_color_lower in black_player_color_response_string_set:
-                player_color_string = "B"
+                player_color_string = constants.BLACK_PLAYER_COLOR_STRING
                 is_valid_player_color = True
             elif player_color_lower in white_player_color_response_string_set:
-                player_color_string = "W"
+                player_color_string = constants.WHITE_PLAYER_COLOR_STRING
                 is_valid_player_color = True
             else:
                 is_valid_player_color = False

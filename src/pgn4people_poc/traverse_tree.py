@@ -4,10 +4,16 @@ Methods to traverse the game tree birectionally with output.
 Any path can be expressed as a set of (node_id, choice_id) pairs
 """
 
+
 from . construct_output import print_single_node
 from . import constants
 
-def display_mainline_given_deviation_history(nodedict, deviation_history, fullmovenummber_to_node_id_lookup_table):
+def display_mainline_given_deviation_history(nodedict,
+                                             deviation_history,
+                                             fullmovenummber_to_node_id_lookup_table,
+                                             examples_command_triples_white,
+                                             examples_command_triples_black
+                                             ):
     """
     Outputs the main-line path through the game, given the supplied devaition history, line by line.
 
@@ -30,8 +36,9 @@ def display_mainline_given_deviation_history(nodedict, deviation_history, fullmo
     # creating extra vertical white space and printing column headings.
     constants.FIRST_NODE_TO_BE_PRINTED = True
 
-    # Clear the dictionary used as a lookup table to process user request for new mainline
     fullmovenummber_to_node_id_lookup_table.clear()
+    examples_command_triples_white.clear()
+    examples_command_triples_black.clear()
 
     # Perhaps should check in the following whether the original node is itself a terminal node,
     # though this is perhaps ruled out by what came before in the calling sequence.
@@ -51,6 +58,8 @@ def display_mainline_given_deviation_history(nodedict, deviation_history, fullmo
                                     nodedict,
                                     choice_id_as_mainline,
                                     fullmovenummber_to_node_id_lookup_table,
+                                    examples_command_triples_white,
+                                    examples_command_triples_black,
                                     carryover_white_movetext,
                                     carryover_id_of_original_edge)
 
