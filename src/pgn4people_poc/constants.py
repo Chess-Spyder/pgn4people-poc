@@ -2,39 +2,31 @@
 
 import os
 
-#   BEHAVIORAL CONSTANTS
 
-# Name of entry point a user types in the CLI to execute the program
-entry_point_name = "pgn4people"
+#   BEHAVIORAL CONSTANTS
 
 # Boolean whether to clear console between each variation table
 DO_CLEAR_CONSOLE_EACH_TIME = True
 
-# Whether, in the variations table,  to precede each alternative movetext by a letter of the alphabet
+# Whether, in the variations table,  to precede each alternative movetext by a letter of the alphabet.
 # If True, when printed, each alternative halfmove will be preceded by a single letter of the alphabet, e.g., "a:",
 # "b:", etc.
-# If False, the user would still enter the appropriate letter (e.g, "c" for the third alternative), but it would be up the
-# user to manually count which position the alternative to be chosen occupied.
+# If False, the user would still enter the appropriate letter (e.g, "c" for the third alternative), but it would be up
+# the user to manually count which position the alternative to be chosen occupied.
 DO_PREFIX_MOVETEXT_WITH_ALPHA = True
 
-#   CONSTANTS RELATED TO FILE LOCATIONS
+#   CONSTANTS RELATED TO PROJECT NAMES AND FILE LOCATIONS
+
+# Name of entry point a user types in the CLI to execute the program
+entry_point_name = "pgn4people"
 
 NAME_OF_IMPORT_PACKAGE = "pgn4people_poc"
 
 # Name of directory of sample PGNs
 DIRNAME_SAMPLE_PGNS = "example_pgns"
 
-# Computes filesystem path of chosen sample PGN
-# Relative path of directory of sample PGNs
-# Relies on the standard package structure, beginning with src/
-# RELATIVE_PATH_FOR_SAMPLE_PGN_FILES = "src/pgn4people_poc/example_pgns"
-# RELATIVE_PATH_FOR_SAMPLE_PGN_FILES = "src/" + NAME_OF_IMPORT_PACKAGE + "/" + DIRNAME_SAMPLE_PGNS
-RELATIVE_PATH_FOR_SAMPLE_PGN_FILES = os.path.join("src/", NAME_OF_IMPORT_PACKAGE, DIRNAME_SAMPLE_PGNS)
-
-# Computes absolute filesystem path from relative path
-ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES = os.path.abspath(RELATIVE_PATH_FOR_SAMPLE_PGN_FILES)
-
-#Computes package entity from which sample PGN can be read
+# Computes package entity from which sample PGN can be read
+# (The sample PGN(s) are in a subpackage of the import package.)
 PACKAGE_FOR_SAMPLE_PGN = NAME_OF_IMPORT_PACKAGE + "." + DIRNAME_SAMPLE_PGNS
 
 # Names of sample PGN files
@@ -44,12 +36,8 @@ PGNFILE1 = "demo_pgn_1.pgn"
 CHOSEN_SAMPLE_PGN_FILE = PGNFILE1
 
 # Descriptor presented when sample PGN is chosen
-# public_basename_sample_PGN = "Built-in sample PGN"
 PUBLIC_BASENAME_SAMPLE_PGN = f"Built-in sample PGN: {CHOSEN_SAMPLE_PGN_FILE}"
 VERSION_SAMPLE_PGN = "1.0.0"
-
-# Filesystem path of chosen sample PGN file
-PATH_TO_CHOSEN_SAMPLE_PGN_FILE = os.path.join(ABSOLUTE_PATH_FOR_SAMPLE_PGN_FILES, CHOSEN_SAMPLE_PGN_FILE)
 
 # ARBOREAL CONSTANTS
 
@@ -79,7 +67,7 @@ WHITE_PLAYER_COLOR_STRING = "W"
 BLACK_PLAYER_COLOR_STRING = "B"
 
 # User-input constants
-# These must be lowercase, because they will be compared to lowercase-d versions of user inpu.
+# These must be lowercase, because they will be compared to lowercase-d versions of user input.
 STOP_SIGN = "stop"
 RESET_COMMAND = "reset"
 REPORT_COMMAND = "report"

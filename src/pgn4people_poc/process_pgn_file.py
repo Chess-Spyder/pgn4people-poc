@@ -7,7 +7,8 @@ import os
 import re
 
 from . import constants
-from . error_processing import fatal_error_exit_without_traceback, fatal_pgn_error
+from . error_processing import (fatal_error_exit_without_traceback,
+                                fatal_pgn_error)
 from . jdr_utilities import check_CLI_for_user_file
 from . jdr_utilities import id_text_between_first_two_blankish_lines
 from . strip_balanced_braces import strip_balanced_braces_from_string
@@ -244,7 +245,5 @@ def pgn_file_not_found_fatal_error(user_pgn_filepath, original_error_message):
 def pgn_error_no_blank_line_after_headers(pgn_source):
     errmsg_list = []
     errmsg_list.append("No blank line found after headers.\n")
-    # errmsg_list.append("No blank line (two consecutive newline characters) found after headers.\n")
-    # errmsg_list.append("Note: LOOKING empty is not enough. There must be no whitespace characters on the line.")
     error_message = "".join(errmsg_list)
     fatal_pgn_error(error_message, pgn_source)

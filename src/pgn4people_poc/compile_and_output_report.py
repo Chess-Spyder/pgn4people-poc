@@ -190,7 +190,6 @@ def output_node_report(nodedict):
             print(value, end=print_end)
         print("   ", end=print_end)
         for edge in node.edgeslist:
-            # print(f"{edge.movetext:7}", end=print_end)
             print(f"({edge.movetext:5}, {edge.destination_node_id:3}) ", end=print_end)
         print("")
 

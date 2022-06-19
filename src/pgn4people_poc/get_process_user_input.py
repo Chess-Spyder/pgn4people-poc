@@ -95,8 +95,8 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
                 # didn't match the actual keys in the dictionary, where the first element of the key's tuple was
                 # an integer
                 key_to_query_lookup_table = int(fullmovenumber) , player_color_string
-                # NOTE: is_valid_key was already initialized to False above because the following calculation occurs only
-                # when both is_valid_player_color and is_fullmovenumber_numeric were found to be true.
+                # NOTE: is_valid_key was already initialized to False above because the following calculation occurs
+                # only when both is_valid_player_color and is_fullmovenumber_numeric were found to be true.
                 is_valid_key = key_to_query_lookup_table in fullmovenummber_to_node_id_lookup_table.keys()
 
             # Validates user's choice of move                
@@ -143,7 +143,7 @@ def report_input_errors_to_user(response_list,
         print_nonfatal_error(
             "Your one-field response was not one of the permitted keywords.\n"
             "(If you were trying to enter a (move number, player color, move choice) triple,\n"
-            "separate them with a space, e.g., “3 W c” or “5 B a”.)")
+            "use a space between each adjacent component, e.g., “3 W c” or “5 B a”.)")
     elif number_of_fields_in_response != 3:
         good_grammar_string = "field" if number_of_fields_in_response == 1 else "fields"
         error_message_1 = f"I expected 3 fields (or one of the permitted keywords) but "

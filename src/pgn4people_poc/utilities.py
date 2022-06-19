@@ -40,10 +40,10 @@ def num_from_alpha(alphacharacter):
     if((alphacharacter.isalpha()) and (len(alphacharacter) == 1)):
         ord_string = ord(alphacharacter)
         if ord_string > 96:
-#           Input was lower case
+            # Input was lower case
             numerical_equivalent = ord_string - 96
         else:
-#           Input was upper case
+            # Input was upper case
             numerical_equivalent = ord_string - 64  
         return numerical_equivalent
     else:

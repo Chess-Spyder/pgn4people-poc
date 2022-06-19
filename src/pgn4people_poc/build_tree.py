@@ -161,8 +161,8 @@ def buildtree(tokenlist):
     # Node_id for the next node to be created
     current_node_id = 1
 
-#   Initializes boolean variables that are meant to be true only if the current movetext was immediately
-#   preceded by a closed/open parenthesis, respectively
+    # Initializes boolean variables that are meant to be true only if the current movetext was immediately
+    # preceded by a closed/open parenthesis, respectively
     is_preceded_by_open_paren = False
     is_preceded_by_closed_paren = False
 
@@ -276,7 +276,7 @@ def buildtree(tokenlist):
             depth -= 1
 
 
-#           Sets flag to indicate that next token is immediately preceded by an open parenthesis
+            # Sets flag to indicate that next token is immediately preceded by an open parenthesis
             is_preceded_by_closed_paren = True
 
         else:

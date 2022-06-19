@@ -10,7 +10,8 @@ def strip_balanced_braces_from_string(string_to_strip):
 
     Methodology:
         Search for a first left brace.
-        Save the substring from the beginning of the string until just before the first left brace to list_of_substrings.
+        Save the substring from the beginning of the string until just before the first left brace to
+            list_of_substrings.
         Starting immediately after the first left brace, iterate over each next brace (whether left brace or right
         brace), incrementing/decrementing the brace-imbalance counter, until brace neutrality is restored.
         Now that brace neutrality is restored, start searching for the next left brace immediately after the end of the
