@@ -42,10 +42,11 @@ def acquire_tokenized_pgnstring():
         try:
             with user_pgn_filepath.open('r') as file:
                 string_read_from_file = file.read()
-                is_sample_pgn = False
-                pgn_source = PGNSource(is_sample_pgn, user_pgn_filepath)
         except FileNotFoundError as err:
             pgn_file_not_found_fatal_error(user_pgn_filepath, err)
+        
+        is_sample_pgn = False
+        pgn_source = PGNSource(is_sample_pgn, user_pgn_filepath)
     
     pgnstring = extract_game_1_movetext(string_read_from_file, pgn_source)
 
