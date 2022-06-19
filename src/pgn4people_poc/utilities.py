@@ -8,7 +8,7 @@ from yachalk import chalk
 from . error_processing import fatal_developer_error
 
 from . import constants
-# from . error_processing import format_error_text
+
 
 def is_even_number(number):
     """
