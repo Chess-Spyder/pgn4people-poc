@@ -27,7 +27,7 @@ def print_nonfatal_error(string):
 
 def fatal_error_exit_without_traceback(string):
     """
-    Prints an error message for a fatal error, and exit without traceback
+    Print an error message for a fatal error, and exit without traceback
 
     Exits without throwing a traceback to the user. (A traceback gives scary info that's irrelevant to the user
     (e.g., where in the code the exception occurred.)
@@ -41,6 +41,7 @@ def fatal_error_exit_without_traceback(string):
 
     print(format_error_text(error_message))
     sys.exit(1)
+
 
 def fatal_pgn_error(string, pgn_source = None):
     """

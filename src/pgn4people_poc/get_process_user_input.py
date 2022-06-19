@@ -2,7 +2,6 @@
 Asks for, receives, parses, and iterates until satisfactory input from user
 """
 
-
 from . import constants
 from . error_processing import print_nonfatal_error
 from . utilities import num_from_alpha
@@ -124,6 +123,7 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
     # Return the node_id and numeric_move_choice (adjusted to zero-index)
     return node_id_selected, numeric_move_choice
 
+
 def report_input_errors_to_user(response_list,
                                 is_fullmovenumber_numeric,
                                 is_valid_player_color,
@@ -134,7 +134,6 @@ def report_input_errors_to_user(response_list,
     Takes errors identified in get_node_id_move_choice_for_next_line_to_display() and reports them to user
     and invites her to try again.
     """
-
 
     number_of_fields_in_response = len(response_list)
     if number_of_fields_in_response == 0:

@@ -227,10 +227,12 @@ def reordered_edgeslist(node, choice_id_as_mainline):
         node.map_reordered_to_original_edgeslist
     such that:
         node.reordered_edgeslist[0] = node.edgeslist[choice_id_as_mainline]
-        The sequence: for 1=2,…,len-1, node.reordered_edgeslist[j] is the same as
-            for 0 = 1,…,len-1 (k≠choice_id_as_mainline)
-            In other words, choice_id_as_mainline becomes the 0th element and all the other elements of edgeslist are
-            imported into reordered_edgeslist in the same order they existed in edgeslist.
+        node.reordered_edgeslist[1] = node.edgeslist[0]
+        The sequence: for j=2,…,len-1, node.reordered_edgeslist[j] is the same as
+            for k = 1,…,len-1 (k≠choice_id_as_mainline)
+            In other words, (a) choice_id_as_mainline becomes the 0th element, (b) the previously mainline move
+            edgeslist[0] becomes the first alternative,  and (c) all the other elements of edgeslist are imported into
+            reordered_edgeslist in the same order they existed in edgeslist.
     
         node.map_reordered_to_original_edgeslist[i] is the element of .edgeslist that is now in the location
         reordered_edgeslist[i].
@@ -262,7 +264,7 @@ def reordered_edgeslist(node, choice_id_as_mainline):
             node.map_reordered_to_original_edgeslist.append(jindex)
         else:
             # When jindex == choice_id_as_mainline, that element should not be copied to the reordered edges list
-        # because it was already copied in the first step.
+            # because it was already copied in the first step.
             pass
     # End of jindex loop
 
