@@ -5,6 +5,8 @@ Constructs output of the variations table.
 from ast import Constant
 from yachalk import chalk
 
+from pgn4people_poc.error_processing import fatal_developer_error
+
 from . import constants
 from . utilities import ( conditionally_clear_console,
                           lowercase_alpha_from_num)
