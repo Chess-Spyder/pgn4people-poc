@@ -35,7 +35,7 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
 
     is_valid_key = False
     is_valid_alpha_move_choice = False
-    is_fullmovenumber_numeric = False
+    is_fullmovenumber_integer = False
     is_valid_player_color = False
     is_a_single_alpha = False
 
@@ -64,7 +64,7 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
         if number_of_fields_in_response != 3:
             # When the number of fields supplied is wrong, we don't even try to assess the validity of the first three.
             report_input_errors_to_user(response_list,
-                                        is_fullmovenumber_numeric,
+                                        is_fullmovenumber_integer,
                                         is_valid_player_color,
                                         is_a_single_alpha,
                                         is_valid_key,
@@ -74,7 +74,7 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
             fullmovenumber, player_color, alpha_move_choice  = response_list
 
             # Validate that first field is at least numeric
-            is_fullmovenumber_numeric = fullmovenumber.isdigit()
+            is_fullmovenumber_integer = fullmovenumber.isdigit()
 
             # Validate player color (only to extent that input expresses a player color, not to whether
             # that particular color is appropriate in the full context)
@@ -92,7 +92,7 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
             is_a_single_alpha = (len(alpha_move_choice) == 1) and (alpha_move_choice.isalpha())
 
             # Validate that (fullmovenumber, player_color) is a valid key
-            if is_valid_player_color and is_fullmovenumber_numeric:
+            if is_valid_player_color and is_fullmovenumber_integer:
 
                 # NOTE: Absent wrapping fullmovenumber within int(…), it appeared as a string in the query, and thus
                 # didn't match the actual keys in the dictionary, where the first element of the key's tuple was
@@ -116,7 +116,7 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
             else:
                 # Informs user there are errors in her input and invites her to try again
                 report_input_errors_to_user(response_list,
-                                            is_fullmovenumber_numeric,
+                                            is_fullmovenumber_integer,
                                             is_valid_player_color,
                                             is_a_single_alpha,
                                             is_valid_key,
@@ -182,7 +182,7 @@ def report_input_errors_to_user(response_list,
 
         # Itemize errors to user
         if not is_fullmovenumber_numeric:
-            not_numeric_message = f"The first field, “{response_list[0]}”, was not numeric, but should have been."
+            not_numeric_message = f"The first field, “{response_list[0]}”, was not an integer, but should have been."
             print_nonfatal_error(not_numeric_message)
         
         if not is_valid_player_color:
