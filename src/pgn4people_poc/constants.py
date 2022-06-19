@@ -54,6 +54,8 @@ INDEX_MAINLINE = 0
 # String constants
 REPEATED_STRING_FOR_TABLE_HEADER = " ♕"
 
+WELCOME_MESSAGE = "Welcome to PGN4people!"
+
 # Note: (a) BLACK_MOVE_PREFIX is a true ellipsis to economize on space but (b) BLACK_MOVE_DEFERRED is more spacious
 # because it needs to span an entire movetext element of a White move.
 WHITE_MOVE_ELLIPSIS = "... "

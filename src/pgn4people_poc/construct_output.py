@@ -2,6 +2,7 @@
 Constructs output of the variations table.
 """
 
+from ast import Constant
 from yachalk import chalk
 
 from . import constants
@@ -15,9 +16,11 @@ from . pgn_utilities import (fullmovenumber_from_halfmove,
 def print_header_for_variations_table(target_node_id, deviation_history, pgn_source):
     conditionally_clear_console()
     print("\n", 40*constants.REPEATED_STRING_FOR_TABLE_HEADER, "\n")
-    print("Welcome to PGN4people!")
 
-    # Assigns string to describe the PGN being used in order to display that string on the variations-table header.
+    if constants.WELCOME_MESSAGE:
+        print(constants.WELCOME_MESSAGE)
+
+    # Assigns string to describe the PGN file being used in order to display that string on the variations-table header.
     # pgn_source is instance of class PGNSource, and contains metadata for the user-supplied PGN file, if one was
     # provided.
     
