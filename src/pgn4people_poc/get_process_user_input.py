@@ -25,16 +25,52 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
     """
 
 
+    # Determines whether there are any non-mainline moves for either player to choose
+    if len(examples_command_triples_white) + len(examples_command_triples_black) > 0:
+        is_some_mainline_move_available = True
+    else: 
+        is_some_mainline_move_available = False
+    
+    if not is_some_mainline_move_available:
+        warning_string = ("\nHey! Your PGN doesn’t have alternatives for any player.\n"
+                          f"{constants.entry_point_name} has nothing to offer for this PGN.\n"
+                          f"{constants.entry_point_name} shines with more-complex games.\n"
+                          "I hope you’ll try a different—and more interesting—PGN, so I can show my stuff!\n")
+        print_nonfatal_error(warning_string)
+
+
+    
+    # for iteration in range(0,12):
+    #     white_command_string, black_command_string = example_commmand_string_for_each_player(
+    #                                                                             examples_command_triples_white,
+    #                                                                             examples_command_triples_black)
+    #     white_command_string = white_command_string if (white_command_string is not None) else "N/A"
+    #     black_command_string = black_command_string if (black_command_string is not None) else "N/A"
+    #     print(f"“{white_command_string}” or “{black_command_string}”")
+
     # Eligible answers for player-color response are expressed only in lowercase, because user input is
     # lower-cased prior to validating
     white_player_color_response_string_set = {"w", "white"}
     black_player_color_response_string_set = {"b", "black"}
-
-    request_to_user = ("\nEnter on one line, each separated by a space:\n"
+    
+    user_prompt_1 = ("\nEnter on one line, each separated by a space:\n"
                        "(a) move number,\n(b) player color, ‘W’ or ‘B’, "
-                       "and\n(c) move choice (e.g., ‘a’, ‘b’, ‘c’, etc.),\n"
-                       "or ‘reset’, ‘report’, ‘nodereport’, or ‘stop’:\n"
+                       "and\n(c) move choice (e.g., ‘a’, ‘b’, ‘c’, etc.),\n\n"
+                       "OR "
                       )
+    
+    user_prompt_2 = "one of ‘reset’, ‘report’, ‘nodereport’, or ‘stop’:\n"
+
+    if is_some_mainline_move_available:
+        user_prompt = user_prompt_1 + user_prompt_2
+    else:
+        user_prompt = "Enter " + user_prompt_2
+
+    # request_to_user = ("\nEnter on one line, each separated by a space:\n"
+    #                    "(a) move number,\n(b) player color, ‘W’ or ‘B’, "
+    #                    "and\n(c) move choice (e.g., ‘a’, ‘b’, ‘c’, etc.),\n\n"
+    #                    "OR one of ‘reset’, ‘report’, ‘nodereport’, or ‘stop’:\n"
+    #                   )
 
     # Initialize booleans for checking validity of user input
     request_pending = True
@@ -48,7 +84,7 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
     # Get user input, parse it while checking its validity
     while request_pending:
         # Pose request to user and get user response
-        user_response_string = input(request_to_user)
+        user_response_string = input(user_prompt)
         response_list = user_response_string.split()
 
         number_of_fields_in_response = len(response_list)
@@ -216,6 +252,66 @@ def report_input_errors_to_user(response_list,
                                                 + alpha_out_of_range_message_part_3)
 #   End of branches. Now invite user to try again.
     print_nonfatal_error("Please try again.")
+
+
+def example_commmand_string_for_each_player(examples_command_triples_white,
+                                            examples_command_triples_black):
+    """
+    Randomly chooses an example command triple for each player, if one exists, e.g.,
+    "6 W c" or "15 B a".
+
+    Return a 2-tuple: white_command_string, black_command_string
+
+    If either doesn't exist, its value is returned as None.
+    """
+
+    def randomly_chosen_movenumber_and_choice_letter(examples_list):
+        """
+        Inner function:
+            Takes list of (fullmovenumber, number_of_edges) and randomly chooses a command order pair:
+                fullmovenumber, letter_of_alphabet
+            Argument examples_list:
+                A list for a particular player of ordered pairs
+                    fullmovenumber of the position with specified player to move
+                    number_of_edges at the position
+        """
+        length_of_list = len(examples_list)
+
+        if length_of_list > 0:
+            random_index = random.randint(0, length_of_list - 1)
+            random_fullmovenumber = examples_list[random_index][0]
+
+            number_of_edges_for_random_index = examples_list[random_index][1]
+
+            # Randomly choose an edge, and convert its index to a single-character alpha
+            # The number of *alternatives to the mainline* is one less than the number of edges
+            random_edge_numeric = random.randint(1, number_of_edges_for_random_index - 1)
+            random_edge_alpha = lowercase_alpha_from_num(random_edge_numeric)
+
+            return (random_fullmovenumber, random_edge_alpha)
+        else:
+            return None
+    
+    def random_command_triple_string_for_given_player(examples_list_for_player, color_string_for_player):
+        """
+        Inner function:
+            Returns string such as "6 W c" or "15 B a", where:
+            examples_list_for_player is examples list for given player
+            color_string_for_player is "W" or "B"
+        """
+        random_fullmovenumber_and_edge_label = randomly_chosen_movenumber_and_choice_letter(examples_list_for_player)
+        if random_fullmovenumber_and_edge_label is not None:
+            chosen_fullmovenumber, chosen_alpha = random_fullmovenumber_and_edge_label
+            command_string = f"{chosen_fullmovenumber} {color_string_for_player} {chosen_alpha}"
+            return command_string
+        else:
+            return None
+
+    white_command_string = random_command_triple_string_for_given_player(examples_command_triples_white,
+                                                                         constants.WHITE_PLAYER_COLOR_STRING)
+    black_command_string = random_command_triple_string_for_given_player(examples_command_triples_black,
+                                                                         constants.BLACK_PLAYER_COLOR_STRING)
+    return white_command_string, black_command_string
 
 
 
