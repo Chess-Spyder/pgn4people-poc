@@ -286,6 +286,7 @@ def print_only_mainline_moves_for_node( fullmovenumber,
 
     # id_of_reordered_edge is necessarily zero for mainline movetexts
     id_of_reordered_edge = 0
+
     # Prints move number, without newline
     print('{:3}. '.format(fullmovenumber), end="")
 
@@ -309,8 +310,12 @@ def format_movetext(movetext_to_print, id_of_reordered_edge, id_of_original_edge
     id_of_reordered_edge is included as an argument for flexibility in the future, but is not currently used.
     """
 
+    # Applies fixed-width formatting to all movetext_to_print regardless whether it’s a “real” move or instead
+    # an ellipsis placeholder.
     string_of_formatting_instruction = f"{{:{constants.MOVETEXT_WIDTH_IN_CHARACTERS}}}"
     formatted_string = string_of_formatting_instruction.format(movetext_to_print)
+
+    # Applies color formatting to all “real” moves
     if id_of_original_edge >= 0:
         if id_of_original_edge == 1:
             formatted_string = chalk.red_bright(formatted_string)
@@ -327,6 +332,9 @@ def format_movetext(movetext_to_print, id_of_reordered_edge, id_of_original_edge
     else:
         # Because id_of_original_edge < 0, this is not a true movetext, and thus
         # should not get color formatting.
+        # This branch (id_of_original_edge==-1) is reached (a) for Black’s move when White has options and (b) White’s
+        # move when Black has options (and White had options on the previous halfmove), i.e., when a move is an 
+        # ellipsis placeholder.
         pass
     return formatted_string
 
