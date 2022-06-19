@@ -1,0 +1,14 @@
+[Event "?"]
+[Site "?"]
+[Date "2022.06.19"]
+[Round "?"]
+[White "No alternatives for White"]
+[Black "Alternatives only for Black"]
+[Result "*"]
+[EventDate "????.??.??"]
+[ECO "C50"]
+[PlyCount "6"]
+
+1.e4 e5 ( 1...c5 ) ( 1...d6 ) ( 1...Nf6 ) ( 1...e6 ) ( 1...d5 ) ( 1...c6 ) 
+2.Nf3 Nc6 ( 2...Nf6 ) ( 2...d6 ) 3.Bc4 Nf6 ( 3...Bc5 ) *
+
