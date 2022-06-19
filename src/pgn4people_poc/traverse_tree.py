@@ -27,7 +27,7 @@ def display_mainline_given_deviation_history(nodedict, deviation_history, fullmo
     carryover_id_of_original_edge = None
 
     # Allows print_single_node() to take special action when it prints the first node, e.g.,
-    # creating extra vertical white space.
+    # creating extra vertical white space and printing column headings.
     constants.FIRST_NODE_TO_BE_PRINTED = True
 
     # Clear the dictionary used as a lookup table to process user request for new mainline

@@ -38,7 +38,7 @@ def acquire_tokenized_pgnstring():
         is_sample_pgn = True
         pgn_source = PGNSource(is_sample_pgn, None)
     else:
-        # string_read_from_file = user_pgn_fileobject.read()
+        # User specified her own PGN file
         try:
             with user_pgn_filepath.open('r') as file:
                 string_read_from_file = file.read()
@@ -90,36 +90,7 @@ def read_resource_pgnfile_into_string(pgnresource_package, pgnresource_filename)
 
     string_read_from_file = resource_location_as_string.read_text()
 
-    # # Find index of first character after a blank line (where I assume that the only way a blank line occurs is as two
-    # # adjacent newline characters—i.e., there is no white space separarting the two newline characters).
-    # index_of_first_newline_of_a_consecutive_pair = string_read_from_file.find("\n\n")
-
-    # if index_of_first_newline_of_a_consecutive_pair == -1:
-    #     raise ReportError("Error in PGN: No blank line (two consecutive newline characters) found.")
-
-    # # Index of first character after the pair of consecutive newline characters is two characters beyond the
-    # # occurrence of the first of the pair of newline characters
-    # index_of_first_char_after_blank_line = index_of_first_newline_of_a_consecutive_pair + 2
-
-    # relevant_portion_of_string = string_read_from_file[index_of_first_char_after_blank_line::]
-
-    # # Remove any beginning white space
-    # relevant_portion_of_string = relevant_portion_of_string.lstrip()
-
     return string_read_from_file
-
-
-def find_next_blank_line(string, index_to_start):
-    """
-    # Returns index of first newline character of a pair of consecutive newline characters, where the scan begins at
-    # index_to_start
-    # I assume that the only way a blank line occurs is as two adjacent newline characters—i.e., there is no white space
-    # separating the two newline characters).
-    #
-    # If a pair of consecutive newline characters is not found, the return value will be -1
-    """
-    index_of_first_newline_char_of_a_pair = string.find("\n\n", index_to_start)
-    return index_of_first_newline_char_of_a_pair
 
 
 def extract_game_1_movetext(string_read_from_file, pgn_source):

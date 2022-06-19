@@ -9,9 +9,13 @@ from . utilities import num_from_alpha
 
 def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_lookup_table):
     """
-    Ask user to supply a (fullmovenumber, player color, move-choice letter) triple for the next line to explore.
+    Ask user to supply (a) a (fullmovenumber, player color, move-choice letter) triple for the next line to explore or
+    (b) one of several legitimate one-word keywords.
 
-    Returns the node_id and the numeric index (zero-index) of the chosen move at that node
+    If the user’s input isn’t valid, a report of the error(s) is output and the user is invited to try again.
+
+    When valid input is provided by the user, this function returns (a) a flag for a chosen one-word keyword or (b) the
+    node_id and the numeric index (zero-index) of the chosen move at that node.
     """
 
 

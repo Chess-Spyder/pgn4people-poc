@@ -11,10 +11,16 @@ from . import constants
 # from . error_processing import format_error_text
 
 def is_even_number(number):
+    """
+    Returns true iff argument is an even number
+    """
     return (number % 2) == 0
 
 
 def is_odd_number(number):
+    """
+    Returns true iff argument is an odd number
+    """
     return (number % 2) != 0
 
 
@@ -52,7 +58,7 @@ def num_from_alpha(alphacharacter):
 
 def clear_console():
     """
-    Issues clear command to console, according to platform running
+    Issues “clear” command to console, according to platform running
     """
     # See https://www.delftstack.com/howto/python/python-clear-console/
     

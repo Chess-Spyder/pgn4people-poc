@@ -34,7 +34,8 @@ def id_text_between_first_two_blankish_lines (string_from_file):
     (b) a newline character, followed by a string of only non-newline whitespace, followed by a newline character,
     (c) a newline character, followed by a string of only non-newline whitespace, followed by an end of file
 
-    (As implemented, however, consecutive blank-ish lines are treated as a single blank-ish line.)
+    (As implemented, however, consecutive blank-ish lines are treated as a single blank-ish line. This is a feature,
+    not a bug.)
 
     When passed string_from_file, this function determines the start and stop indices such that the slice
     `string_from_file[start: end::]` contains exactly the text between the pair of blank-ish lines.
