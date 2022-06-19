@@ -25,8 +25,16 @@ def acquire_tokenized_pgnstring():
 
     if user_pgn_filepath is None:
         # User didn't specify her own PGN file, so use sample PGN file included in the package
-        string_read_from_file = read_resource_pgnfile_into_string(constants.PACKAGE_FOR_SAMPLE_PGN,
-                                                                  constants.CHOSEN_SAMPLE_PGN_FILE)
+        try:
+            string_read_from_file = read_resource_pgnfile_into_string(constants.PACKAGE_FOR_SAMPLE_PGN,
+                                                                    constants.CHOSEN_SAMPLE_PGN_FILE)
+        except FileNotFoundError as err:
+            error_message =("Built-in sample PGN file could not be found.\n"
+                            f"This suggests that the installation of {constants.NAME_OF_IMPORT_PACKAGE} is corrupted.\n"
+                            f"Please reinstall {constants.NAME_OF_IMPORT_PACKAGE} and try again.\n")
+            error_message = error_message + str(err)
+            fatal_pgn_error(error_message)
+
         is_sample_pgn = True
         pgn_source = PGNSource(is_sample_pgn, None)
     else:
