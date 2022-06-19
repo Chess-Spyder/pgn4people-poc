@@ -39,7 +39,7 @@ def acquire_tokenized_pgnstring():
         except FileNotFoundError as err:
             pgn_file_not_found_fatal_error(user_pgn_filepath, err)
     
-    pgnstring = strip_headers_from_pgn_file(string_read_from_file, pgn_source)
+    pgnstring = extract_game_1_movetext(string_read_from_file, pgn_source)
 
     pgnstring = strip_balanced_braces_from_string(pgnstring)
 
@@ -114,7 +114,13 @@ def find_next_blank_line(string, index_to_start):
     return index_of_first_newline_char_of_a_pair
 
 
-def strip_headers_from_pgn_file(string_read_from_file, pgn_source):
+def extract_game_1_movetext(string_read_from_file, pgn_source):
+    """
+    Extracts the movetext from the first game in the string read from the PGN file.
+    This text begins immediately following the first blank-ish line (which occurs immediately after
+    the headers) and continues until the next blank-ish line (which separates the first game from
+    the second) or end of string.
+    """
     (start_index, end_index) = id_text_between_first_two_blankish_lines(string_read_from_file)
 
     if start_index is None:
@@ -129,46 +135,7 @@ def strip_headers_from_pgn_file(string_read_from_file, pgn_source):
     movetext_string = movetext_string.lstrip()
 
     return movetext_string
-    
 
-
-
-# def strip_headers_from_pgn_file(string_read_from_file, pgn_source):
-#     """
-#     Takes string read from PGN file and prepares it for tokenizing by:
-#         Skips over initial set of headers, followed by a blank line. The next text is the beginning of the relevant
-#             movetext.
-#         Searches for a second game in the PGN by searching for a subsequent blank line.
-#         Returns the text between the beginning of the relevant movetext and any subsequent blank line.
-#     pgn_source is passed here solely to allow it to be used in error messages. (Seems less than ideal.)
-#     """
-
-#     # Search for first blank line, which should be the line immediately following the series of headers
-#     index_of_first_newline_of_a_consecutive_pair = find_next_blank_line(string_read_from_file, 0)
-
-#     if index_of_first_newline_of_a_consecutive_pair == -1:
-#         # Two consecutive newline characters not found
-#         pgn_error_no_blank_line_after_headers(pgn_source)
-#         # pgn_error_fatal_error("No blank line (two consecutive newline characters) found.", pgn_source)
-#         # raise ReportError("Error in PGN: No blank line (two consecutive newline characters) found.")
-
-#     # Index of first character after the pair of consecutive newline characters is two characters beyond the
-#     # occurrence of the first of the pair of newline characters
-#     index_of_first_char_after_blank_line = index_of_first_newline_of_a_consecutive_pair + 2
-
-#     # Search for a subsequent blank line separating the first game from a second game
-#     index_subsequent_blank_line = find_next_blank_line(string_read_from_file, index_of_first_char_after_blank_line)
-
-#     # The desired substring is a slice
-#     # The end of the slice is either (a) the first newline char of a pair of consecurity newline chars or (b) is -1.
-#     # because find_next_blank_line didn't find a next blank line. In that case, the -1 as the end of the slice indicates
-#     # the last character of the string.
-#     movetext_string = string_read_from_file[index_of_first_char_after_blank_line:index_subsequent_blank_line:]
-
-#     # Remove any remaining leading white space
-#     movetext_string = movetext_string.lstrip()
-
-#     return movetext_string
 
 
 def tokenize_pgnstring(pgnstring):
