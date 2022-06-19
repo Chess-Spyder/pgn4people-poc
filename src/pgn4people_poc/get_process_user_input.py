@@ -5,6 +5,8 @@ Asks for, receives, parses, and iterates until satisfactory input from user
 
 import random
 
+from yachalk import chalk
+
 from . import constants
 from . error_processing import print_nonfatal_error
 from . utilities import (lowercase_alpha_from_num,
@@ -16,7 +18,7 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
                                                      examples_command_triples_black):
     """
     Ask user to supply (a) a (fullmovenumber, player color, move-choice letter) triple for the next line to explore or
-    (b) one of several legitimate one-word keywords.
+    (b) one of several one-word keywords.
 
     If the user’s input isn’t valid, a report of the error(s) is output and the user is invited to try again.
 
@@ -37,27 +39,17 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
                           f"{constants.entry_point_name} shines with more-complex games.\n"
                           "I hope you’ll try a different—and more interesting—PGN, so I can show my stuff!\n")
         print_nonfatal_error(warning_string)
-
-
-    
-    # for iteration in range(0,12):
-    #     white_command_string, black_command_string = example_commmand_string_for_each_player(
-    #                                                                             examples_command_triples_white,
-    #                                                                             examples_command_triples_black)
-    #     white_command_string = white_command_string if (white_command_string is not None) else "N/A"
-    #     black_command_string = black_command_string if (black_command_string is not None) else "N/A"
-    #     print(f"“{white_command_string}” or “{black_command_string}”")
-
-    # Eligible answers for player-color response are expressed only in lowercase, because user input is
-    # lower-cased prior to validating
-    white_player_color_response_string_set = {"w", "white"}
-    black_player_color_response_string_set = {"b", "black"}
-    
-    user_prompt_1 = ("\nEnter on one line, each separated by a space:\n"
-                       "(a) move number,\n(b) player color, ‘W’ or ‘B’, "
-                       "and\n(c) move choice (e.g., ‘a’, ‘b’, ‘c’, etc.),\n\n"
-                       "OR "
-                      )
+    else:
+        # Create sample command string to include in user prompt
+        example_command_string = synthesize_combined_example_command_string(examples_command_triples_white,
+                                                                            examples_command_triples_black)
+ 
+        user_prompt_1 = ("\nEnter on one line, each separated by a space:\n"
+                        "(a) move number,\n(b) player color, ‘W’ or ‘B’, "
+                        "and\n(c) move choice (e.g., ‘a’, ‘b’, ‘c’, etc.),\n\n"
+                        f"For example: {example_command_string}\n\n"
+                        "OR "
+                        )
     
     user_prompt_2 = "one of ‘reset’, ‘report’, ‘nodereport’, or ‘stop’:\n"
 
@@ -66,11 +58,10 @@ def get_node_id_move_choice_for_next_line_to_display(fullmovenummber_to_node_id_
     else:
         user_prompt = "Enter " + user_prompt_2
 
-    # request_to_user = ("\nEnter on one line, each separated by a space:\n"
-    #                    "(a) move number,\n(b) player color, ‘W’ or ‘B’, "
-    #                    "and\n(c) move choice (e.g., ‘a’, ‘b’, ‘c’, etc.),\n\n"
-    #                    "OR one of ‘reset’, ‘report’, ‘nodereport’, or ‘stop’:\n"
-    #                   )
+    # Eligible answers for player-color response are expressed only in lowercase, because user input is
+    # lower-cased prior to validating
+    white_player_color_response_string_set = {"w", "white"}
+    black_player_color_response_string_set = {"b", "black"}
 
     # Initialize booleans for checking validity of user input
     request_pending = True
@@ -312,6 +303,34 @@ def example_commmand_string_for_each_player(examples_command_triples_white,
     black_command_string = random_command_triple_string_for_given_player(examples_command_triples_black,
                                                                          constants.BLACK_PLAYER_COLOR_STRING)
     return white_command_string, black_command_string
+
+
+def synthesize_combined_example_command_string(examples_command_triples_white, examples_command_triples_black):
+    """
+    Return composite example command string of form:
+        “6 W c” or “13 B a”
+    if both White and Black examples exist. Otherwise returns either only a White example or only a Black example:
+        “6 W c”
+    or
+        “13 B a”
+    """
+
+    def format_a_sample_command(string):
+        return chalk.blue_bright(string)
+
+    # Create sample command string to include in user prompt
+    white_command_string, black_command_string = example_commmand_string_for_each_player(examples_command_triples_white,
+                                                                                         examples_command_triples_black)
+    example_command_string = ""
+    if white_command_string is not None:
+        white_command_string = format_a_sample_command(white_command_string)
+        example_command_string += f"“{white_command_string}”"
+        if black_command_string is not None:
+            example_command_string += " or "
+    if black_command_string is not None:
+        black_command_string = format_a_sample_command(black_command_string)
+        example_command_string += f"“{black_command_string}”"
+    return example_command_string
 
 
 
