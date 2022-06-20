@@ -161,7 +161,9 @@ pgn4people --help
 ```
 (Note: If there’s any ambiguity, those are *two* consecutive hyphens.)
 ### Using your own PGN file
-Or, if you’d like to supply your own PGN file, use the path ("in quotes") to that file as an additional argument. For example
+Or, if you’d like to supply your own PGN file, it helps if the file is very well behaved, because __pgn4people__ isn’t known for being very tolerant. The PGN file should be consistent with the more-exacting “[export format](http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c3.2)” of PGN. The best way to get it into export format is to import the PGN into another chess website/application  (if it’s not already resident in one) and then export the PGN from there.
+
+Then use the path ("in quotes") to that file as an additional argument. For example
 
 ```
 pgn4people "/Macintosh HD/Users/some user/Desktop/my_game.pgn"
@@ -245,9 +247,7 @@ That said, this problem has been solved—though its solution is almost never ad
 This method would be easily adapted to __pgn4people__.
 
 ## How can I substitute my own PGN file for the default PGN file?
-To use your own PGN file, make sure it is extremely well behaved, because __pgn4people__ isn’t very tolerant. It should be consistent with the more-exacting “[export format](http://www.saremba.de/chessgml/standards/pgn/pgn-complete.htm#c3.2)” of PGN. The best way to get it into export format is to import the PGN into another chess website/application  (if it’s not already resident in one) and then export the PGN from there.
-
-Then you just need to add the path to this file as an argument on the command line when you invoke `pgn4people`. (See [Run pgn4people](#run-pgn4people).)
+See [Using your own PGN file](#using-your-own-pgn-file).
 
 ## How does __pgn4people__ compare to ChessTempo's PGN Viewer?
 Of special note, among the better traditional interfaces, is [ChessTempo.com’s PGN Viewer](https://chesstempo.com/pgn-viewer/) which is the only existing interface I’m aware of that adopts one of __pgn4people__‘s elements—showing by default only the first halfmove of a variation. (See graphic immediately below.) In effect, ChessTempo brings the concept of [code folding](https://en.wikipedia.org/wiki/Code_folding) to the display of PGN.
@@ -259,19 +259,21 @@ And ChessTempo’s PGN Viewer displays the list of alternatives vertically, rath
 <img width="1846" alt="ChessTempo_PGN_viewer_example" src="https://user-images.githubusercontent.com/8410716/170890188-86112e9d-9bc9-4846-96b9-99db360eeaa4.png">
 
 ## How does __pgn4people__ compare to a standard “Opening Explorer” interface?
-Many chess sites have some version of an “Opening Explorer” that allows the user to step through opening possibilities, one halfmove at a time, choosing at each halfmove from among a set of common, or not so common, alternatives. For example, [Lichess’s Opening Explorer](https://lichess.org/analysis#explorer) and [Chess.com’s Opening Explorer](https://www.chess.com/openings).
+Many chess sites have some version of an “Opening Explorer” that allows the user to step through opening possibilities, one halfmove at a time, choosing at each halfmove from among a set of common, or not so common, alternatives. For example, see [Lichess’s Opening Explorer](https://lichess.org/analysis#explorer) and [Chess.com’s Opening Explorer](https://www.chess.com/openings).
 
 The Opening Explorer interface has something in common with both __pgn4people__ and with [ChessTempo’s PGN Viewer](#how-does-pgn4people-compare-to-chesstempos-pgn-viewer): alternatives are displayed initially only one halfmove deep. Opening Explorers are similar to ChessTempo’s PGN Viewer as well in deploying the alternative halfmoves vertically downward rather than horizontally to the right like __pgn4people__.
 
 The Opening Explorer interface shares another important characteric with __pgn4people__: When the user clicks on a move to choose it, that move is effectively promoted to be the new main line. (See [Why is it important/helpful to promote the chosen alternative to be the new (temporary) main line?](#why-is-it-importanthelpful-to-promote-the-chosen-alternative-to-be-the-new-temporary-main-line).)
 
-In contrast to both __pgn4people__ and ChessTempo’s PGN Viewer, however, an Opening Explorer is extremely myopic about the main line. On any one screen, you can’t see deeper than one additional halfmove. Instead, to discover the main line, the user would need to move from screen to screen, each time manually clicking on the top-most (i.e., more popular and therefore mainline) alternative. While this is certainly a downside to the Opening Explorer interface, Opening Explorers do have a countervailing benefit with respect to __pgn4people__’s horizontal display of alternatives: An Opening Explorer has the horizontal space to display various statistics for each alternative, such as frequency with which it’s played, the success rate (or W-L-D percentages) for White, the average performance rating of players that choose that move, etc.
+In contrast to both __pgn4people__ and ChessTempo’s PGN Viewer, however, an Opening Explorer is extremely myopic about the main line. On any one screen, you can’t see deeper into the main line than one additional halfmove. Instead, to discover the main line, the user would need to move from screen to screen, each time manually clicking on the top-most (i.e., more popular and therefore mainline) alternative.
 
-When the focus is more on the moves themselves, rather than these associated statistics, __pgn4people__ would be a plausible alternative to an Opening Explorer interface.
+(While this is certainly a downside to the Opening Explorer interface, Opening Explorers do have a countervailing benefit with respect to __pgn4people__’s horizontal display of alternatives: An Opening Explorer has the horizontal space to display various statistics for each alternative, such as frequency with which it’s played, the success rate (or W-L-D percentages) for White, the average performance rating of players that choose that move, etc.)
+
+When the focus is more on the moves themselves, rather than these associated statistics, __pgn4people__ would be a desirable alternative to an Opening Explorer interface.
 
 
 ## Version History
-* 1.0 4/12/2022
+* 1.0 6/19/2022
 <!--
 * 0.2
     * Various bug fixes and optimizations
