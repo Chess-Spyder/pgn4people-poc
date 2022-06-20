@@ -244,6 +244,8 @@ That said, this problem has been solved—though its solution is almost never ad
 
 <img width="862" alt="Example_PGN_Browser_RedHotPawn_comments_displayed_contextually" src="https://user-images.githubusercontent.com/8410716/170890181-cf5a8a08-b006-405e-a638-629a94b7600a.png">
 
+https://user-images.githubusercontent.com/8410716/174521380-0f83d043-8b25-4e67-bce3-39853818beb9.mov
+
 This method would be easily adapted to __pgn4people__.
 
 ## How can I substitute my own PGN file for the default PGN file?
