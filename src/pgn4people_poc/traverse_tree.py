@@ -40,8 +40,6 @@ def display_mainline_given_deviation_history(nodedict,
     examples_command_triples_white.clear()
     examples_command_triples_black.clear()
 
-    # Perhaps should check in the following whether the original node is itself a terminal node,
-    # though this is perhaps ruled out by what came before in the calling sequence.
     is_terminal_node = False
 
     while not is_terminal_node:
@@ -68,9 +66,11 @@ def display_mainline_given_deviation_history(nodedict,
             is_terminal_node = True
         else:
             if result is None:
+                # print_single_node() returns None if NOT (this is White’s move and .number_of_edges==1)
                 carryover_white_movetext = None
                 carryover_id_of_original_edge = -1
             else:
+                # print_single_node() returns result = (white_movetext_for_next_line, id_of_original_edge)
                 carryover_white_movetext, carryover_id_of_original_edge = result
 
             # Finds the next node in the main line

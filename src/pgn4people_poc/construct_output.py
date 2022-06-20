@@ -82,7 +82,7 @@ def print_single_node(  node_id,
                         Returned if this node is a terminal node and, hence, nothing is to be printed.
 
             (str, int) (white_movetext_for_next_line, id_of_original_edge)
-                        Returned if this is White's move and .number_of_edges = 1.
+                        Returned if this is White's move and .number_of_edges == 1.
                         This movetext should be combined with Black's move when the next node is processed.
                         Unlike other movetext, it is not necessary to specify id_of id_of_reordered_edge because that is
                             necessarily zero, since carryover movetext is necessarily mainline.

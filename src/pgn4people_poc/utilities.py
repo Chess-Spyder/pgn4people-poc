@@ -78,5 +78,3 @@ def conditionally_clear_console():
 
 def wait_for_any_user_input():
     waiting = input(chalk.red_bright("\nPress <RETURN> to continue.\n"))
-
-
