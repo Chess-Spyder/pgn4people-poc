@@ -253,7 +253,7 @@ This method would be easily adapted to __pgn4people__.
 ## How can I substitute my own PGN file for the default PGN file?
 See [Using your own PGN file](#using-your-own-pgn-file).
 
-## How does __pgn4people__ compare to ChessTempo's PGN Viewer?
+## How does __pgn4people__ compare to ChessTempo’s PGN Viewer?
 Of special note, among the better traditional interfaces, is [ChessTempo.com’s PGN Viewer](https://chesstempo.com/pgn-viewer/) which is the only existing interface I’m aware of that adopts one of __pgn4people__‘s elements—showing by default only the first halfmove of a variation. (See graphic immediately below.) In effect, ChessTempo brings the concept of [code folding](https://en.wikipedia.org/wiki/Code_folding) to the display of PGN.
 
 Unlike __pgn4people__, however, ChessTempo’s PGN Viewer doesn’t promote the chosen variation to be the temporarily new main line. (See [Why is it important/helpful to promote the chosen alternative to be the new (temporary) main line?](#why-is-it-importanthelpful-to-promote-the-chosen-alternative-to-be-the-new-temporary-main-line).)
