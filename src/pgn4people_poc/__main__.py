@@ -5,7 +5,7 @@ See, e.g., https://docs.python.org/3/library/__main__.html
 
 import sys
 
-from . pgn4people import main
+from . pgn4people_CLI import main
 
 
 if __name__ == "__main__":

@@ -13,24 +13,26 @@ from . jdr_utilities import check_CLI_for_user_file
 from . jdr_utilities import id_text_between_first_two_blankish_lines
 from . strip_balanced_braces import strip_balanced_braces_from_string
 
-def acquire_tokenized_pgnstring():
+
+def get_string_read_from_file_CLI_package():
     """
-    Get string of PGN from either (a) file specified by user in command line or (b) a built-in PGN file,
-    strips the headers, and tokenizes the remaining movetext.
+    Get string of PGN from either (a) file specified by user in command line or (b) a built-in PGN file
     """
+    
+    print("DEBUG: I'm in get_string_read_from_file_CLI_package, a new function.")
 
     # Checks command line to see whether user specified her own PGN file to view
-    # user_pgn_fileobject will be either (a) a file object or (b) None
+    # user_pgn_filepath will be either (a) a file object or (b) None
     user_pgn_filepath = check_CLI_for_user_file(constants.HELP_DESCRIPTION, constants.HELP_EPILOG)
 
     if user_pgn_filepath is None:
         # User didn't specify her own PGN file, so use sample PGN file included in the package
         try:
             string_read_from_file = read_resource_pgnfile_into_string(constants.PACKAGE_FOR_SAMPLE_PGN,
-                                                                    constants.CHOSEN_SAMPLE_PGN_FILE)
+                                                                      constants.CHOSEN_SAMPLE_PGN_FILE)
         except FileNotFoundError as err:
             error_message =("Built-in sample PGN file could not be found.\n"
-                            f"This suggests that the installation of {constants.NAME_OF_IMPORT_PACKAGE} is corrupted.\n"
+                            f"One possibility: the installation of {constants.NAME_OF_IMPORT_PACKAGE} is corrupted.\n"
                             f"Please reinstall {constants.NAME_OF_IMPORT_PACKAGE} and try again.\n")
             error_message = error_message + str(err)
             fatal_pgn_error(error_message)
@@ -48,6 +50,16 @@ def acquire_tokenized_pgnstring():
         is_sample_pgn = False
         pgn_source = PGNSource(is_sample_pgn, user_pgn_filepath)
     
+    return string_read_from_file, pgn_source
+
+
+def clean_and_parse_string_read_from_file(string_read_from_file, pgn_source):
+    """
+    Grab the movetext from game #1 by stripping headers and stripping textual annotations; then tokenize that string.
+    """
+
+    print("DEBUG: I'm in clean_and_parse_string_read_from_file, a new function.")
+
     pgnstring = extract_game_1_movetext(string_read_from_file, pgn_source)
 
     pgnstring = strip_balanced_braces_from_string(pgnstring)
@@ -58,7 +70,7 @@ def acquire_tokenized_pgnstring():
     # Parse string into a list of tokens, either (a) a movetext entry (e.g., "e4"), (b) “(”, or (c) “)”.
     tokenlist = tokenize_pgnstring(pgnstring)
 
-    return tokenlist, pgn_source
+    return tokenlist
 
 
 class PGNSource():
