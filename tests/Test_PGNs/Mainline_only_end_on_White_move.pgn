@@ -1,0 +1,14 @@
+[Event "?"]
+[Site "?"]
+[Date "2022.06.19"]
+[Round "?"]
+[White "Only mainline moves for White"]
+[Black "Only mainline moves for Black"]
+[Result "*"]
+[EventDate "????.??.??"]
+[ECO "B99"]
+[PlyCount "22"]
+
+1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6 6.Bg5 e6 7.f4 Nbd7 8.Qf3 Be7 
+9.O-O-O Qc7 10.g4 h6 11.Bxf6 Nxf6 12.g5 *
+
