@@ -17,7 +17,11 @@ from . traverse_tree import (deviation_history_of_node,
 
 
 def main():
-    """ Main entry point of CLI app """
+    """
+    Main entry point of CLI app
+    
+    See generally pgn4people-poc/docs/game-tree-concepts.md
+    """
 
 
     # Get string of PGN from either (a) file specified by user in command line or (b) a built-in PGN file,

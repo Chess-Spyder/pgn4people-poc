@@ -1,7 +1,7 @@
 """
 Methods to traverse the game tree birectionally with output.
 
-Any path can be expressed as a set of (node_id, choice_id) pairs
+See generally pgn4people-poc/docs/game-tree-concepts.md
 """
 
 
