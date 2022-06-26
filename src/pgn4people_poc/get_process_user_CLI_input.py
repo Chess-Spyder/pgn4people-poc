@@ -8,7 +8,7 @@ import random
 from yachalk import chalk
 
 from . import constants
-from .error_processing import print_nonfatal_error
+from .error_processing import fatal_developer_error, print_nonfatal_error
 from .utilities import (lowercase_alpha_from_num,
                          num_from_alpha)
 
@@ -269,10 +269,13 @@ def example_commmand_string_for_each_player(examples_command_triples_white,
         length_of_list = len(examples_list)
 
         if length_of_list > 0:
+            # Randomly choose an example
             random_index = random.randint(0, length_of_list - 1)
             random_fullmovenumber = examples_list[random_index][0]
 
             number_of_edges_for_random_index = examples_list[random_index][1]
+            if number_of_edges_for_random_index < 1:
+                fatal_developer_error(f"number_of_edges_for_random_index should be positive but is {number_of_edges_for_random_index}.")
 
             # Randomly choose an edge, and convert its index to a single-character alpha
             # The number of *alternatives to the mainline* is one less than the number of edges
@@ -333,8 +336,9 @@ def synthesize_combined_example_command_string(examples_command_triples_white, e
     return example_command_string
 
 
-
-
-
-
-
+def  target_node_id_from_user_input(nodedict, node_id_chosen, move_choice):
+    # Translate user input of (a node and selected edge at that node) to the implied destination node
+    base_node = nodedict[node_id_chosen]
+    original_index_of_chosen_edge = base_node.display_order_of_edges[move_choice]
+    target_node_id = base_node.edgeslist[original_index_of_chosen_edge].destination_node_id
+    return target_node_id
