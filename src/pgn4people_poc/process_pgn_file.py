@@ -18,8 +18,6 @@ def get_string_read_from_file_CLI_package():
     """
     Get string of PGN from either (a) file specified by user in command line or (b) a built-in PGN file
     """
-    
-    print("DEBUG: I'm in get_string_read_from_file_CLI_package, a new function.")
 
     # Checks command line to see whether user specified her own PGN file to view
     # user_pgn_filepath will be either (a) a file object or (b) None
@@ -38,7 +36,6 @@ def get_string_read_from_file_CLI_package():
             fatal_pgn_error(error_message)
 
         is_sample_pgn = True
-        pgn_source = PGNSource(is_sample_pgn, None)
     else:
         # User specified her own PGN file
         try:
@@ -48,7 +45,8 @@ def get_string_read_from_file_CLI_package():
             pgn_file_not_found_fatal_error(user_pgn_filepath, err)
         
         is_sample_pgn = False
-        pgn_source = PGNSource(is_sample_pgn, user_pgn_filepath)
+    
+    pgn_source = PGNSource(is_sample_pgn, user_pgn_filepath)
     
     return string_read_from_file, pgn_source
 
@@ -57,8 +55,6 @@ def clean_and_parse_string_read_from_file(string_read_from_file, pgn_source):
     """
     Grab the movetext from game #1 by stripping headers and stripping textual annotations; then tokenize that string.
     """
-
-    print("DEBUG: I'm in clean_and_parse_string_read_from_file, a new function.")
 
     pgnstring = extract_game_1_movetext(string_read_from_file, pgn_source)
 
