@@ -33,8 +33,10 @@ def buildtree(tokenlist):
 
     # Create the id=constants.INITIAL_NODE_ID=0 node corresponding to the initial position (and to White's first move)
     originating_node_id_of_initial_node = constants.UNDEFINED_TREEISH_VALUE
-    newnode = GameNode( depth, current_halfmovenumber[depth],
-                        originating_node_id_of_initial_node, constants.INITIAL_NODE_ID)
+    newnode = GameNode(depth = depth,
+                       halfmovenumber = current_halfmovenumber[depth],
+                       originating_node_id = originating_node_id_of_initial_node,
+                       node_id = constants.INITIAL_NODE_ID)
     # Adds this new node as the first node in the gamenodes dictionary
     gamenodes[constants.INITIAL_NODE_ID] = newnode
 
@@ -114,9 +116,19 @@ def buildtree(tokenlist):
             index_of_edge_at_originating_node = len(gamenodes[originating_node_id].edgeslist) - 1
 
             # Create new node corresponding to the destination reached if the current token's move is chosen
-            newnode = GameNode(depth, current_halfmovenumber[depth], current_originatingnode_id[depth], current_node_id)
+            # newnode = GameNode(depth = depth,
+            #                    halfmovenumber = current_halfmovenumber[depth],
+            #                    originating_node_id = current_originatingnode_id[depth],
+            #                    node_id = current_node_id)
 
-            newnode.choice_id_at_originatingnode = index_of_edge_at_originating_node
+            # newnode.choice_id_at_originatingnode = index_of_edge_at_originating_node
+
+            newnode = GameNode(depth = depth,
+                               halfmovenumber = current_halfmovenumber[depth],
+                               originating_node_id = current_originatingnode_id[depth],
+                               choice_id_at_originatingnode = index_of_edge_at_originating_node,
+                               node_id = current_node_id)
+
             
             # Add node to gamesnodes dictionary
             gamenodes[current_node_id] = newnode

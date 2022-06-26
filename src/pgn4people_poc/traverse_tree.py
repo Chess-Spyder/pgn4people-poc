@@ -10,9 +10,9 @@ from . import constants
 
 def display_mainline_given_deviation_history(nodedict,
                                              deviation_history,
-                                             fullmovenummber_to_node_id_lookup_table,
-                                             examples_command_triples_white,
-                                             examples_command_triples_black
+                                             fullmovenummber_to_node_id_lookup_table = None,
+                                             examples_command_triples_white = None,
+                                             examples_command_triples_black = None
                                              ):
     """
     Outputs the main-line path through the game, given the supplied devaition history, line by line.

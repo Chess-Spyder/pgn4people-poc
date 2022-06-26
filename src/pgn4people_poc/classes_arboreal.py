@@ -20,21 +20,46 @@ class GameNode:
     # set_of_terminal_node_IDs = set()  # Will be computed later, so doesn't need to be initialized
     max_variation_depth = 0
     max_halfmove_length_of_line = 0
+
+    # Defining the set of valid instance attributes
+    __slots__ = {
+        "halfmovenumber":
+            "The halfmove number of every edge/move that is spawned directly from this node",
+        "depth":
+            "number of deviations from the local main line required to reach thisn node from the initial node",
+        "originatingnode_id":
+            "node_id of the node that uniquely immediately precedes this node",
+        "choice_id_at_originatingnode":
+            "index of edge within  originating node’s .edgeslist that led to this node",
+        "edgeslist":
+            "List of edges (of class Edge) attached to this node. (Compiled incrementally as PGN is parsed.)",
+        "number_of_edges":
+            "Number_of_edges in .edgeslist. (Compiled incrementally as PGN is parsed.)",
+        "display_order_of_edges":
+            "List of indices that point to original index of edges before temporary reordering for display purposes."
+    }
+
     
-    
-    def __init__(self, depth, halfmovenumber, originating_node_id, node_id):
-        # Note that node_id is NOT an attribute of the node object; it is passed to the constructor for information
+    # def __init__(self, depth=None, halfmovenumber=None, originating_node_id=None, node_id=None):
+    def __init__(self,
+                 depth=None,
+                 halfmovenumber=None,
+                 originating_node_id=None,
+                 choice_id_at_originatingnode=None,
+                 node_id=None):
+        # Note that node_id is NOT an attribute of the node object; it is passed to the constructor for information so
+        # that the node_id will be added to the class attribute .set_of_node_IDs at the time the node is created.
         self.depth = depth
         self.halfmovenumber = halfmovenumber
         self.originatingnode_id = originating_node_id
 
         self.number_of_edges = 0
         self.edgeslist = []
-        self.reordered_edgeslist = []
-        self.map_reordered_to_original_edgeslist = []
 
-        self.choice_id_at_originatingnode = constants.UNDEFINED_TREEISH_VALUE
+        # self.choice_id_at_originatingnode = constants.UNDEFINED_TREEISH_VALUE
+        self.choice_id_at_originatingnode = choice_id_at_originatingnode
 
+        # Add node_id, which is NOT an attribute of this instance, to the class attribute .set_of_node_IDs
         self.__class__.set_of_node_IDs.add(node_id)
 
 
@@ -56,26 +81,33 @@ class GameNode:
         self.number_of_edges += 1
         self.edgeslist.append(new_edge)
 
+        # Determine the index this added edge is assigned at the originating node, and add this as a property to the
+        # edge.
+        
+        new_edge.reference_index = len(self.edgeslist) - 1
+
+        # Add this node to set of nonterminal nodes
         self.set_of_nonterminal_node_IDs.add(originating_node_id)
 
 
 class Edge:
     """
-    Characterizes an “edge,” which refers to an option/action at a node, with the following attributes
-        .movetext
-            A string of movetext, e.g., “e4”, which is the chess characterization of the move when at the position
-            corresponding to node.
-        .destination_node_id
-            The id of the node at which play arrives if the .movetext move is chosen at the current node.
-    
-    An edge might be thought to fully determine a “move,” by its specification of .destination_node_id, because there is
-    a unique move that arrives at .destination_node_id. However, knowledge of the edge alone doesn't provide an easy way
-    to trace backward from .destination_node_id to the originating node of this edge.
+    The class of which each edge is an instance.
 
-    More properly, an edge requires as well the specification of its originating node. That is provided implicitly,
-    since instances of edge (at this point, anyway) always exist as constituent objects associated with a particular
-    originating node.
+    See pgn4people-poc/docs/game-tree-concepts.md
     """
+
+
+    __slots__ = {
+        "movetext":
+            "Description of movetext",
+        "destination_node_id":
+            "Description of destination_node_id",
+        "reference_index":
+            "Description of reference_index"
+    }
+
+
     def __init__(self, movetext, destination_node_id):
         self.movetext = movetext
         self.destination_node_id = destination_node_id
@@ -99,6 +131,8 @@ class GameTreeReport:
     
     Used by characterize_gametree() in compile_and_output_report.py.
     """
+
+
     # def __init__(self,
     #              number_of_nodes,
     #              number_of_lines,
