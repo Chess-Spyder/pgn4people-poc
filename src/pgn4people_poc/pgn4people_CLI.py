@@ -9,7 +9,8 @@ from . compile_and_output_report import (characterize_gametree,
                                          output_GameTreeReport,
                                          output_node_report)
 from . construct_output import print_header_for_variations_table
-from . get_process_user_CLI_input import get_node_id_move_choice_for_next_line_to_display
+from . get_process_user_CLI_input import (get_node_id_move_choice_for_next_line_to_display,
+                                          target_node_id_from_user_input)
 from . process_pgn_file import (get_string_read_from_file_CLI_package,
                                 clean_and_parse_string_read_from_file)
 from . traverse_tree import (deviation_history_of_node,
@@ -71,8 +72,8 @@ def main():
             elif node_id_chosen == constants.NODEREPORT_COMMAND:
                 output_node_report(nodedict)
             else:
-                target_node_id = nodedict[node_id_chosen].reordered_edgeslist[move_choice].destination_node_id
-                print(f"\n\nType: {type(nodedict[node_id_chosen].reordered_edgeslist[move_choice])}")
+                # Translates user input of node/edge to the implied detination node
+                target_node_id = target_node_id_from_user_input(nodedict, node_id_chosen, move_choice)
         else:
             do_keep_exploring = False
             print("You have told me to stop 🛑. I obey.")

@@ -56,8 +56,9 @@ REPEATED_STRING_FOR_TABLE_HEADER = " ♕"
 
 WELCOME_MESSAGE = "Welcome to PGN4people!"
 
-# Note: (a) BLACK_MOVE_PREFIX is a true ellipsis to economize on space but (b) BLACK_MOVE_DEFERRED is more spacious
-# because it needs to span an entire movetext element of a White move.
+# Note: (a) BLACK_MOVE_PREFIX is a true ellipsis to economize on space but (b) BLACK_MOVE_DEFERRED and
+# WHITE_MOVE_ELLIPSIS are more spacious because each needs to span an entire movetext element of a White/Black move,
+# respectively.
 WHITE_MOVE_ELLIPSIS = "... "
 BLACK_MOVE_DEFERRED = "... "
 BLACK_MOVE_PREFIX = "…"

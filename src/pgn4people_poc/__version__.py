@@ -20,4 +20,6 @@ configuring setuptools using `setup.cfg` without `setup.py`,” Stack
 Overflow, May 23, 2022.
 https://stackoverflow.com/questions/72357031/set-version-of-module-from-a-file-when-configuring-setuptools-using-setup
 """
+
+
 __version__ = '1.0.0'

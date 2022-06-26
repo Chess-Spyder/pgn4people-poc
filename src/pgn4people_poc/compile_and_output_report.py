@@ -5,6 +5,8 @@ number of lines, length of lines, and hierarchical depth.
 
 from yachalk import chalk
 
+from pgn4people_poc.error_processing import fatal_developer_error
+
 from . classes_arboreal import (GameNode,
                                 GameTreeReport)
 from . import constants
