@@ -278,6 +278,8 @@ When the focus is more on the moves themselves, rather than these associated sta
 
 ## Version History
 * 1.0 6/19/2022
+* 1.1 6/26/2022
+  * Refactored to facilitate creation of Flask web app exploiting same core code.
 <!--
 * 0.2
     * Various bug fixes and optimizations
