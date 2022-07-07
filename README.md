@@ -1,5 +1,9 @@
 # pgn4people: A better way to view PGN chess games (proof-of-concept demo)
 
+> News Flash!
+> Now available as web-based demo at [pgn4people.app](https://www.pgn4people.app/)!
+> (For the demo’s code, see the repository [pgn4people-poc-demo](https://github.com/jimratliff/pgn4people-poc-demo).)
+
 <img width="1956" alt="Annotated_pgn4people_first_output with traditional" src="https://user-images.githubusercontent.com/8410716/170889780-b5a181ff-5f4f-4751-8f04-197a3058cbe0.png">
 
 ## TL;DR
